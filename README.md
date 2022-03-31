@@ -4,13 +4,15 @@
 - Ruby 3.0.1
 - Rails 6.0.3
 
-## 取り入れた技術
+## 取り入れる技術
 - ログイン機能(devise)
 - 管理者機能(rails_admin)
 - 権限管理(cancancan)
-- コメント機能
+- コメント機能(Ajax)
 - 画像投稿機能(carrierwave)
 - ページネーション(kaminari)
+
+## カリキュラム外の技術
 - カレンダー機能(fullcalendar)
 - グラフ機能(chartkick)
 
