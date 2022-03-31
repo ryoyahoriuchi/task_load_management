@@ -24,10 +24,10 @@
  ```
 
 ## カタログ設計
-https://docs.google.com/spreadsheets/d/1qkG12JyJChIcwkAaAn8exf8yvnSg6CALXc8w21uIAcQ/edit#gid=782464957
+https://docs.google.com/spreadsheets/d/1qkG12JyJChIcwkAaAn8exf8yvnSg6CALXc8w21uIAcQ/edit#gid=782464957&range=A1
 
 ## テーブル定義書
-https://docs.google.com/spreadsheets/d/1qkG12JyJChIcwkAaAn8exf8yvnSg6CALXc8w21uIAcQ/edit#gid=2020033787
+https://docs.google.com/spreadsheets/d/1qkG12JyJChIcwkAaAn8exf8yvnSg6CALXc8w21uIAcQ/edit#gid=2020033787&range=A1
 
 ## ER 図
 ![ER](https://user-images.githubusercontent.com/96730277/161041375-cc5dcb32-e7cf-49a2-99f7-886a98676f1c.png)
