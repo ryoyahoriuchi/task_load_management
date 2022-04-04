@@ -1,0 +1,13 @@
+<h3>以下のスケジュールで進めますか？</h3>
+
+<%= form_with(model: @task, local: true, url: suggestion_new_or_edit, method: suggestion_form_method ) do |f| %>
+  <%= f.hidden_field :title %>
+  <%= f.hidden_field :overview %>
+  <%= f.hidden_field :status %>
+
+  <p>タイトル：<%= @task.title %></p>
+  <p>概要：<%= @task.overview %></p>
+
+  <%= f.submit "登録する"%>
+  <%= f.submit "戻る", name: "back" %>
+<% end %>
