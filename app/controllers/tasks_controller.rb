@@ -30,9 +30,10 @@ class TasksController < ApplicationController
       #@task.id = params[:id]
       render :new if @task.invalid?
     else
-      #@task = Task.find(params[:id]) before_actionに含める
-      # @task.id = params[:id]
-      @task = Task.new(task_params)
+      # @task = Task.find(params[:id]) before_actionに含める
+      #@task.id = params[:id]
+      @task = Task.find(params[:id])
+      @task.attributes = task_params
       render :edit if @task.invalid?
     end
   end
@@ -67,7 +68,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :overview, :status, task_items_attributes: [:item, :level, :_destroy]) #:idを書くとeditできるが、重複データが生成される
+    params.require(:task).permit(:title, :overview, :status, task_items_attributes: [:id, :item, :level, :_destroy]) #:idを書くとeditできるが、重複データが生成される
   end
 
 end
