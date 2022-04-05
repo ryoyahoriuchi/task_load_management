@@ -8,6 +8,16 @@
   <p>タイトル：<%= @task.title %></p>
   <p>概要：<%= @task.overview %></p>
 
+  <%= f.fields_for :task_items do |g| %>
+    <% @task.task_items.each do |h| %>
+      <p>要件<%= "#{g.index + 1}" %></p>
+      <%= g.hidden_field :item %>
+      <%= g.hidden_field :level %>
+      <p>要件名：<%= h.item %></p>
+      <p>負荷レベル：<%= h.level %></p>
+    <% end %>
+  <% end %>
+
   <%= f.submit "登録する"%>
   <%= f.submit "戻る", name: "back" %>
 <% end %>

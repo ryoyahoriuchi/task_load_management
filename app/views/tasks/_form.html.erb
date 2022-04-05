@@ -22,6 +22,19 @@
     <%= f.select :status, Task.statuses.keys.to_a %>
   <% end %>
 
+  <% #ここから追加 %>
+  <%= f.fields_for :task_items do |g| %>
+    <p>要件<%= "#{g.index + 1}" %></p>
+
+    <%= g.label :item %>
+    <%= g.text_field :item %>
+
+    <%= g.label :level %>
+    <%= g.select :level, [*1..9] %>
+
+  <% end %>
+
+
   <%= f.submit %>
 <% end %>
 

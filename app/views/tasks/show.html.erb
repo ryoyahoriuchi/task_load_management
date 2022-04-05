@@ -4,4 +4,10 @@
 <p>overview:<%= @task.overview %></p>
 <p>status:<%= @task.status %></p>
 
+<% @task.task_items.each do |task_item| %>
+  <p>task_item:<%= task_item.item %></p>
+  <p>level:<%= task_item.level %></p>
+<% end %>
+
+
 <p><%= link_to "戻る", tasks_path %></p>

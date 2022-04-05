@@ -7,6 +7,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @task.task_items.build
   end
 
   def create
@@ -23,10 +24,10 @@ class TasksController < ApplicationController
   end
 
   def suggestion
-    set_task if params[:id]
-    @task = Task.new(task_params)
+    #set_task を省いた　idがない場合があるが、set_taskメソッドで分岐させた
+    @task = Task.new(task_params) #unless params[:id] 書いたらupdate出来ない
     @task.id = params[:id]
-    render :new if @task.invalid?
+    render :new if @task.invalid? #editでもnewに戻るため分岐が必要, task_itemでもバリデーション発生させたい
   end
 
   def edit
@@ -54,12 +55,12 @@ class TasksController < ApplicationController
 
   private
 
-  def task_params
-    params.require(:task).permit(:title, :overview, :status)
+  def set_task
+    @task = Task.find(params[:id]) if params[:id]
   end
 
-  def set_task
-    @task = Task.find(params[:id])
+  def task_params
+    params.require(:task).permit(:title, :overview, :status, task_items_attributes: [:item, :level, :_destroy]) #:idを書くとeditできるが、重複データが生成される
   end
 
 end
