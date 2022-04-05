@@ -4,7 +4,8 @@
 <p>overview:<%= @task.overview %></p>
 <p>status:<%= @task.status %></p>
 
-<% @task.task_items.each do |task_item| %>
+<% @task.task_items.each_with_index do |task_item, i| %>
+  <p><strong>要件<%= "#{i + 1}" %></strong></p>
   <p>task_item:<%= task_item.item %></p>
   <p>level:<%= task_item.level %></p>
 <% end %>

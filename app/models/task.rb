@@ -10,4 +10,5 @@ class Task < ApplicationRecord
   
   has_many :task_items, dependent: :destroy
   accepts_nested_attributes_for :task_items, allow_destroy: true, reject_if: proc { |attributes| attributes['item'].blank? }
+
 end

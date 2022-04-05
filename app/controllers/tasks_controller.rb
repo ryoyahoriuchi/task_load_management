@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ edit update show destroy ]
+  before_action :set_task, only: %i[ edit update show destroy suggestion]
 
   def index
     @tasks = Task.all
@@ -24,10 +24,17 @@ class TasksController < ApplicationController
   end
 
   def suggestion
-    #set_task を省いた　idがない場合があるが、set_taskメソッドで分岐させた
-    @task = Task.new(task_params) #unless params[:id] 書いたらupdate出来ない
-    @task.id = params[:id]
-    render :new if @task.invalid? #editでもnewに戻るため分岐が必要, task_itemでもバリデーション発生させたい
+    if params[:commit] == "Create Task"
+      #set_task を省いた　idがない場合があるが、set_taskメソッドで分岐させた
+      @task = Task.new(task_params) #unless params[:id] #書いたらupdate出来ない
+      #@task.id = params[:id]
+      render :new if @task.invalid?
+    else
+      #@task = Task.find(params[:id]) before_actionに含める
+      # @task.id = params[:id]
+      @task = Task.new(task_params)
+      render :edit if @task.invalid?
+    end
   end
 
   def edit
