@@ -7,15 +7,16 @@
 
   <p>タイトル：<%= @task.title %></p>
   <p>概要：<%= @task.overview %></p>
-
+  
   <%= f.fields_for :task_items do |g| %>
-    <p><strong>要件<%= "#{g.index + 1}" %></strong></p>
     <%= g.hidden_field :item %>
     <%= g.hidden_field :level %>
-    <% @task.task_items.each do |h| %>
-      <p>要件名：<%= h.item %></p>
-      <p>負荷レベル：<%= h.level %></p>
-    <% end %>
+  <% end %>
+
+  <% @task.task_items.each_with_index do |x, i| %>
+    <p><strong>要件<%= "#{i + 1}" %></strong></p>
+    <p>要件名：<%= x.item %></p>
+    <p>負荷レベル：<%= x.level %></p>
   <% end %>
 
   <%= f.submit "登録する"%>

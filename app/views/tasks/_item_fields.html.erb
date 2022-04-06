@@ -1,0 +1,12 @@
+<div class="nested-fields">
+  <div class="field">
+
+    <%= f.label :item %>
+    <%= f.text_field :item %>
+    <%= f.label :level %>
+    <%= f.select :level, [*1..9] %>
+    
+    <br>
+    <%= link_to_remove_association "Remove Task_item", f %>
+  </div>
+</div>

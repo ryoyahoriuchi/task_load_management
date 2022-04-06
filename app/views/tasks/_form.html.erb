@@ -1,4 +1,4 @@
-
+<h2>cocoon_form</h2>
 <%= form_with(model: @task, local: true, url: choose_new_or_edit ) do |f| %>
   <% if @task.errors.any? %>
     <div id="error_explanation">
@@ -22,20 +22,16 @@
     <%= f.select :status, Task.statuses.keys.to_a %>
   <% end %>
 
-  <% #ここから追加 %>
-  <%= f.fields_for :task_items do |g| %>
-    <p>要件<%= "#{g.index + 1}" %></p>
-
-    <%= g.label :item %>
-    <%= g.text_field :item %>
-
-    <%= g.label :level %>
-    <%= g.select :level, [*1..9] %>
-
+  <%= f.fields_for :task_items do |item| %>
+    <p>要件</p>
+    <p><%= render 'item_fields', f: item %></p>
   <% end %>
 
-
+  <div class="links">
+    <%= link_to_add_association "Add Task_item", f, :task_items, partial: "item_fields" %>
+  </div>
   <%= f.submit %>
 <% end %>
 
 <%= link_to "back", tasks_path %>
+
