@@ -1,8 +1,7 @@
-<h2>cocoon_form</h2>
 <%= form_with(model: @task, local: true, url: choose_new_or_edit ) do |f| %>
   <% if @task.errors.any? %>
     <div id="error_explanation">
-      <h2><%= @task.errors.count %>件のエラーがあります。</h2>
+      <h2><%= @task.errors.count %><%= I18n.t('errors.template.header.other') %></h2>
       <ul>
         <% @task.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -23,15 +22,14 @@
   <% end %>
 
   <%= f.fields_for :task_items do |item| %>
-    <p>要件</p>
     <p><%= render 'item_fields', f: item %></p>
   <% end %>
 
   <div class="links">
-    <%= link_to_add_association "Add Task_item", f, :task_items, partial: "item_fields" %>
+    <%= link_to_add_association I18n.t('views.link.add_task_item'), f, :task_items, partial: "item_fields" %>
   </div>
   <%= f.submit %>
 <% end %>
 
-<%= link_to "back", tasks_path %>
+<%= link_to I18n.t('views.link.back'), tasks_path %>
 

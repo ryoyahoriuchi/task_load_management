@@ -1,12 +1,12 @@
-<h3>以下のスケジュールで進めますか？</h3>
+<h3><%= I18n.t('views.messages.schedule_proposal')%></h3>
 
 <%= form_with(model: @task, local: true, url: suggestion_new_or_edit, method: suggestion_form_method ) do |f| %>
   <%= f.hidden_field :title %>
   <%= f.hidden_field :overview %>
   <%= f.hidden_field :status %>
 
-  <p>タイトル：<%= @task.title %></p>
-  <p>概要：<%= @task.overview %></p>
+  <p><%= I18n.t('activerecord.attributes.task.title')%>：<%= @task.title %></p>
+  <p><%= I18n.t('activerecord.attributes.task.overview')%>：<%= @task.overview %></p>
   
   <%= f.fields_for :task_items do |g| %>
     <%= g.hidden_field :item %>
@@ -14,11 +14,11 @@
   <% end %>
 
   <% @task.task_items.each_with_index do |x, i| %>
-    <p><strong>要件<%= "#{i + 1}" %></strong></p>
-    <p>要件名：<%= x.item %></p>
-    <p>負荷レベル：<%= x.level %></p>
+    <p><strong><%= I18n.t('activerecord.models.task_item') %><%= "#{i + 1}" %></strong></p>
+    <p><%= I18n.t('activerecord.attributes.task_item.item')%>：<%= x.item %></p>
+    <p><%= I18n.t('activerecord.attributes.task_item.level')%>：<%= x.level %></p>
   <% end %>
 
-  <%= f.submit "登録する"%>
-  <%= f.submit "戻る", name: "back" %>
+  <%= f.submit I18n.t('views.button.create') %>
+  <%= f.submit I18n.t('views.button.back'), name: "back" %>
 <% end %>

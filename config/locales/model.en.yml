@@ -1,0 +1,47 @@
+---
+en:
+  activerecord:
+    models:
+      task: task
+      task_item: item
+      memo: memo
+    attributes:
+      task:
+        title: title
+        overview: overview
+        status: status
+      task_item:
+        item: item
+        level: level
+      memo:
+        content: content
+  models:
+    enum:
+      not_started: 'Not started'
+      underway: 'Underway'
+      completed: 'Completed'
+  views:
+    messages:
+      create_task: 'Successfully created a task!'
+      updated_task: 'Successfully updated a task!'
+      deleted_task: 'Successfully deleted a task!'
+      failed_to_save_memo: 'Failed to save memo...'
+      editing_memo: 'Editing a memo'
+      edited_memo: 'Successfully updated a memo!'
+      failed_to_edit_memo: 'Failed to edit a memo...'
+      deleted_memo: 'Successfully deleted a memo!'
+      confirm_whether_delete_memo: 'Do you want to delete the memo?'
+      schedule_proposal: 'Do you plan on the following schedule?'
+    button:
+      show: 'Show'
+      edit: 'Edit'
+      delete: 'Delete'
+      create: 'Create'
+      memo_edit: 'Memo edit'
+      memo_delete: 'Memo delete'
+      back: 'back'
+    link:
+      add_task_item: 'Add item'
+      remove_task_item: 'Remote item'
+      back: 'back'
+      create_task: 'Create task'

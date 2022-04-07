@@ -4,9 +4,9 @@
   <%= task.title %>
   <%= task.overview %>
   <%= task.status %>
-  <%= link_to "詳細", task_path(task.id) %>
-  <%= link_to "編集", edit_task_path(task.id) %>
-  <%= button_to "削除", task_path(task.id), method: :delete %>
+  <%= button_to I18n.t('views.button.show'), task_path(task.id), method: :get %>
+  <%= button_to I18n.t('views.button.edit'), edit_task_path(task.id), method: :get %>
+  <%= button_to I18n.t('views.button.delete'), task_path(task.id), method: :delete %>
 <% end %>
 
-<%= link_to "タスク作成", new_task_path %>
+<%= link_to I18n.t('views.link.create_task'), new_task_path %>
