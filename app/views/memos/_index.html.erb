@@ -1,7 +1,13 @@
 <ul>
   <% memos.each do |memo| %>
     <% if memo.id.present? %>
-      <li><p><%= memo.content %></p></li>
+      <li>
+        <div class="memo-content" id="this_memo_<%= memo.id %>"></div>
+        <p><%= memo.content %></p>
+        <%# binding.pry %>
+        <p><%= link_to "メモ編集", edit_task_memo_path(@task, memo), remote: true %></p>
+        <p><%= button_to "メモ削除", task_memo_path(@task.id, memo.id), method: :delete, remote: true, data: { confirm: "本当に削除しますか？"} %></p>
+      </li>
     <% end %>
   <% end %>
 </ul>
