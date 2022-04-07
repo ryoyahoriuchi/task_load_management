@@ -1,0 +1,37 @@
+<h2>cocoon_form</h2>
+<%= form_with(model: @task, local: true, url: choose_new_or_edit ) do |f| %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @task.errors.count %>件のエラーがあります。</h2>
+      <ul>
+        <% @task.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :overview %>
+  <%= f.text_field :overview %>
+
+  <% if action_name == "edit" || action_name == "update" %>
+    <%= f.label :status %>
+    <%= f.select :status, Task.statuses.keys.to_a %>
+  <% end %>
+
+  <%= f.fields_for :task_items do |item| %>
+    <p>要件</p>
+    <p><%= render 'item_fields', f: item %></p>
+  <% end %>
+
+  <div class="links">
+    <%= link_to_add_association "Add Task_item", f, :task_items, partial: "item_fields" %>
+  </div>
+  <%= f.submit %>
+<% end %>
+
+<%= link_to "back", tasks_path %>
+
