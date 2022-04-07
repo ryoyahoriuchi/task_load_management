@@ -4,10 +4,15 @@
 <p>overview:<%= @task.overview %></p>
 <p>status:<%= @task.status %></p>
 
-<% @task.task_items.each_with_index do |task_item, i| %>
+<% @task_items.each_with_index do |task_item, i| %>
   <p><strong>要件<%= "#{i + 1}" %></strong></p>
   <p>task_item:<%= task_item.item %></p>
   <p>level:<%= task_item.level %></p>
+
+  <div id="memos_area">
+    <%= render partial: "memos/index", locals: { memos: task_item.memos, task: @task } %>
+  </div>
+  <%= render partial: "memos/form", locals: { memo: @memo, task: @task, task_item: @task_items[i] } %>
 <% end %>
 
 

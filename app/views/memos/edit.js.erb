@@ -1,0 +1,2 @@
+$("#this_memo_<%= @memo.id %>").replaceWith("<%= j render "memos/edit", task_item: @task_item, memo: @memo %>");
+$("#notice").html("<%= j flash[:notice] %>");

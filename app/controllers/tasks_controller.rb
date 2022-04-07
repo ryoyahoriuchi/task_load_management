@@ -54,6 +54,13 @@ class TasksController < ApplicationController
   end
 
   def show
+    @task_items = TaskItem.where(task_id: params[:id])
+    @memo = []
+    @memos = @task_items.map do |task_item|
+      @memo = task_item.memos.build
+      task_item.memos
+    end
+    @memos = @memos.flatten
   end
 
   def destroy

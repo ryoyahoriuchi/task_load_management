@@ -1,0 +1,7 @@
+<ul>
+  <% memos.each do |memo| %>
+    <% if memo.id.present? %>
+      <li><p><%= memo.content %></p></li>
+    <% end %>
+  <% end %>
+</ul>

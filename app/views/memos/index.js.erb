@@ -1,0 +1,3 @@
+$("#memos_area").html("<%= j(render 'memos/index', { memos: @task_item.memos, task_item: @task_item }) %>");
+$("textarea").val('');
+$("#notice").html("<%= j flash[:notice] %>");

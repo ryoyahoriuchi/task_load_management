@@ -1,0 +1,20 @@
+<%= form_with(model: [task, memo]) do |f| %>
+  <% if memo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this memo from being saved:</h2>
+      <ul>
+        <% memo.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_area :memo, id: "memo_content_#{task_item.id}" %>
+  </div>
+  <div class="action">
+    <%= f.submit %>
+  </div>
+<% end %>
