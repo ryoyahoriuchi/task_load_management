@@ -16,7 +16,7 @@ en:
       memo:
         content: content
   models:
-    enum:
+    enums:
       not_started: 'Not started'
       underway: 'Underway'
       completed: 'Completed'

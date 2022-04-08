@@ -16,7 +16,7 @@ ja:
       memo:
         content: 内容
   models:
-    enum:
+    enums:
       not_started: '未着手'
       underway: '着手中'
       completed: '完了'

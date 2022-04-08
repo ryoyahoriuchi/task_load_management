@@ -1,14 +1,14 @@
 <h1>show task</h1>
 <p id="notice"><%= notice %></p>
 
-<p>title:<%= @task.title %></p>
-<p>overview:<%= @task.overview %></p>
-<p>status:<%= @task.status %></p>
+<p><%= I18n.t('activerecord.attributes.task.title')%>:<%= @task.title %></p>
+<p><%= I18n.t('activerecord.attributes.task.overview')%>:<%= @task.overview %></p>
+<p><%= I18n.t('activerecord.attributes.task.status')%>:<%= @task.status %></p>
 
 <% @task_items.each_with_index do |task_item, i| %>
   <p><strong><%= I18n.t('activerecord.models.task_item') %><%= "#{i + 1}" %></strong></p>
-  <p>task_item:<%= task_item.item %></p>
-  <p>level:<%= task_item.level %></p>
+  <p><%= I18n.t('activerecord.attributes.task_item.item')%>:<%= task_item.item %></p>
+  <p><%= I18n.t('activerecord.attributes.task_item.level')%>:<%= task_item.level %></p>
 
   <div id=<%="memos_area_#{task_item.id}"%>>
     <%= render partial: "memos/index", locals: { memos: task_item.memos, task: @task } %>

@@ -3,9 +3,9 @@ class Task < ApplicationRecord
   validates :overview, presence: true, length: { maximum: 255 }
 
   enum status: {
-    "未着手": 0,
-    "着手中": 1,
-    "完了": 2
+    not_started: 0,
+    underway: 1,
+    completed: 2
   }
   
   has_many :task_items, dependent: :destroy
