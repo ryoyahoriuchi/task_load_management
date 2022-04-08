@@ -12,7 +12,7 @@ ja:
         status: 進捗
       task_item:
         item: 要件名
-        level: 負荷レベル
+        level: レベル
       memo:
         content: メモ
   models:
