@@ -16,7 +16,7 @@ class TasksController < ApplicationController
       render :new
     else
       if @task.save
-        redirect_to root_path, notice: "登録しました"
+        redirect_to root_path, notice: I18n.t('views.messages.create_task')
       else
         render :new
       end
@@ -24,17 +24,13 @@ class TasksController < ApplicationController
   end
 
   def suggestion
-    if params[:commit] == "Create Task"
-      #set_task を省いた　idがない場合があるが、set_taskメソッドで分岐させた
-      @task = Task.new(task_params) #unless params[:id] #書いたらupdate出来ない
-      #@task.id = params[:id]
+    if params[:commit] == I18n.t('helpers.submit.create')
+      @task = Task.new(task_params)
       render :new if @task.invalid?
     else
-      # @task = Task.find(params[:id]) before_actionに含める
-      #@task.id = params[:id]
       @task = Task.find(params[:id])
       @task.attributes = task_params
-      render :edit if @task.invalid?
+      render :edit if @task.invalid? || @task.task_items.any?(&:invalid?) #task_itemのバリデーション働いてない
     end
   end
 
@@ -46,7 +42,7 @@ class TasksController < ApplicationController
       render :edit
     else
       if @task.update(task_params)
-        redirect_to tasks_path, notice: "タスクを編集しました"
+        redirect_to tasks_path, notice: I18n.t('views.messages.updated_task')
       else
         render :edit
       end
@@ -65,7 +61,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to tasks_path, notice: "タスクを削除しました"
+    redirect_to tasks_path, notice: I18n.t('views.messages.deleted_task')
   end
 
   private
@@ -75,7 +71,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :overview, :status, task_items_attributes: [:id, :item, :level, :_destroy]) #:idを書くとeditできるが、重複データが生成される
+    params.require(:task).permit(:title, :overview, :status, task_items_attributes: [:id, :item, :level, :_destroy])
   end
 
 end

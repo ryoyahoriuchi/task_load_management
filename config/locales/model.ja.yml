@@ -1,0 +1,47 @@
+---
+ja:
+  activerecord:
+    models:
+      task: タスク
+      task_item: 要件
+      memo: メモ
+    attributes:
+      task:
+        title: タイトル
+        overview: 概要
+        status: 進捗
+      task_item:
+        item: 要件名
+        level: 負荷レベル
+      memo:
+        content: メモ
+  models:
+    enums:
+      not_started: '未着手'
+      underway: '着手中'
+      completed: '完了'
+  views:
+    messages:
+      create_task: 'タスクを登録しました！'
+      updated_task: 'タスクを編集しました！'
+      deleted_task: 'タスクを削除しました！'
+      failed_to_save_memo: 'メモの作成に失敗しました。'
+      editing_memo: 'メモ編集中'
+      edited_memo: 'メモを編集しました！'
+      failed_to_edit_memo: 'メモの編集に失敗しました'
+      deleted_memo: 'メモを削除しました！'
+      confirm_whether_delete_memo: 'メモを削除しますか？'
+      schedule_proposal: '以下のスケジュールで計画しますか？'
+    button:
+      show: '詳細'
+      edit: '編集'
+      delete: '削除'
+      create: '作成'
+      memo_edit: 'メモ編集'
+      memo_delete: 'メモ削除'
+      back: '戻る'
+    link:
+      add_task_item: '要件追加'
+      remove_task_item: '要件削除'
+      back: '戻る'
+      create_task: 'タスク作成'

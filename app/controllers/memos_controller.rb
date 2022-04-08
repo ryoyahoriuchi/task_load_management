@@ -10,7 +10,7 @@ class MemosController < ApplicationController
         #format.html { redirect_to task_path(@task.id)}
         format.js { render :index }
       else
-        format.html { redirect_to task_path(@task.id), notice: '保存できませんでした' }
+        format.html { redirect_to task_path(@task.id), notice: I18n.t('views.messages.failed_to_save_memo') }
       end
     end
   end
@@ -18,7 +18,7 @@ class MemosController < ApplicationController
   def edit
     @memo = @task_item.memos.find(params[:id])
     respond_to do |format|
-      flash.now[:notice] = "メモ編集中"
+      flash.now[:notice] = I18n.t('views.messages.editing_memo')
       format.js { render :edit }
     end
   end
@@ -27,10 +27,10 @@ class MemosController < ApplicationController
     @memo = @task_item.memos.find(params[:id])
     respond_to do |format|
       if @memo.update(memo_params)
-        flash.now[:notice] = "メモを編集しました"
+        flash.now[:notice] = I18n.t('views.messages.edited_memo')
         format.js { render :index }
       else
-        flash.now[:notice] = "メモの編集に失敗しました"
+        flash.now[:notice] = I18n.t('views.messages.failed_to_edit_memo')
         format.js { render :edit }
       end
     end
@@ -40,7 +40,7 @@ class MemosController < ApplicationController
     @memo = Memo.find(params[:id])
     @memo.destroy
     respond_to do |format|
-      flash.now[:notice] = "メモを削除しました"
+      flash.now[:notice] = I18n.t('views.messages.deleted_memo')
       format.js { render :index }
     end
   end
