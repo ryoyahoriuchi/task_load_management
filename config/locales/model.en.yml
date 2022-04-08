@@ -14,7 +14,7 @@ en:
         item: item
         level: level
       memo:
-        content: content
+        content: memo
   models:
     enums:
       not_started: 'Not started'

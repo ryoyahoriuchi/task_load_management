@@ -11,12 +11,15 @@
   <%= f.fields_for :task_items do |g| %>
     <%= g.hidden_field :item %>
     <%= g.hidden_field :level %>
+    <%= g.hidden_field :_destroy %>
   <% end %>
 
   <% @task.task_items.each_with_index do |x, i| %>
-    <p><strong><%= I18n.t('activerecord.models.task_item') %><%= "#{i + 1}" %></strong></p>
-    <p><%= I18n.t('activerecord.attributes.task_item.item')%>：<%= x.item %></p>
-    <p><%= I18n.t('activerecord.attributes.task_item.level')%>：<%= x.level %></p>
+    <% unless x._destroy %>
+      <p><strong><%= I18n.t('activerecord.models.task_item') %><%= "#{i + 1}" %></strong></p>
+      <p><%= I18n.t('activerecord.attributes.task_item.item')%>：<%= x.item %></p>
+      <p><%= I18n.t('activerecord.attributes.task_item.level')%>：<%= x.level %></p>
+    <% end %>
   <% end %>
 
   <%= f.submit I18n.t('views.button.create') %>

@@ -30,7 +30,7 @@ class TasksController < ApplicationController
     else
       @task = Task.find(params[:id])
       @task.attributes = task_params
-      render :edit if @task.invalid?
+      render :edit if @task.invalid? || @task.task_items.any?(&:invalid?) #task_itemのバリデーション働いてない
     end
   end
 

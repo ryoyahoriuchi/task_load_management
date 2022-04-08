@@ -14,7 +14,7 @@ ja:
         item: 要件名
         level: 負荷レベル
       memo:
-        content: 内容
+        content: メモ
   models:
     enums:
       not_started: '未着手'
