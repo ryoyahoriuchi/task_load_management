@@ -18,6 +18,8 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_button I18n.t('helpers.submit.create')
         click_button I18n.t('views.button.create')
         expect(page).to have_content I18n.t('views.messages.create_task')
+        expect(page).to have_content 'test_title'
+        expect(page).to have_content 'test_overview'
       end
     end
   end
