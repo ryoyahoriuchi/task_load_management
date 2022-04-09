@@ -9,14 +9,6 @@ class Task < ApplicationRecord
   }
   
   has_many :task_items, dependent: :destroy
-  accepts_nested_attributes_for :task_items, reject_if: :reject_both_blank, allow_destroy: true #proc { |attributes| attributes['item'].blank? }
+  accepts_nested_attributes_for :task_items, reject_if: proc { |attributes| attributes['item'].blank? }, allow_destroy: true
 
-  def reject_both_blank(attributes)
-    if attributes[:id]
-      attributes.merge!(_destroy: "1") if attributes[:item].blank?
-      !attributes[:item].blank?
-    else
-      attributes[:item].blank?
-    end
-  end
 end

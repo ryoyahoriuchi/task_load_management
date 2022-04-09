@@ -16,7 +16,7 @@ class TasksController < ApplicationController
       render :new
     else
       if @task.save
-        redirect_to root_path, notice: I18n.t('views.messages.create_task')
+        redirect_to task_path(@task.id), notice: I18n.t('views.messages.create_task')
       else
         render :new
       end
@@ -42,7 +42,7 @@ class TasksController < ApplicationController
       render :edit
     else
       if @task.update(task_params)
-        redirect_to tasks_path, notice: I18n.t('views.messages.updated_task')
+        redirect_to task_path(@task.id), notice: I18n.t('views.messages.updated_task')
       else
         render :edit
       end
