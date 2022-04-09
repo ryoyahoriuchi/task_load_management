@@ -71,7 +71,6 @@ RSpec.describe 'タスク要件機能', type: :system do
         id[1].click_button I18n.t('views.button.edit')
         fill_in 'task[task_items_attributes][0][item]', with: 'edited item'
         select '9', from: 'task[task_items_attributes][0][level]'
-        binding.irb #不具合発生update出来てない
         click_button I18n.t('helpers.submit.update')
         click_button I18n.t('views.button.create')
         expect(page).to have_content 'sample'
@@ -82,13 +81,36 @@ RSpec.describe 'タスク要件機能', type: :system do
 
     context '任意のタスクにタスクアイテムを追加する場合' do
       it '該当タスクに追加したアイテムが表示される' do
+        id = all('table tbody tr')
+        id[1].click_button I18n.t('views.button.edit')
+        2.times { click_link I18n.t('views.link.add_task_item') }
+        id = all('body form div div')
+        id[1].fill_in with: 'item2'
+        id[1].select '9'
+        id[2].fill_in with: 'item3'
+        id[2].select '8'
+        click_button I18n.t('helpers.submit.update')
+        click_button I18n.t('views.button.create')
+        expect(page).to have_content I18n.t('views.messages.updated_task')
+        expect(page).to have_content 'sample'
+        expect(page).to have_content 'issue02'
+        expect(page).to have_content "#{I18n.t('activerecord.attributes.task_item.level')}:2"
+        expect(page).to have_content 'item2'
+        expect(page).to have_content "#{I18n.t('activerecord.attributes.task_item.level')}:9"
+        expect(page).to have_content 'item3'
+        expect(page).to have_content "#{I18n.t('activerecord.attributes.task_item.level')}:8"
       end
     end
-  end
 
-  describe '削除機能' do
     context '任意のタスクに登録したタスクアイテムを削除した場合' do
       it '該当タスクアイテムのみ削除される' do
+        id = all('table tbody tr')
+        id[1].click_button I18n.t('views.button.edit')
+        click_link I18n.t('views.link.remove_task_item')
+        click_button I18n.t('helpers.submit.update')
+        click_button I18n.t('views.button.create')
+        expect(page).not_to have_content 'issue02'
+        expect(page).not_to have_content "#{I18n.t('activerecord.attributes.task_item.level')}:2"
       end
     end
   end
