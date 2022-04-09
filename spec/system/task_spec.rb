@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'タスク管理機能', type: :system do
+RSpec.describe 'Task management function', type: :system do
 
   let!(:first_task) { FactoryBot.create(:first_task) }
   let!(:second_task) { FactoryBot.create(:second_task) }
@@ -9,9 +9,9 @@ RSpec.describe 'タスク管理機能', type: :system do
     visit root_path
   end
 
-  describe '新規作成機能' do
-    context 'タスクを新規作成した場合' do
-      it '作成されたタスクが表示される' do
+  describe 'New creation function' do
+    context 'Create a new task' do
+      it 'The created task is displayed' do
         click_link I18n.t('views.link.create_task')
         fill_in 'task[title]', with: 'test_title'
         fill_in 'task[overview]', with: 'test_overview'
@@ -24,9 +24,9 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
 
-  describe '一覧表示機能' do
-    context '一覧画面に遷移した場合' do
-      it '作成済みのタスク一覧が表示される' do
+  describe 'List display function' do
+    context 'When transitioning to the list screen' do
+      it 'A list of created tasks is displayed' do
         expect(page).to have_content "title01"
         expect(page).to have_content "overview01"
         expect(page).to have_content "sample"
@@ -35,9 +35,9 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
 
-  describe '詳細表示機能' do
-    context '任意のタスク詳細画面に遷移した場合' do
-      it '該当タスクの内容が表示される' do
+  describe 'Detailed display function' do
+    context 'When moving to the task details screen' do
+      it 'The content of the corresponding task is displayed' do
         id = all('table tbody tr')
         id[1].click_button I18n.t('views.button.show')
         expect(page).to have_content "sample"
@@ -47,9 +47,9 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
 
-  describe '編集機能' do
-    context '任意のタスクを編集した場合' do
-      it '該当タスクの内容が変更される' do
+  describe 'Editing function' do
+    context 'When editing a task' do
+      it 'The content of the corresponding task is changed' do
         id = all('table tbody tr')
         id[0].click_button I18n.t('views.button.edit')
         fill_in 'task[title]', with: 'edited_title'
@@ -65,9 +65,9 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
 
-  describe '削除機能' do
-    context '任意のタスクを削除した場合' do
-      it '該当タスクが表示されなくなる' do
+  describe 'Delete function' do
+    context 'If you delete a task' do
+      it 'The corresponding task disappears' do
         id = all('table tbody tr')
         expect(page).to have_content "title01"
         expect(page).to have_content "overview01"

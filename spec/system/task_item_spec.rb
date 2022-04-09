@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'タスク要件機能', type: :system do
+RSpec.describe 'Task item function', type: :system do
 
   let!(:first_task) { FactoryBot.create(:first_task) }
   let!(:second_task) { FactoryBot.create(:second_task) }
@@ -11,9 +11,9 @@ RSpec.describe 'タスク要件機能', type: :system do
     visit root_path
   end
 
-  describe '新規作成機能' do
-    context 'タスクの新規作成に合わせて要件作成した場合' do
-      it '新タスクに合わせて要件が表示される' do
+  describe 'New creation function' do
+    context 'When an item is created accoding to the creation of a new task' do
+      it 'Items will be displayed according to the new task' do
         click_link I18n.t('views.link.create_task')
         fill_in 'task[title]', with: 'title_item'
         fill_in 'task[overview]', with: 'overview_item'
@@ -29,8 +29,8 @@ RSpec.describe 'タスク要件機能', type: :system do
       end
     end
 
-    context 'タスクの新規作成に合わせて複数要件を作成した場合' do
-      it '新タスクに合わせて複数要件が表示される' do
+    context 'When multiple items are created in response to the creation of a new task' do
+      it 'New task presents multiple items' do
         click_link I18n.t('views.link.create_task')
         fill_in 'task[title]', with: 'title_item2'
         fill_in 'task[overview]', with: 'overview_item2'
@@ -52,9 +52,9 @@ RSpec.describe 'タスク要件機能', type: :system do
     end
   end
 
-  describe '詳細表示機能' do
-    context '任意の詳細画面に遷移した場合' do
-      it '該当タスクに登録した要件が表示される' do
+  describe 'Detailed display function' do
+    context 'When moving to the task details screen' do
+      it 'Items registered in the task are displayed' do
         id = all('table tbody tr')
         id[0].click_button I18n.t('views.button.show')
         expect(page).to have_content 'title01'
@@ -64,9 +64,9 @@ RSpec.describe 'タスク要件機能', type: :system do
     end
   end
 
-  describe '編集機能' do
-    context '任意のタスクに合わせてタスクアイテムを編集する場合' do
-      it '該当タスクアイテムの内容が変更される' do
+  describe 'Editing function' do
+    context 'When editing a task item for a task' do
+      it 'The content of the corresponding task item is changed' do
         id = all('table tbody tr')
         id[1].click_button I18n.t('views.button.edit')
         fill_in 'task[task_items_attributes][0][item]', with: 'edited item'
@@ -79,8 +79,8 @@ RSpec.describe 'タスク要件機能', type: :system do
       end
     end
 
-    context '任意のタスクにタスクアイテムを追加する場合' do
-      it '該当タスクに追加したアイテムが表示される' do
+    context 'When adding a task item to any task' do
+      it 'Items added to the task are displayed' do
         id = all('table tbody tr')
         id[1].click_button I18n.t('views.button.edit')
         2.times { click_link I18n.t('views.link.add_task_item') }
@@ -102,8 +102,8 @@ RSpec.describe 'タスク要件機能', type: :system do
       end
     end
 
-    context '任意のタスクに登録したタスクアイテムを削除した場合' do
-      it '該当タスクアイテムのみ削除される' do
+    context 'When a task item in a task is deleted' do
+      it 'Only the corresponding task item will be deleted' do
         id = all('table tbody tr')
         id[1].click_button I18n.t('views.button.edit')
         click_link I18n.t('views.link.remove_task_item')

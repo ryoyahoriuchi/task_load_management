@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'タスクメモ機能', type: :system do
+RSpec.describe 'Memo function', type: :system do
 
   let!(:first_task) { FactoryBot.create(:first_task) }
   let!(:second_task) { FactoryBot.create(:second_task) }
@@ -12,9 +12,9 @@ RSpec.describe 'タスクメモ機能', type: :system do
     visit root_path
   end
 
-  describe '新規作成機能' do
-    context 'メモを作成した場合' do
-      it '作成したメモが表示される' do
+  describe 'New creation function' do
+    context 'When creating a memo' do
+      it 'The created memo is displayed' do
         id = all('table tbody tr')
         id[1].click_button I18n.t('views.button.show')
         fill_in 'memo[content]', with: 'Hallo!'
@@ -24,9 +24,9 @@ RSpec.describe 'タスクメモ機能', type: :system do
     end
   end
 
-  describe '編集機能' do
-    context 'メモを編集した場合' do
-      it '編集したメモが表示される' do
+  describe 'Editing function' do
+    context 'When editing a memo' do
+      it 'The edited memo is displayed' do
         id = all('table tbody tr')
         id[0].click_button I18n.t('views.button.show')
         expect(page).to have_content 'content01'
@@ -41,9 +41,9 @@ RSpec.describe 'タスクメモ機能', type: :system do
     end
   end
 
-  describe '削除機能' do
-    context 'メモを削除した場合' do
-      it '該当メモが表示されなくなる' do
+  describe 'Delete function' do
+    context 'When deleting a memo' do
+      it 'The corresponding memo disappears' do
         id = all('table tbody tr')
         id[0].click_button I18n.t('views.button.show')
         expect(page).to have_content 'content01'
