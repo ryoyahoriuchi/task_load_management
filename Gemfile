@@ -12,6 +12,9 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 gem 'cocoon'
 gem 'enum_help'
+gem 'devise'
+gem 'devise-i18n'
+gem 'rexml'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 
@@ -28,6 +31,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'pry-rails'
+  gem 'letter_opener_web'
 end
 
 group :test do

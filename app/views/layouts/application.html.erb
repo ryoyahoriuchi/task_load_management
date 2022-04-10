@@ -10,9 +10,21 @@
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <%= link_to "マイページ", root_path %>
+      <%= link_to "タスク作成", root_path %>
+      <%= link_to "タスク一覧", tasks_path %>
+      <%= link_to "管理者権限", root_path %>
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "アカウント新規作成", new_user_registration_path %>
+      <%= link_to "ログイン", new_user_session_path %>
+    <% end %>
+
     <% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>
+
     <%= yield %>
   </body>
 </html>
