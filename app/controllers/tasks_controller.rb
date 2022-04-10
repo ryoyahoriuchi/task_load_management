@@ -71,7 +71,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :overview, :status, task_items_attributes: [:id, :item, :level, :_destroy])
+    params.require(:task).permit(:title, :overview, :status, { label_ids: [] }, task_items_attributes: [:id, :item, :level, :_destroy])
   end
-
 end

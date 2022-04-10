@@ -4,9 +4,13 @@
   <%= f.hidden_field :title %>
   <%= f.hidden_field :overview %>
   <%= f.hidden_field :status %>
+  <%= f.hidden_field 'label[label_ids][]', value: @task.label_ids %>
 
   <p><%= I18n.t('activerecord.attributes.task.title')%>：<%= @task.title %></p>
   <p><%= I18n.t('activerecord.attributes.task.overview')%>：<%= @task.overview %></p>
+  <% @task.labels.each_with_index do |label, i| %>
+    <span>label<%= "#{i + 1}"%>:<%= label.genre %></span>
+  <% end %>
   
   <%= f.fields_for :task_items do |g| %>
     <%= g.hidden_field :item %>
