@@ -4,7 +4,8 @@
   <%= f.hidden_field :title %>
   <%= f.hidden_field :overview %>
   <%= f.hidden_field :status %>
-  <%= f.hidden_field 'label[label_ids][]', value: @task.label_ids %>
+  <%= f.hidden_field :label_ids, multiple: true, value: @task.label_ids.join(",") %>
+  <% #raise %>
 
   <p><%= I18n.t('activerecord.attributes.task.title')%>：<%= @task.title %></p>
   <p><%= I18n.t('activerecord.attributes.task.overview')%>：<%= @task.overview %></p>

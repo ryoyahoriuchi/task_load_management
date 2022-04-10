@@ -12,6 +12,11 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    hash_label = {}
+    params[:task][:label_ids].each do |label|
+      hash_label[:label_ids] = label.split(",").flatten
+    end
+    @task.attributes = hash_label
     if params[:back]
       render :new
     else
