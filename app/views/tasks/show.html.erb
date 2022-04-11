@@ -4,6 +4,7 @@
 <p><%= I18n.t('activerecord.attributes.task.title')%>:<%= @task.title %></p>
 <p><%= I18n.t('activerecord.attributes.task.overview')%>:<%= @task.overview %></p>
 <p><%= I18n.t('activerecord.attributes.task.status')%>:<%= I18n.t("models.enums.#{@task.status}") %></p>
+<p><%= @task.event.start_time_on %>～<%= @task.event.end_time_on %></p>
 
 <p><% @task.labels.each_with_index do |label, i| %>
   <span>label<%= "#{i + 1}"%>:<%= label.genre %></span>

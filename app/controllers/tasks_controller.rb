@@ -13,6 +13,7 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     @task.task_items.build
+    @task.build_event
   end
 
   def create
@@ -83,6 +84,13 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :overview, :status, { label_ids: [] }, task_items_attributes: [:id, :item, :level, :_destroy])
+    params.require(:task).permit(
+      :title,
+      :overview,
+      :status,
+      { label_ids: [] },
+      task_items_attributes: [:id, :item, :level, :_destroy],
+      event_attributes: [:id, :start_time_on, :end_time_on, :_destroy]
+    )
   end
 end
