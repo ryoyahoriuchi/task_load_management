@@ -6,6 +6,7 @@ ja:
       task_item: 要件
       memo: メモ
       label: ラベル
+      event: イベント
     attributes:
       task:
         title: タイトル
@@ -18,6 +19,9 @@ ja:
         content: メモ
       label:
         search: ラベル検索
+      event:
+        start_time_on: 開始日
+        end_time_on: 〆切
   models:
     enums:
       not_started: '未着手'
@@ -48,3 +52,5 @@ ja:
       remove_task_item: '要件削除'
       back: '戻る'
       create_task: 'タスク作成'
+    label:
+      period: 期間

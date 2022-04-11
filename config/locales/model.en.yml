@@ -6,6 +6,7 @@ en:
       task_item: item
       memo: memo
       label: label
+      event: event
     attributes:
       task:
         title: title
@@ -18,6 +19,9 @@ en:
         content: memo
       label:
         search: serach
+      event:
+        start_time_on: start date
+        end_time_on: deadline
   models:
     enums:
       not_started: 'Not started'
@@ -48,3 +52,5 @@ en:
       remove_task_item: 'Remote item'
       back: 'back'
       create_task: 'Create task'
+    label:
+      period: period

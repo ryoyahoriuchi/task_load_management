@@ -12,9 +12,9 @@
     <%= h.hidden_field :_destroy %>
   <% end %>
 
-  <p><%= I18n.t('activerecord.attributes.task.title')%>：<%= @task.title %></p>
-  <p><%= I18n.t('activerecord.attributes.task.overview')%>：<%= @task.overview %></p>
-  <p><%= @task.event.start_time_on %>～<%= @task.event.end_time_on %></p>
+  <p><%= f.label :title %>：<%= @task.title %></p>
+  <p><%= f.label :overview %>：<%= @task.overview %></p>
+  <p><%= I18n.t('views.label.period') %>：<%= @task.event.start_time_on %>～<%= @task.event.end_time_on %></p>
   <% @task.labels.each_with_index do |label, i| %>
     <span>label<%= "#{i + 1}"%>:<%= label.genre %></span>
   <% end %>
