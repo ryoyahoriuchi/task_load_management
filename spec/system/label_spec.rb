@@ -71,10 +71,43 @@ RSpec.describe 'Label function', type: :system do
   end
 
   describe 'ラベル検索機能' do
+    let!(:second_task) { FactoryBot.create(:second_task) }
+    let!(:second_task_item) { FactoryBot.create(:second_task_item, task: second_task) }
+    let!(:third_task) { FactoryBot.create(:third_task) }
+    let!(:third_task_item) { FactoryBot.create(:third_task_item, task: third_task) }
     before do
+      visit root_path
+      id = all('table tbody tr')
+      id[0].click_button I18n.t('views.button.edit')
+      check 'red'
+      click_button I18n.t('helpers.submit.update')
+      click_button I18n.t('views.button.create')
+      click_link I18n.t('views.link.back')
+      id = all('table tbody tr')
+      id[1].click_button I18n.t('views.button.edit')
+      check 'red'
+      check 'blue'
+      click_button I18n.t('helpers.submit.update')
+      click_button I18n.t('views.button.create')
+      click_link I18n.t('views.link.back')
     end
     context 'ラベルを選択して検索する場合' do
       it '該当するラベルのみ表示される' do
+        check 'red'
+        click_button I18n.t('activerecord.attributes.label.search')
+        expect(page).to have_content 'title01'
+        expect(page).to have_content 'sample'
+        expect(page).not_to have_content 'ruby'
+        check 'blue'
+        click_button I18n.t('activerecord.attributes.label.search')
+        expect(page).not_to have_content 'title01'
+        expect(page).to have_content 'sample'
+        expect(page).not_to have_content 'ruby'
+        check 'green'
+        click_button I18n.t('activerecord.attributes.label.search')
+        expect(page).not_to have_content 'title01'
+        expect(page).not_to have_content 'sample'
+        expect(page).not_to have_content 'ruby'
       end
     end
   end
