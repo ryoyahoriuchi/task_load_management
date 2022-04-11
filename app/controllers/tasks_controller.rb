@@ -3,6 +3,9 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all
+    if params[:label].present?
+      @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids])
+    end
   end
 
   def new
