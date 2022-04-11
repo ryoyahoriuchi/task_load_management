@@ -39,6 +39,8 @@ en:
       deleted_memo: 'Successfully deleted a memo!'
       confirm_whether_delete_memo: 'Do you want to delete the memo?'
       schedule_proposal: 'Do you plan on the following schedule?'
+    errors:
+      appropriate_start_and_end_dates: 'Deadline cannot be set before the start date'
     button:
       show: 'Show'
       edit: 'Edit'

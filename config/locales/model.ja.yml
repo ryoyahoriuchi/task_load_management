@@ -39,6 +39,8 @@ ja:
       deleted_memo: 'メモを削除しました！'
       confirm_whether_delete_memo: 'メモを削除しますか？'
       schedule_proposal: '以下のスケジュールで計画しますか？'
+    errors:
+      appropriate_start_and_end_dates: '開始日より前に〆切を設定することはできません'
     button:
       show: '詳細'
       edit: '編集'
