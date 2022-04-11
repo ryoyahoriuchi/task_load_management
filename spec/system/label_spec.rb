@@ -12,9 +12,9 @@ RSpec.describe 'Label function', type: :system do
     visit root_path
   end
 
-  describe 'ラベル取付機能' do
-    context 'タスク作成に伴いラベルを取り付けられる' do
-      it 'ラベルが表示される' do
+  describe 'Label mounting function' do
+    context 'Can be labeled when creating a task' do
+      it 'Labels are displayed according to the task' do
         click_link I18n.t('views.link.create_task')
         fill_in 'task[title]', with: 'title_test'
         fill_in 'task[overview]', with: 'overview_test'
@@ -27,8 +27,8 @@ RSpec.describe 'Label function', type: :system do
       end
     end
 
-    context 'タスク作成に伴い複数ラベルを取り付けられる' do
-      it '複数ラベルが表示される' do
+    context 'Can add multiple labels when creating a task' do
+      it 'Multiple labels are displayed depending on the task' do
         click_link I18n.t('views.link.create_task')
         fill_in 'task[title]', with: 'title_test'
         fill_in 'task[overview]', with: 'overview_test'
@@ -44,21 +44,21 @@ RSpec.describe 'Label function', type: :system do
     end
   end
 
-  describe 'ラベル編集機能' do
+  describe 'Label editing function' do
     before do
       click_button I18n.t('views.button.edit')
       check 'red'
       click_button I18n.t('helpers.submit.update')
       click_button I18n.t('views.button.create')
     end
-    context 'タスクに紐づいているラベルを取付編集をした場合' do
-      it '該当ラベルも追加で表示される' do
+    context 'When the label associated with the task is edited' do
+      it 'The corresponding label is also displayed additionally' do
         expect(page).to have_content 'red'
       end
     end
     
-    context 'タスクに紐づいているラベルを取り外した場合' do
-      it '該当ラベルは表示されなくなる' do
+    context 'When the label associated with the task is deleted' do
+      it 'The corresponding label is not displayed' do
         expect(page).to have_content 'red'
         click_link I18n.t('views.button.back')
         click_button I18n.t('views.button.edit')
@@ -70,7 +70,7 @@ RSpec.describe 'Label function', type: :system do
     end
   end
 
-  describe 'ラベル検索機能' do
+  describe 'Label search function' do
     let!(:second_task) { FactoryBot.create(:second_task) }
     let!(:second_task_item) { FactoryBot.create(:second_task_item, task: second_task) }
     let!(:third_task) { FactoryBot.create(:third_task) }
@@ -91,8 +91,8 @@ RSpec.describe 'Label function', type: :system do
       click_button I18n.t('views.button.create')
       click_link I18n.t('views.link.back')
     end
-    context 'ラベルを選択して検索する場合' do
-      it '該当するラベルのみ表示される' do
+    context 'When searching by selecting a label' do
+      it 'Only the corresponding label list is displayed' do
         check 'red'
         click_button I18n.t('activerecord.attributes.label.search')
         expect(page).to have_content 'title01'
