@@ -6,6 +6,8 @@ class TasksController < ApplicationController
     if params[:label].present?
       @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids])
     end
+
+    @tasks = @tasks.page(params[:page]).per(5)
   end
 
   def new

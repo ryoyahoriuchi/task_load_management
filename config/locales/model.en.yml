@@ -17,7 +17,7 @@ en:
       memo:
         content: memo
       label:
-        serach: serach
+        search: serach
   models:
     enums:
       not_started: 'Not started'

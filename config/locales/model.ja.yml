@@ -17,7 +17,7 @@ ja:
       memo:
         content: メモ
       label:
-        serach: ラベル検索
+        search: ラベル検索
   models:
     enums:
       not_started: '未着手'
