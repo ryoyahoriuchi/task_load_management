@@ -21,6 +21,9 @@
     <%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("models.enums.#{k}"), k]} %>
   <% end %>
 
+  <%= f.label :label %>
+  <%= f.collection_check_boxes(:label_ids, Label.all, :id, :genre ) %>
+
   <%= f.fields_for :task_items do |item| %>
     <p><%= render 'item_fields', f: item %></p>
   <% end %>

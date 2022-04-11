@@ -5,6 +5,7 @@ ja:
       task: タスク
       task_item: 要件
       memo: メモ
+      label: ラベル
     attributes:
       task:
         title: タイトル
@@ -15,6 +16,8 @@ ja:
         level: レベル
       memo:
         content: メモ
+      label:
+        search: ラベル検索
   models:
     enums:
       not_started: '未着手'

@@ -5,6 +5,7 @@ en:
       task: task
       task_item: item
       memo: memo
+      label: label
     attributes:
       task:
         title: title
@@ -15,6 +16,8 @@ en:
         level: level
       memo:
         content: memo
+      label:
+        search: serach
   models:
     enums:
       not_started: 'Not started'

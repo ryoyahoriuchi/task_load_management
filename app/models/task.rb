@@ -11,4 +11,9 @@ class Task < ApplicationRecord
   has_many :task_items, dependent: :destroy
   accepts_nested_attributes_for :task_items, reject_if: proc { |attributes| attributes['item'].blank? }, allow_destroy: true
 
+  has_many :labelings, dependent: :destroy
+  has_many :labels, through: :labelings
+  
+  scope :with_labels, -> { joins(:labels) }
+  scope :search_with_id, -> (labels){ where(labels: {id: labels}) }
 end

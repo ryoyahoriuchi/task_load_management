@@ -3,6 +3,11 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all
+    if params[:label].present?
+      @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids])
+    end
+
+    @tasks = @tasks.page(params[:page]).per(5)
   end
 
   def new
@@ -12,6 +17,11 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    hash_label = {}
+    params[:task][:label_ids].each do |label|
+      hash_label[:label_ids] = label.split(",").flatten
+    end
+    @task.attributes = hash_label
     if params[:back]
       render :new
     else
@@ -30,7 +40,7 @@ class TasksController < ApplicationController
     else
       @task = Task.find(params[:id])
       @task.attributes = task_params
-      render :edit if @task.invalid? || @task.task_items.any?(&:invalid?) #task_itemのバリデーション働いてない
+      render :edit if @task.invalid? || @task.task_items.any?(&:invalid?)
     end
   end
 
@@ -38,10 +48,12 @@ class TasksController < ApplicationController
   end
 
   def update
+    revision_params = task_params
+    revision_params[:label_ids].map!{|x| x.split(",").sort}.flatten!
     if params[:back]
       render :edit
     else
-      if @task.update(task_params)
+      if @task.update(revision_params)
         redirect_to task_path(@task.id), notice: I18n.t('views.messages.updated_task')
       else
         render :edit
@@ -71,7 +83,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :overview, :status, task_items_attributes: [:id, :item, :level, :_destroy])
+    params.require(:task).permit(:title, :overview, :status, { label_ids: [] }, task_items_attributes: [:id, :item, :level, :_destroy])
   end
-
 end

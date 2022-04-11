@@ -10,4 +10,10 @@ FactoryBot.define do
     overview { 'summary' }
     status { 1 }
   end
+
+  factory :third_task, class: Task do
+    title { 'ruby' }
+    overview { 'code' }
+    status { 2 }
+  end
 end
