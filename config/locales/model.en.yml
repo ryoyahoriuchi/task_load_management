@@ -40,7 +40,7 @@ en:
       confirm_whether_delete_memo: 'Do you want to delete the memo?'
       schedule_proposal: 'Do you plan on the following schedule?'
     errors:
-      appropriate_start_and_end_dates: 'Deadline cannot be set before the start date'
+      appropriate_start_and_end_dates: 'cannot be set to a date after the deadline'
     button:
       show: 'Show'
       edit: 'Edit'
