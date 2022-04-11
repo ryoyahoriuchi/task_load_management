@@ -40,7 +40,7 @@ class TasksController < ApplicationController
     else
       @task = Task.find(params[:id])
       @task.attributes = task_params
-      render :edit if @task.invalid? || @task.task_items.any?(&:invalid?) #task_itemのバリデーション働いてない
+      render :edit if @task.invalid? || @task.task_items.any?(&:invalid?)
     end
   end
 
@@ -48,15 +48,12 @@ class TasksController < ApplicationController
   end
 
   def update
-    hash_label = {}
-    params[:task][:label_ids].each do |label|
-      hash_label[:label_ids] = label.split(",").flatten.sort
-    end
-    @task.attributes = hash_label
+    revision_params = task_params
+    revision_params[:label_ids].map!{|x| x.split(",").sort}.flatten!
     if params[:back]
       render :edit
     else
-      if @task.update(@task.attributes)
+      if @task.update(revision_params)
         redirect_to task_path(@task.id), notice: I18n.t('views.messages.updated_task')
       else
         render :edit

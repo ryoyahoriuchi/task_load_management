@@ -5,9 +5,9 @@
 <p><%= I18n.t('activerecord.attributes.task.overview')%>:<%= @task.overview %></p>
 <p><%= I18n.t('activerecord.attributes.task.status')%>:<%= I18n.t("models.enums.#{@task.status}") %></p>
 
-<% @task.labels.each_with_index do |label, i| %>
+<p><% @task.labels.each_with_index do |label, i| %>
   <span>label<%= "#{i + 1}"%>:<%= label.genre %></span>
-<% end %>
+<% end %></p>
 
 <% @task_items.each_with_index do |task_item, i| %>
     <strong><%= I18n.t('activerecord.models.task_item') %><%= "#{i + 1}" %>:</strong><%= task_item.item %>
