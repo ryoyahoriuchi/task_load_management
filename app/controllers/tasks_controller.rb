@@ -43,10 +43,15 @@ class TasksController < ApplicationController
   end
 
   def update
+    hash_label = {}
+    params[:task][:label_ids].each do |label|
+      hash_label[:label_ids] = label.split(",").flatten.sort
+    end
+    @task.attributes = hash_label
     if params[:back]
       render :edit
     else
-      if @task.update(task_params)
+      if @task.update(@task.attributes)
         redirect_to task_path(@task.id), notice: I18n.t('views.messages.updated_task')
       else
         render :edit
