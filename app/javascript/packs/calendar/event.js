@@ -9,6 +9,8 @@ document.addEventListener('turbolinks:load', function() {
   var calendar = new Calendar(calendarEl, {
       plugins: [ monthGridPlugin, interactionPlugin, googleCalendarApi ],
 
+      events: '/tasks.json',
+
       locale: 'ja',
       timeZone: 'Asia/Tokyo',
       firstDay: 1,
@@ -34,5 +36,9 @@ document.addEventListener('turbolinks:load', function() {
 
   });
   calendar.render();
+
+  $(".error").click(function(){
+    calendar.refetchEvents();
+  });
 
 });

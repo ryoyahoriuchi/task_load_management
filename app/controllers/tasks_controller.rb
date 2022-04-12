@@ -7,6 +7,7 @@ class TasksController < ApplicationController
       @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids])
     end
 
+    @events = Event.all
     @tasks = @tasks.page(params[:page]).per(5)
   end
 
@@ -27,9 +28,14 @@ class TasksController < ApplicationController
       render :new
     else
       if @task.save
-        redirect_to task_path(@task.id), notice: I18n.t('views.messages.create_task')
+        respond_to do |format|
+          format.html { redirect_to task_path(@task.id), notice: I18n.t('views.messages.create_task') }
+          format.js
+        end
       else
-        render :new
+        respond_to do |format|
+          format.js { render :new }
+        end
       end
     end
   end
