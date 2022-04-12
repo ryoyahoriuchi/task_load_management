@@ -3,8 +3,10 @@ require 'rails_helper'
 RSpec.describe 'Task management function', type: :system do
 
   let!(:first_task) { FactoryBot.create(:first_task) }
+  let!(:first_event) { FactoryBot.create(:first_event, task: first_task) }
   let!(:second_task) { FactoryBot.create(:second_task) }
-
+  let!(:second_event) { FactoryBot.create(:second_event, task: second_task) }
+  
   before do
     visit root_path
   end
@@ -15,11 +17,14 @@ RSpec.describe 'Task management function', type: :system do
         click_link I18n.t('views.link.create_task')
         fill_in 'task[title]', with: 'test_title'
         fill_in 'task[overview]', with: 'test_overview'
+        fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"
+        fill_in "task[event_attributes][end_time_on]", with: "002022-04-15"
         click_button I18n.t('helpers.submit.create')
         click_button I18n.t('views.button.create')
         expect(page).to have_content I18n.t('views.messages.create_task')
         expect(page).to have_content 'test_title'
         expect(page).to have_content 'test_overview'
+        expect(page).to have_content "2022-04-12～2022-04-15"
       end
     end
   end

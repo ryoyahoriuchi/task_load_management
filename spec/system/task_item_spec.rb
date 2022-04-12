@@ -4,6 +4,8 @@ RSpec.describe 'Task item function', type: :system do
 
   let!(:first_task) { FactoryBot.create(:first_task) }
   let!(:second_task) { FactoryBot.create(:second_task) }
+  let!(:first_event) { FactoryBot.create(:first_event, task: first_task) }
+  let!(:second_event) { FactoryBot.create(:second_event, task: second_task) }
   let!(:first_task_item) { FactoryBot.create(:first_task_item, task: first_task) }
   let!(:second_task_item) { FactoryBot.create(:second_task_item, task: second_task) }
 
@@ -17,6 +19,8 @@ RSpec.describe 'Task item function', type: :system do
         click_link I18n.t('views.link.create_task')
         fill_in 'task[title]', with: 'title_item'
         fill_in 'task[overview]', with: 'overview_item'
+        fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"
+        fill_in "task[event_attributes][end_time_on]", with: "002022-04-15"
         fill_in 'task[task_items_attributes][0][item]', with: 'test_item'
         select '3', from: 'task[task_items_attributes][0][level]'
         click_button I18n.t('helpers.submit.create')
@@ -34,6 +38,8 @@ RSpec.describe 'Task item function', type: :system do
         click_link I18n.t('views.link.create_task')
         fill_in 'task[title]', with: 'title_item2'
         fill_in 'task[overview]', with: 'overview_item2'
+        fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"
+        fill_in "task[event_attributes][end_time_on]", with: "002022-04-15"
         fill_in 'task[task_items_attributes][0][item]', with: 'test_item2'
         select '4', from: 'task[task_items_attributes][0][level]'
         click_link I18n.t('views.link.add_task_item')
