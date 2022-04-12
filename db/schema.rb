@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_09_123116) do
+ActiveRecord::Schema.define(version: 2022_04_11_080536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "events", force: :cascade do |t|
+    t.date "start_time_on", null: false
+    t.date "end_time_on", null: false
+    t.bigint "task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id"], name: "index_events_on_task_id"
+  end
 
   create_table "labelings", force: :cascade do |t|
     t.bigint "task_id", null: false
@@ -55,6 +64,7 @@ ActiveRecord::Schema.define(version: 2022_04_09_123116) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "events", "tasks"
   add_foreign_key "labelings", "labels"
   add_foreign_key "labelings", "tasks"
   add_foreign_key "memos", "task_items"

@@ -4,6 +4,8 @@ RSpec.describe 'Memo function', type: :system do
 
   let!(:first_task) { FactoryBot.create(:first_task) }
   let!(:second_task) { FactoryBot.create(:second_task) }
+  let!(:first_event) { FactoryBot.create(:first_event, task: first_task) }
+  let!(:second_event) { FactoryBot.create(:second_event, task: second_task) }
   let!(:first_task_item) { FactoryBot.create(:first_task_item, task: first_task) }
   let!(:second_task_item) { FactoryBot.create(:second_task_item, task: second_task) }
   let!(:first_memo) { FactoryBot.create(:first_memo, task_item: first_task_item) }

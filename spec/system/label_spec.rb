@@ -6,6 +6,7 @@ RSpec.describe 'Label function', type: :system do
   let!(:second_label) { FactoryBot.create(:second_label) }
   let!(:third_label) { FactoryBot.create(:third_label) }
   let!(:first_task) { FactoryBot.create(:first_task) }
+  let!(:first_event) { FactoryBot.create(:first_event, task: first_task) }
   let!(:first_task_item) { FactoryBot.create(:first_task_item, task: first_task) }
 
   before do
@@ -17,6 +18,8 @@ RSpec.describe 'Label function', type: :system do
       it 'Labels are displayed according to the task' do
         click_link I18n.t('views.link.create_task')
         fill_in 'task[title]', with: 'title_test'
+        fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"
+        fill_in "task[event_attributes][end_time_on]", with: "002022-04-15"
         fill_in 'task[overview]', with: 'overview_test'
         fill_in 'task[task_items_attributes][0][item]', with: 'item_test'
         check 'blue'
@@ -32,6 +35,8 @@ RSpec.describe 'Label function', type: :system do
         click_link I18n.t('views.link.create_task')
         fill_in 'task[title]', with: 'title_test'
         fill_in 'task[overview]', with: 'overview_test'
+        fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"
+        fill_in "task[event_attributes][end_time_on]", with: "002022-04-15"
         fill_in 'task[task_items_attributes][0][item]', with: 'item_test'
         check 'blue'
         check 'green'
@@ -72,8 +77,10 @@ RSpec.describe 'Label function', type: :system do
 
   describe 'Label search function' do
     let!(:second_task) { FactoryBot.create(:second_task) }
+    let!(:second_event) { FactoryBot.create(:second_event, task: second_task) }
     let!(:second_task_item) { FactoryBot.create(:second_task_item, task: second_task) }
     let!(:third_task) { FactoryBot.create(:third_task) }
+    let!(:third_event) { FactoryBot.create(:third_event, task: third_task) }
     let!(:third_task_item) { FactoryBot.create(:third_task_item, task: third_task) }
     before do
       visit root_path
@@ -95,19 +102,19 @@ RSpec.describe 'Label function', type: :system do
       it 'Only the corresponding label list is displayed' do
         check 'red'
         click_button I18n.t('activerecord.attributes.label.search')
-        expect(page).to have_content 'title01'
-        expect(page).to have_content 'sample'
-        expect(page).not_to have_content 'ruby'
+        table = all('table tbody tr')
+        expect(table[0]).to have_content 'title01'
+        expect(table[1]).to have_content 'sample'
         check 'blue'
         click_button I18n.t('activerecord.attributes.label.search')
-        expect(page).not_to have_content 'title01'
-        expect(page).to have_content 'sample'
-        expect(page).not_to have_content 'ruby'
+        table = all('table tbody tr')
+        expect(table[0]).to have_content 'sample'
         check 'green'
         click_button I18n.t('activerecord.attributes.label.search')
-        expect(page).not_to have_content 'title01'
-        expect(page).not_to have_content 'sample'
-        expect(page).not_to have_content 'ruby'
+        table = all('table tbody')
+        expect(table).not_to have_content 'title01'
+        expect(table).not_to have_content 'sample'
+        expect(table).not_to have_content 'ruby'
       end
     end
   end
