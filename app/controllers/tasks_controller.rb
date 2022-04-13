@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ edit update show destroy suggestion]
+  before_action :set_create_graph, only: %i[ show suggestion ]
 
   def index
     @tasks = Task.all
@@ -69,7 +70,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task_items = TaskItem.where(task_id: params[:id])
+    #@task_items = TaskItem.where(task_id: params[:id])
     @memo = []
     @memos = @task_items.map do |task_item|
       @memo = task_item.memos.build
@@ -98,5 +99,13 @@ class TasksController < ApplicationController
       task_items_attributes: [:id, :item, :level, :_destroy],
       event_attributes: [:id, :start_time_on, :end_time_on, :_destroy]
     )
+  end
+
+  def set_create_graph
+    @task_items = TaskItem.where(task_id: params[:id])
+    @graph_values = {0 => 0}
+    @task_items.each_with_index do |task_item, i|
+      @graph_values[i] = task_item.level
+    end
   end
 end
