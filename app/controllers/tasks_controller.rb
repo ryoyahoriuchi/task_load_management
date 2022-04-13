@@ -103,9 +103,16 @@ class TasksController < ApplicationController
 
   def set_create_graph
     @task_items = TaskItem.where(task_id: params[:id])
-    @graph_values = {0 => 0}
+    @graph_values = {}
+    total_level = 0
     @task_items.each_with_index do |task_item, i|
       @graph_values[i] = task_item.level
+      total_level += task_item.level
+    end
+    period = (@task.event[:end_time_on] - @task.event[:start_time_on]).to_i
+    @quota = {}
+    period.times do |i|
+      @quota[i] = total_level / (i + 1) #グラフ値はサンプル(後で書き換え必要)
     end
   end
 end

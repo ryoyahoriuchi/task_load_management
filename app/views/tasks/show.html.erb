@@ -21,4 +21,5 @@
 
 <p><%= link_to I18n.t('views.link.back'), tasks_path %></p>
 
-<%= area_chart @graph_values %>
+<%= area_chart [{name: "A", data: @graph_values}, {name: "B", data: @quota}], xtitle: "day", ytitle: "level", points: false, legend: false %>
+
