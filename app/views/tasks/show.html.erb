@@ -22,9 +22,5 @@
 <p><%= link_to I18n.t('views.link.back'), tasks_path %></p>
 
 <% unless @quota.empty? %>
-  <%= area_chart [{name: "level_graph", data: @graph_values}, {name: "test", data: @quota[0]}, 
-  {name: "test", data: @quota[1]}, {name: "test", data: @quota[2]}, {name: "test", data: @quota[3]}, 
-  {name: "test", data: @quota[4]}, {name: "test", data: @quota[5]}, {name: "test", data: @quota[6]}, 
-  {name: "test", data: @quota[7]}, {name: "test", data: @quota[8]}, {name: "test", data: @quota[9]},
-  {name: "test", data: @quota[10]}], points: false, legend: false, curve: false %>
+  <%= area_chart @array_graph, xtitle: "item", ytitle: "level", points: false, legend: "right", curve: false %>
 <% end %>

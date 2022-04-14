@@ -151,6 +151,14 @@ class TasksController < ApplicationController
         end
       end
     end
+    #グラフに引き渡す値に修正
+    @array_graph = []
+    @quota.each_with_index do |k, i|
+      hash_graph = {}
+      hash_graph[:name] = "day#{i + 1}"
+      hash_graph[:data] = @quota[i]
+      @array_graph[i] =  hash_graph
+    end
   end
 
   def set_suggest_graph
@@ -202,6 +210,13 @@ class TasksController < ApplicationController
           area -= val
         end
       end
+    end
+    @array_graph = []
+    @quota.each_with_index do |k, i|
+      hash_graph = {}
+      hash_graph[:name] = "day#{i + 1}"
+      hash_graph[:data] = @quota[i]
+      @array_graph[i] =  hash_graph
     end
   end
 
