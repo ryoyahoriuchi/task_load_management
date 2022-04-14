@@ -36,3 +36,11 @@
   <%= f.submit I18n.t('views.button.create') %>
   <%= f.submit I18n.t('views.button.back'), name: "back" %>
 <% end %>
+
+<% unless @quota.empty? %>
+  <%= area_chart [{name: "level_graph", data: @graph_values}, {name: "test", data: @quota[0]}, 
+  {name: "test", data: @quota[1]}, {name: "test", data: @quota[2]}, {name: "test", data: @quota[3]}, 
+  {name: "test", data: @quota[4]}, {name: "test", data: @quota[5]}, {name: "test", data: @quota[6]}, 
+  {name: "test", data: @quota[7]}, {name: "test", data: @quota[8]}, {name: "test", data: @quota[9]},
+  {name: "test", data: @quota[10]}], points: false, legend: false, curve: false %>
+<% end %>
