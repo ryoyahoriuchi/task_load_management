@@ -13,6 +13,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'cocoon'
 gem 'enum_help'
 gem 'kaminari'
+gem 'chartkick'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 

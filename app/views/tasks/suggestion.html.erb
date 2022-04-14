@@ -36,3 +36,7 @@
   <%= f.submit I18n.t('views.button.create') %>
   <%= f.submit I18n.t('views.button.back'), name: "back" %>
 <% end %>
+
+<% unless @quota.nil? %>
+  <%= area_chart @array_graph, xtitle: "item", ytitle: "level", points: false, legend: "right", curve: false %>
+<% end %>
