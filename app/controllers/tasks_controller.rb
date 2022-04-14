@@ -1,8 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ edit update show destroy suggestion]
-  #before_action :set_create_graph, only: %i[ show suggestion ]
-
-  before_action :set_create_graph_area, only: %i[ show] #後で消す
+  before_action :set_create_graph_area, only: %i[show]
 
   def index
     @tasks = Task.all
@@ -103,34 +101,9 @@ class TasksController < ApplicationController
     )
   end
 
-  def set_create_graph
-    @task_items = TaskItem.where(task_id: params[:id])
-    @graph_values = {}
-    total_level = 0
-    @task_items.each_with_index do |task_item, i|
-      @graph_values[i] = task_item.level
-      total_level += task_item.level
-    end
-    period = (@task.event[:end_time_on] - @task.event[:start_time_on]).to_i
-    full_load = total_level.to_f
-    day_quota = (full_load / period).round(1)
-    @quota = {}
-    period.times do |i|
-      @task_items.each do |task_item|
-        if day_quota < task_item.level
-          # x_axis_value += day_quota /task_item.level
-          @quota[i] = 0 #グラフ値はサンプル(後で書き換え必要)
-        else
-          # x_axis_value += 1
-          day_quota -= task_item.level
-        end
-      end
-    end
-  end
-
   def set_create_graph_area
     #各要素までの各々の面積求める〇
-    @task_items = TaskItem.where(task_id: params[:id])
+    @task_items = TaskItem.create_sorted.where(task_id: params[:id])
     quota_area = {0 => 0}
     pre_task_level = 0
     @task_items.each_with_index do |task_item, i|
