@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ edit update show destroy suggestion]
-  before_action :set_create_graph, only: %i[ show suggestion ]
+  #before_action :set_create_graph, only: %i[ show suggestion ]
+
+  before_action :set_create_graph_area, only: %i[ show] #後で消す
 
   def index
     @tasks = Task.all
@@ -110,9 +112,100 @@ class TasksController < ApplicationController
       total_level += task_item.level
     end
     period = (@task.event[:end_time_on] - @task.event[:start_time_on]).to_i
+    full_load = total_level.to_f
+    day_quota = (full_load / period).round(1)
     @quota = {}
     period.times do |i|
-      @quota[i] = total_level / (i + 1) #グラフ値はサンプル(後で書き換え必要)
+      @task_items.each do |task_item|
+        if day_quota < task_item.level
+          # x_axis_value += day_quota /task_item.level
+          @quota[i] = 0 #グラフ値はサンプル(後で書き換え必要)
+        else
+          # x_axis_value += 1
+          day_quota -= task_item.level
+        end
+      end
+    end
+  end
+
+  def set_create_graph_area
+    #各要素までの各々の面積求める〇
+    @task_items = TaskItem.where(task_id: params[:id])
+    quota_area = {0 => 0}
+    pre_task_level = 0
+    @task_items.each_with_index do |task_item, i|
+      quota_area[i] = (pre_task_level + task_item.level) / 2.0 if pre_task_level != 0
+      pre_task_level = task_item.level
+    end
+    sum_area = quota_area.values.inject(:+)
+
+    #要件-レベルグラフを作成〇
+    @graph_values = {}
+    total_level = 0
+    @task_items.each_with_index do |task_item, i|
+      @graph_values[i] = task_item.level
+      total_level += task_item.level
+    end
+    period = (@task.event[:end_time_on] - @task.event[:start_time_on]).to_i
+    full_load = total_level.to_f
+    
+    #日々のノルマを計算
+    @quota = {}
+    day_quota = (sum_area / period).round(2)
+    period.times do |i|
+      area = day_quota * (i+1)
+      quota_area.each_pair do |key, val|
+        if area < val
+          tilt = @task_items[key][:level] - @task_items[key - 1][:level]
+          intercept = @task_items[key - 1][:level]
+          a = tilt / 2.0
+          b = intercept
+          c = area.round(2) * -1
+          quadratic_equation(a, b, c)
+
+          x = @x.select{|num| num <= 1 && num > 0 }
+          x_value = key - 1 + x[0].round(2)
+          y_value = tilt * x[0].round(2) + intercept
+
+          quota = @graph_values.select{|k, v| k < x_value}
+          quota[x_value] = y_value.round(2)
+
+          break @quota[i] = quota
+        else
+          area -= val
+        end
+      end
+    end
+  end
+
+  def quadratic_equation(a, b, c)
+    @x = []
+    if (a != 0)
+      b /= a
+      c /= a
+      if (c != 0)
+        b /= 2
+        d = b * b - c
+        if (d > 0)
+          if (b > 0)
+            @x << -b - Math::sqrt(d)
+          else
+            @x << -b + Math::sqrt(d)
+          end
+          @x << (c / @x[0])
+        elsif (d < 0)
+          @x << -b
+          @x << Math::sqrt(-d)
+        else
+          @x << -b
+        end
+      else
+        @x << -b
+      end
+    elsif (b != 0)
+      @x << (-c / b)
+    else
+      @x << 0
     end
   end
 end
