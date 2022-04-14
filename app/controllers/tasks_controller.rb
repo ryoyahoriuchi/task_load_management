@@ -162,6 +162,7 @@ class TasksController < ApplicationController
   end
 
   def set_suggest_graph
+    return if params["commit"] == I18n.t('helpers.submit.update')
     start_on = Date.parse(params[:task][:event_attributes]["start_time_on"])
     end_on = Date.parse(params[:task][:event_attributes]["end_time_on"])
     period = (end_on - start_on).to_i

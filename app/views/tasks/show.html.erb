@@ -21,6 +21,6 @@
 
 <p><%= link_to I18n.t('views.link.back'), tasks_path %></p>
 
-<% unless @quota.empty? %>
+<% unless @quota.nil? %>
   <%= area_chart @array_graph, xtitle: "item", ytitle: "level", points: false, legend: "right", curve: false %>
 <% end %>
