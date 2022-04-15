@@ -1,5 +1,6 @@
 class MemosController < ApplicationController
   before_action :set_task_item, only: %i[edit update destroy]
+
   def create
     @task = Task.find(params[:task_id])
     #@task_items = TaskItem.where(task_id: params[:task_id])
@@ -56,5 +57,4 @@ class MemosController < ApplicationController
     @task = Task.find(params[:task_id])
     @task_item = TaskItem.find(memo.task_item.id)
   end
-
 end
