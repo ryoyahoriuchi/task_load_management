@@ -5,12 +5,13 @@ class TasksController < ApplicationController
   before_action :set_suggest_graph, only: %i[suggestion]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.where(user_id: current_user.id)
     if params[:label].present?
       @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids])
     end
 
-    @events = Event.all
+    @events = Event.where(task_id: @tasks.pluck(:id))
+
     @tasks = @tasks.page(params[:page]).per(5)
   end
 
