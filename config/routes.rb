@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
-  root to: "tasks#index"
+  root to: "top#index"
   resources :users, only: %i[show]
   resources :tasks do
     resources :memos
