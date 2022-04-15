@@ -19,6 +19,8 @@ gem 'kaminari'
 gem 'chartkick'
 gem 'rails_admin', '~> 3.0'
 gem 'cancancan'
+gem 'carrierwave'
+gem 'mini_magick'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 
