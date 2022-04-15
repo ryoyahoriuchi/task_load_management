@@ -153,12 +153,15 @@ class TasksController < ApplicationController
     end
     #グラフに引き渡す値に修正
     @array_graph = []
+    count = 0
     @quota.each_with_index do |k, i|
       hash_graph = {}
       hash_graph[:name] = "day#{i + 1}"
       hash_graph[:data] = @quota[i]
       @array_graph[i] =  hash_graph
+      count = i
     end
+    @array_graph[count + 1] = {name: "day#{count + 2}", data: @graph_values}
   end
 
   def set_suggest_graph
@@ -213,12 +216,15 @@ class TasksController < ApplicationController
       end
     end
     @array_graph = []
+    count = 0
     @quota.each_with_index do |k, i|
       hash_graph = {}
       hash_graph[:name] = "day#{i + 1}"
       hash_graph[:data] = @quota[i]
       @array_graph[i] =  hash_graph
+      count = i
     end
+    @array_graph[count + 1] = {name: "day#{count + 2}", data: @graph_values}
   end
 
   def quadratic_equation(a, b, c)
