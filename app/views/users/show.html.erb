@@ -11,7 +11,7 @@
   <p><%= I18n.t('activerecord.models.user')%>：<%= @user.name %></p>
   <p><%= I18n.t('activerecord.attributes.user.email')%>：<%= @user.email %></p>
 
-  <p><%= link_to "タスク実績", root_path %><p>
+  <p><%= link_to "タスク実績", achievement_task_path(@user.id) %><p>
 
   <% unless @achievement.empty? %>
     <%= pie_chart @achievement %>

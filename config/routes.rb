@@ -8,9 +8,11 @@ Rails.application.routes.draw do
     collection do
       post :suggestion
       patch :suggestion
+      get :other_achievement
     end
     member do
       patch :suggestion
+      get :achievement
     end
   end
 

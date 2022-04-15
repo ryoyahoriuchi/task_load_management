@@ -11,7 +11,6 @@ class TasksController < ApplicationController
     end
 
     @events = Event.where(task_id: @tasks.pluck(:id))
-
     @tasks = @tasks.page(params[:page]).per(5)
   end
 
@@ -84,6 +83,22 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     redirect_to tasks_path, notice: I18n.t('views.messages.deleted_task')
+  end
+
+  def achievement
+    @tasks = Task.where(user_id: current_user.id, status: 2)
+    if params[:label].present?
+      @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids])
+    end
+    @tasks = @tasks.page(params[:page]).per(5)
+  end
+
+  def other_achievement
+    @tasks = Task.where.not(user_id: current_user.id).where(status: 2)
+    if params[:label].present?
+      @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids])
+    end
+    @tasks = @tasks.page(params[:page]).per(5)
   end
 
   private

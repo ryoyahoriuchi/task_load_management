@@ -19,7 +19,7 @@
     <%= render partial: "memos/form", locals: { memo: @memo, task: @task, task_item: @task_items[i] } %>
 <% end %>
 
-<p><%= link_to I18n.t('views.link.back'), tasks_path %></p>
+<p><%= link_to I18n.t('views.link.back'), :back %></p>
 
 <% unless @quota.nil? %>
   <%= area_chart @array_graph, xtitle: "item", ytitle: "level", points: false, legend: "right", curve: false %>
