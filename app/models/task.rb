@@ -19,4 +19,6 @@ class Task < ApplicationRecord
 
   has_one :event, dependent: :destroy
   accepts_nested_attributes_for :event, allow_destroy: true
+
+  belongs_to :user
 end

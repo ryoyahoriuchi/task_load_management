@@ -21,7 +21,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     hash_label = {}
     params[:task][:label_ids].each do |label|
       hash_label[:label_ids] = label.split(",").flatten
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
 
   def suggestion
     if params[:commit] == I18n.t('helpers.submit.create')
-      @task = Task.new(task_params)
+      @task = current_user.tasks.build(task_params)
       render :new if @task.invalid?
     else
       @task = Task.find(params[:id])
@@ -72,7 +72,6 @@ class TasksController < ApplicationController
   end
 
   def show
-    #@task_items = TaskItem.where(task_id: params[:id])
     @memo = []
     @memos = @task_items.map do |task_item|
       @memo = task_item.memos.build
@@ -165,7 +164,6 @@ class TasksController < ApplicationController
   end
 
   def set_suggest_graph
-    return if params["commit"] == I18n.t('helpers.submit.update')
     start_on = Date.parse(params[:task][:event_attributes]["start_time_on"])
     end_on = Date.parse(params[:task][:event_attributes]["end_time_on"])
     period = (end_on - start_on).to_i
