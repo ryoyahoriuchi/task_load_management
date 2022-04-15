@@ -137,7 +137,7 @@ ja:
       body: 次の項目を確認してください
       header:
         one: "にエラーが発生しました"
-        other: "個のエラーが発生しました"
+        other: "件のエラーが発生しました"
   helpers:
     select:
       prompt: 選択してください

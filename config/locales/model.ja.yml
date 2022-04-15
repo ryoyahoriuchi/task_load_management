@@ -5,6 +5,8 @@ ja:
       task: タスク
       task_item: 要件
       memo: メモ
+      label: ラベル
+      event: イベント
     attributes:
       task:
         title: タイトル
@@ -15,6 +17,11 @@ ja:
         level: レベル
       memo:
         content: メモ
+      label:
+        search: ラベル検索
+      event:
+        start_time_on: 開始日
+        end_time_on: 〆切
   models:
     enums:
       not_started: '未着手'
@@ -32,6 +39,8 @@ ja:
       deleted_memo: 'メモを削除しました！'
       confirm_whether_delete_memo: 'メモを削除しますか？'
       schedule_proposal: '以下のスケジュールで計画しますか？'
+    errors:
+      appropriate_start_and_end_dates: 'より前の日に〆切を設定することはできません'
     button:
       show: '詳細'
       edit: '編集'
@@ -45,3 +54,5 @@ ja:
       remove_task_item: '要件削除'
       back: '戻る'
       create_task: 'タスク作成'
+    label:
+      period: 期間

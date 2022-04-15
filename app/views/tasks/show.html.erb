@@ -4,7 +4,11 @@
 <p><%= I18n.t('activerecord.attributes.task.title')%>:<%= @task.title %></p>
 <p><%= I18n.t('activerecord.attributes.task.overview')%>:<%= @task.overview %></p>
 <p><%= I18n.t('activerecord.attributes.task.status')%>:<%= I18n.t("models.enums.#{@task.status}") %></p>
+<p><%= I18n.t('views.label.period') %>：<%= @task.event.start_time_on %>～<%= @task.event.end_time_on %></p>
 
+<p><% @task.labels.each_with_index do |label, i| %>
+  <span>label<%= "#{i + 1}"%>:<%= label.genre %></span>
+<% end %></p>
 
 <% @task_items.each_with_index do |task_item, i| %>
     <strong><%= I18n.t('activerecord.models.task_item') %><%= "#{i + 1}" %>:</strong><%= task_item.item %>
@@ -16,3 +20,7 @@
 <% end %>
 
 <p><%= link_to I18n.t('views.link.back'), tasks_path %></p>
+
+<% unless @quota.nil? %>
+  <%= area_chart @array_graph, xtitle: "item", ytitle: "level", points: false, legend: "right", curve: false %>
+<% end %>

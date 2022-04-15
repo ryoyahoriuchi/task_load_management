@@ -5,7 +5,15 @@
     <th><%= I18n.t('activerecord.attributes.task.title')%></th>
     <th><%= I18n.t('activerecord.attributes.task.overview')%></th>
     <th><%= I18n.t('activerecord.attributes.task.status')%></th>
+    <th><%= I18n.t('activerecord.models.label')%></th>
     <th colspan="3"></th>
+    <th>
+      <%= form_with(scope: :label, url: tasks_path, local: true, method: :get ) do |f| %>
+        <%= f.label I18n.t('activerecord.attributes.label.search') %>
+        <%= f.collection_check_boxes(:label_ids, Label.all, :id, :genre ) %>
+        <%= f.submit I18n.t('activerecord.attributes.label.search') %>
+      <% end %>
+    </th>
   </thead>
   </tbody>
     <% @tasks.each do |task| %>
@@ -13,6 +21,9 @@
         <td><%= task.title %></td>
         <td><%= task.overview %></td>
         <td><%= I18n.t("models.enums.#{task.status}") %></td>
+        <td><% task.labels.each_with_index do |label, i| %>
+          <span>[<%= label.genre %>]</span>
+        <% end %></td>
         <td><%= button_to I18n.t('views.button.show'), task_path(task.id), method: :get %></td>
         <td><%= button_to I18n.t('views.button.edit'), edit_task_path(task.id), method: :get %></td>
         <td><%= button_to I18n.t('views.button.delete'), task_path(task.id), method: :delete %></td>
@@ -21,4 +32,8 @@
   </tbody>
 </table>
 
+<%= paginate @tasks %>
+
 <%= link_to I18n.t('views.link.create_task'), new_task_path %>
+
+<div id='calendar'></div>

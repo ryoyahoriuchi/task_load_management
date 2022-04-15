@@ -15,6 +15,8 @@ gem 'enum_help'
 gem 'devise'
 gem 'devise-i18n'
 gem 'rexml'
+gem 'kaminari'
+gem 'chartkick'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 

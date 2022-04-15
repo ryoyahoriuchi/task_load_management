@@ -5,6 +5,8 @@ en:
       task: task
       task_item: item
       memo: memo
+      label: label
+      event: event
     attributes:
       task:
         title: title
@@ -15,6 +17,11 @@ en:
         level: level
       memo:
         content: memo
+      label:
+        search: serach
+      event:
+        start_time_on: start date
+        end_time_on: deadline
   models:
     enums:
       not_started: 'Not started'
@@ -32,6 +39,8 @@ en:
       deleted_memo: 'Successfully deleted a memo!'
       confirm_whether_delete_memo: 'Do you want to delete the memo?'
       schedule_proposal: 'Do you plan on the following schedule?'
+    errors:
+      appropriate_start_and_end_dates: 'cannot be set to a date after the deadline'
     button:
       show: 'Show'
       edit: 'Edit'
@@ -45,3 +54,5 @@ en:
       remove_task_item: 'Remote item'
       back: 'back'
       create_task: 'Create task'
+    label:
+      period: period

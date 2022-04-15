@@ -21,6 +21,16 @@
     <%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("models.enums.#{k}"), k]} %>
   <% end %>
 
+  <%= f.fields_for :event do |t| %>
+    <%= t.label :start_time_on %>
+    <%= t.date_field :start_time_on %>
+    <%= t.label :end_time_on %>
+    <%= t.date_field :end_time_on %>
+  <% end %>
+
+  <%= f.label :label %>
+  <%= f.collection_check_boxes(:label_ids, Label.all, :id, :genre ) %>
+
   <%= f.fields_for :task_items do |item| %>
     <p><%= render 'item_fields', f: item %></p>
   <% end %>
@@ -32,4 +42,3 @@
 <% end %>
 
 <%= link_to I18n.t('views.link.back'), tasks_path %>
-
