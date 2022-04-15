@@ -12,8 +12,8 @@
 
   <body>
     <% if user_signed_in? %>
-      <%= link_to "マイページ", root_path %>
-      <%= link_to "タスク作成", root_path %>
+      <%= link_to "マイページ", user_path(current_user.id) %>
+      <%= link_to "タスク作成", new_task_path %>
       <%= link_to "タスク一覧", tasks_path %>
       <%= link_to "管理者権限", root_path %>
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>

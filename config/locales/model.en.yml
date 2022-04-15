@@ -26,6 +26,7 @@ en:
         end_time_on: deadline
       user:
         name: account name
+        email: email
   models:
     enums:
       not_started: 'Not started'

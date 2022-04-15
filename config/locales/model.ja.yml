@@ -26,6 +26,7 @@ ja:
         end_time_on: 〆切
       user:
         name: アカウント名
+        email: メール
   models:
     enums:
       not_started: '未着手'

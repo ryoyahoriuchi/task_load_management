@@ -1,0 +1,16 @@
+<h1>User page</h1>
+
+<div class="main">
+  
+</div>
+
+<div class="aside">
+  <p><%= I18n.t('activerecord.models.user')%>：<%= @user.name %></p>
+  <p><%= I18n.t('activerecord.attributes.user.email')%>：<%= @user.email %></p>
+
+  <p><%= link_to "タスク実績", root_path %><p>
+
+  <% unless @achievement.empty? %>
+    <%= pie_chart @achievement %>
+  <% end %>
+</div>
