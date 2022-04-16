@@ -7,7 +7,7 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.where(user_id: current_user.id)
     if params[:label].present?
-      @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids])
+      @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids]) if params[:label][:label_ids].size != 1
     end
 
     @events = Event.where(task_id: @tasks.pluck(:id))
@@ -88,7 +88,7 @@ class TasksController < ApplicationController
   def achievement
     @tasks = Task.where(user_id: current_user.id, status: 2)
     if params[:label].present?
-      @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids])
+      @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids]) if params[:label][:label_ids].size != 1
     end
     @tasks = @tasks.page(params[:page]).per(5)
   end
@@ -96,7 +96,7 @@ class TasksController < ApplicationController
   def other_achievement
     @tasks = Task.where.not(user_id: current_user.id).where(status: 2)
     if params[:label].present?
-      @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids])
+      @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids]) if params[:label][:label_ids].size != 1
     end
     @tasks = @tasks.page(params[:page]).per(5)
   end
