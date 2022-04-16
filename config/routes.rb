@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  devise_for :users
+  devise_for :users, :controllers => {
+    :registrations => 'users/registrations',
+  }
   root to: "top#index"
   resources :users, only: %i[show]
   resources :tasks do
