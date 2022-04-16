@@ -15,4 +15,13 @@ class User < ApplicationRecord
       user.skip_confirmation!
     end
   end
+
+  def self.guest_admin
+    find_or_create_by!(email: 'guest_admin@mail.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = 'guest_admin'
+      user.admin = true
+      user.skip_confirmation!
+    end
+  end
 end
