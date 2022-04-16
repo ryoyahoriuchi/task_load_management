@@ -12,14 +12,16 @@
 
   <body>
     <% if user_signed_in? %>
-      <%= link_to "マイページ", user_path(current_user.id) %>
-      <%= link_to "タスク作成", new_task_path %>
-      <%= link_to "タスク一覧", tasks_path %>
-      <%= link_to "管理者権限", rails_admin_path %>
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+      <%= link_to I18n.t('views.link.my_page'), user_path(current_user.id) %>
+      <%= link_to I18n.t('views.link.create_task'), new_task_path %>
+      <%= link_to I18n.t('views.link.list_task'), tasks_path %>
+      <% if current_user.admin? %>
+        <%= link_to I18n.t('views.link.administrator_privileges'), rails_admin_path %>
+      <% end %>
+      <%= link_to I18n.t('views.link.logout'), destroy_user_session_path, method: :delete %>
     <% else %>
-      <%= link_to "アカウント新規作成", new_user_registration_path %>
-      <%= link_to "ログイン", new_user_session_path %>
+      <%= link_to I18n.t('views.link.account_registration'), new_user_registration_path %>
+      <%= link_to I18n.t('views.link.login'), new_user_session_path %>
     <% end %>
 
     <% flash.each do |key, value| %>
