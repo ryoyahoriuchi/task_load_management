@@ -180,6 +180,7 @@ class TasksController < ApplicationController
   end
 
   def set_suggest_graph
+    return if params[:task][:task_items_attributes].nil?
     start_on = Date.parse(params[:task][:event_attributes]["start_time_on"])
     end_on = Date.parse(params[:task][:event_attributes]["end_time_on"])
     period = (end_on - start_on).to_i

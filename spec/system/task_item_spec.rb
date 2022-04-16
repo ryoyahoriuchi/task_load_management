@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Task item function', type: :system do
 
-  let!(:first_task) { FactoryBot.create(:first_task) }
-  let!(:second_task) { FactoryBot.create(:second_task) }
+  let!(:first_user) { FactoryBot.create(:first_user) }
+  let!(:first_task) { FactoryBot.create(:first_task, user: first_user) }
+  let!(:second_task) { FactoryBot.create(:second_task, user: first_user) }
   let!(:first_event) { FactoryBot.create(:first_event, task: first_task) }
   let!(:second_event) { FactoryBot.create(:second_event, task: second_task) }
   let!(:first_task_item) { FactoryBot.create(:first_task_item, task: first_task) }
@@ -11,12 +12,19 @@ RSpec.describe 'Task item function', type: :system do
 
   before do
     visit root_path
+    click_link I18n.t('views.link.login')
+    fill_in 'user[email]', with: 'jack@mail.com'
+    fill_in 'user[password]', with: 'password'
+    click_button "ログイン"
+    click_link I18n.t('views.link.list_task')
   end
 
   describe 'New creation function' do
     context 'When an item is created accoding to the creation of a new task' do
       it 'Items will be displayed according to the new task' do
-        click_link I18n.t('views.link.create_task')
+        within 'nav' do
+          click_link I18n.t('views.link.create_task')
+        end
         fill_in 'task[title]', with: 'title_item'
         fill_in 'task[overview]', with: 'overview_item'
         fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"
@@ -35,7 +43,9 @@ RSpec.describe 'Task item function', type: :system do
 
     context 'When multiple items are created in response to the creation of a new task' do
       it 'New task presents multiple items' do
-        click_link I18n.t('views.link.create_task')
+        within 'nav' do
+          click_link I18n.t('views.link.create_task')
+        end
         fill_in 'task[title]', with: 'title_item2'
         fill_in 'task[overview]', with: 'overview_item2'
         fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"

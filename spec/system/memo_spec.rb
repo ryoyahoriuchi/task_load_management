@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Memo function', type: :system do
 
-  let!(:first_task) { FactoryBot.create(:first_task) }
-  let!(:second_task) { FactoryBot.create(:second_task) }
+  let!(:first_user) { FactoryBot.create(:first_user) }
+  let!(:first_task) { FactoryBot.create(:first_task, user: first_user) }
+  let!(:second_task) { FactoryBot.create(:second_task, user: first_user) }
   let!(:first_event) { FactoryBot.create(:first_event, task: first_task) }
   let!(:second_event) { FactoryBot.create(:second_event, task: second_task) }
   let!(:first_task_item) { FactoryBot.create(:first_task_item, task: first_task) }
@@ -12,6 +13,11 @@ RSpec.describe 'Memo function', type: :system do
 
   before do
     visit root_path
+    click_link I18n.t('views.link.login')
+    fill_in 'user[email]', with: 'jack@mail.com'
+    fill_in 'user[password]', with: 'password'
+    click_button "ログイン"
+    click_link I18n.t('views.link.list_task')
   end
 
   describe 'New creation function' do
