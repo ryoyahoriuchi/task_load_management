@@ -7,4 +7,12 @@ class User < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   has_many :tasks, dependent: :destroy
+
+  def self.guest
+    find_or_create_by!(email: 'guest@mail.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = 'guest'
+      user.skip_confirmation!
+    end
+  end
 end
