@@ -10,3 +10,13 @@ html {
 main {
   margin-bottom: 150px;
 }
+
+.content {
+  padding: 20px 50px;
+  display: table;
+  border-collapse: separate;
+  justify-content: center;
+  background-color: white;
+  border: solid gray;
+  border-radius: 15px;
+}
