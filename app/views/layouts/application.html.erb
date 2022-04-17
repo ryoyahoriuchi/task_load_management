@@ -6,34 +6,48 @@
     <%= csp_meta_tag %>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+      <div class="container">
+          <a class="navbar-brand fw-bold d-lg-none" href="/">TaskLoadManagement</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto">
+                <% if user_signed_in? %>
+                  <li class="nav-item px-lg-4"><div class="nav-link text-uppercase" ><%= link_to I18n.t('views.link.my_page'), user_path(current_user.id) %></div></li>
+                  <li class="nav-item px-lg-4"><div class="nav-link text-uppercase" ><%= link_to I18n.t('views.link.create_task'), new_task_path %></div></li>
+                  <li class="nav-item px-lg-4"><div class="nav-link text-uppercase" ><%= link_to I18n.t('views.link.list_task'), tasks_path %></div></li>
+                  <% if current_user.admin? %>
+                    <li class="nav-item px-lg-4"><div class="nav-link text-uppercase"><%= link_to I18n.t('views.link.administrator_privileges'), rails_admin_path %></div></li>
+                  <% end %>
+                  <li class="nav-item px-lg-4"><div class="nav-link text-uppercase"><%= link_to I18n.t('views.link.logout'), destroy_user_session_path, method: :delete %></div></li>
+                <% else %>
+                  <li class="nav-item px-lg-4"><div class="nav-link text-uppercase"><%= link_to I18n.t('views.link.account_registration'), new_user_registration_path %></div></li>
+                  <li class="nav-item px-lg-4"><div class="nav-link text-uppercase"><%= link_to I18n.t('views.link.login'), new_user_session_path %></div></li>
+                <% end %>
+              </ul>
+          </div>
+      </div>
+    </nav>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <nav>
-      <% if user_signed_in? %>
-        <%= link_to I18n.t('views.link.my_page'), user_path(current_user.id) %>
-        <%= link_to I18n.t('views.link.create_task'), new_task_path %>
-        <%= link_to I18n.t('views.link.list_task'), tasks_path %>
-        <% if current_user.admin? %>
-          <%= link_to I18n.t('views.link.administrator_privileges'), rails_admin_path %>
-        <% end %>
-        <%= link_to I18n.t('views.link.logout'), destroy_user_session_path, method: :delete %>
-      <% else %>
-        <%= link_to I18n.t('views.link.account_registration'), new_user_registration_path %>
-        <%= link_to I18n.t('views.link.login'), new_user_session_path %>
-      <% end %>
-    </nav>
 
     <% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>
 
     <%= yield %>
+    <footer class="footer text-faded text-center py-5">
+      <div class="container"><p class="m-0 small">Copyright &copy; TaskLoadManagement 2022</p></div>
+    </footer>
   </body>
 </html>
