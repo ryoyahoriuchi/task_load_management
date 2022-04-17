@@ -1,19 +1,24 @@
-<h1><%= @user.name %> <%= I18n.t('views.sentence.page') %></h1>
+<div class="main container">
+  <div class="row">
+    <div class="col align-self-start">
+      <h2 class="pt-4"><%= @user.name %> <%= I18n.t('views.sentence.page') %></h2>
+      <% if @user.image.url %>
+        <div class="icon">
+          <%= image_tag @user.image.url %>
+        </div>
+      <% end %>
+      <%= button_to I18n.t('views.button.mypage_edit'), edit_user_registration_path(@user.id), method: :get, class: "btn btn-primary" %>
+    </div>
 
-<div class="main">
-  <% if @user.image.url %>
-    <%= image_tag @user.image.url %>
-  <% end %>
-  <%= button_to I18n.t('views.button.mypage_edit'), edit_user_registration_path(@user.id), method: :get %>
-</div>
+    <div class="aside col align-self-end pt-4 mt-5">
+      <p><%= I18n.t('activerecord.models.user')%>：<%= @user.name %></p>
+      <p><%= I18n.t('activerecord.attributes.user.email')%>：<%= @user.email %></p>
 
-<div class="aside">
-  <p><%= I18n.t('activerecord.models.user')%>：<%= @user.name %></p>
-  <p><%= I18n.t('activerecord.attributes.user.email')%>：<%= @user.email %></p>
+      <p><%= link_to I18n.t('views.link.achievement_task'), achievement_task_path(@user.id) %><p>
 
-  <p><%= link_to I18n.t('views.link.achievement_task'), achievement_task_path(@user.id) %><p>
-
-  <% if @achievement.values.sum != 0 %>
-    <%= pie_chart @achievement %>
-  <% end %>
+      <% if @achievement.values.sum != 0 %>
+        <%= pie_chart @achievement, legend: "right" %>
+      <% end %>
+    </div>
+  </div>
 </div>
