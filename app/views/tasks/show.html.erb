@@ -13,13 +13,13 @@
 <% @task_items.each_with_index do |task_item, i| %>
     <strong><%= I18n.t('activerecord.models.task_item') %><%= "#{i + 1}" %>:</strong><%= task_item.item %>
     <%= I18n.t('activerecord.attributes.task_item.level')%>:<%= task_item.level %>
-    <div id=<%="memos_area_#{task_item.id}"%>>
-      <%= render partial: "memos/index", locals: { memos: task_item.memos, task: @task } %>
-    </div>
-    <%= render partial: "memos/form", locals: { memo: @memo, task: @task, task_item: @task_items[i] } %>
+    <% if @task.user_id == current_user.id || current_user.admin? %>
+      <div id=<%="memos_area_#{task_item.id}"%>>
+        <%= render partial: "memos/index", locals: { memos: task_item.memos, task: @task } %>
+      </div>
+      <%= render partial: "memos/form", locals: { memo: @memo, task: @task, task_item: @task_items[i] } %>
+    <% end %>
 <% end %>
-
-<p><%= link_to I18n.t('views.link.back'), tasks_path %></p>
 
 <% unless @quota.nil? %>
   <%= area_chart @array_graph, xtitle: "item", ytitle: "level", points: false, legend: "right", curve: false %>

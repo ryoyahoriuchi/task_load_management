@@ -7,6 +7,8 @@ en:
       memo: memo
       label: label
       event: event
+      labeling: labeling
+      user: user
     attributes:
       task:
         title: title
@@ -22,6 +24,9 @@ en:
       event:
         start_time_on: start date
         end_time_on: deadline
+      user:
+        name: account name
+        email: email
   models:
     enums:
       not_started: 'Not started'
@@ -39,6 +44,11 @@ en:
       deleted_memo: 'Successfully deleted a memo!'
       confirm_whether_delete_memo: 'Do you want to delete the memo?'
       schedule_proposal: 'Do you plan on the following schedule?'
+      unable_to_access_other_user_pages: 'Unable to access other user pages...'
+      logged_in_as_guest_user: 'You logged in as a guest user!'
+      logged_in_as_guest_admin_user: 'You logged in as a guest admin user!'
+    sentence:
+      page: page
     errors:
       appropriate_start_and_end_dates: 'cannot be set to a date after the deadline'
     button:
@@ -49,10 +59,20 @@ en:
       memo_edit: 'Memo edit'
       memo_delete: 'Memo delete'
       back: 'back'
+      mypage_edit: 'My page edit'
     link:
       add_task_item: 'Add item'
       remove_task_item: 'Remote item'
       back: 'back'
       create_task: 'Create task'
+      achievement_task: 'Task achievements'
+      other_achievement_task: 'Other user task achievements'
+      my_page: 'My page'
+      create_task: 'Create task'
+      list_task: 'Task list'
+      administrator_privileges: 'Administrator privileges'
+      logout: 'Logout'
+      login: 'Login'
+      account_registration: 'Account registration'
     label:
       period: period

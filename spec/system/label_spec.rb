@@ -2,21 +2,29 @@ require 'rails_helper'
 
 RSpec.describe 'Label function', type: :system do
 
+  let!(:first_user) { FactoryBot.create(:first_user) }
   let!(:first_label) { FactoryBot.create(:first_label) }
   let!(:second_label) { FactoryBot.create(:second_label) }
   let!(:third_label) { FactoryBot.create(:third_label) }
-  let!(:first_task) { FactoryBot.create(:first_task) }
+  let!(:first_task) { FactoryBot.create(:first_task, user: first_user) }
   let!(:first_event) { FactoryBot.create(:first_event, task: first_task) }
   let!(:first_task_item) { FactoryBot.create(:first_task_item, task: first_task) }
 
   before do
     visit root_path
+    click_link I18n.t('views.link.login')
+    fill_in 'user[email]', with: 'jack@mail.com'
+    fill_in 'user[password]', with: 'password'
+    click_button "ログイン"
+    click_link I18n.t('views.link.list_task')
   end
 
   describe 'Label mounting function' do
     context 'Can be labeled when creating a task' do
       it 'Labels are displayed according to the task' do
-        click_link I18n.t('views.link.create_task')
+        within 'nav' do
+          click_link I18n.t('views.link.create_task')
+        end
         fill_in 'task[title]', with: 'title_test'
         fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"
         fill_in "task[event_attributes][end_time_on]", with: "002022-04-15"
@@ -32,7 +40,9 @@ RSpec.describe 'Label function', type: :system do
 
     context 'Can add multiple labels when creating a task' do
       it 'Multiple labels are displayed depending on the task' do
-        click_link I18n.t('views.link.create_task')
+        within 'nav' do
+          click_link I18n.t('views.link.create_task')
+        end
         fill_in 'task[title]', with: 'title_test'
         fill_in 'task[overview]', with: 'overview_test'
         fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"
@@ -65,38 +75,39 @@ RSpec.describe 'Label function', type: :system do
     context 'When the label associated with the task is deleted' do
       it 'The corresponding label is not displayed' do
         expect(page).to have_content 'red'
-        click_link I18n.t('views.button.back')
+        click_link I18n.t('views.link.list_task')
         click_button I18n.t('views.button.edit')
-        check 'red'
+        uncheck 'red'
         click_button I18n.t('helpers.submit.update')
         click_button I18n.t('views.button.create')
-        expect(page).to have_content 'red'
+        expect(page).not_to have_content 'red'
       end
     end
   end
 
   describe 'Label search function' do
-    let!(:second_task) { FactoryBot.create(:second_task) }
+    let!(:first_user) { FactoryBot.create(:first_user) }
+    let!(:second_task) { FactoryBot.create(:second_task, user: first_user) }
     let!(:second_event) { FactoryBot.create(:second_event, task: second_task) }
     let!(:second_task_item) { FactoryBot.create(:second_task_item, task: second_task) }
-    let!(:third_task) { FactoryBot.create(:third_task) }
+    let!(:third_task) { FactoryBot.create(:third_task, user: first_user) }
     let!(:third_event) { FactoryBot.create(:third_event, task: third_task) }
     let!(:third_task_item) { FactoryBot.create(:third_task_item, task: third_task) }
     before do
-      visit root_path
+      visit tasks_path
       id = all('table tbody tr')
       id[0].click_button I18n.t('views.button.edit')
       check 'red'
       click_button I18n.t('helpers.submit.update')
       click_button I18n.t('views.button.create')
-      click_link I18n.t('views.link.back')
+      click_link I18n.t('views.link.list_task')
       id = all('table tbody tr')
       id[1].click_button I18n.t('views.button.edit')
       check 'red'
       check 'blue'
       click_button I18n.t('helpers.submit.update')
       click_button I18n.t('views.button.create')
-      click_link I18n.t('views.link.back')
+      click_link I18n.t('views.link.list_task')
     end
     context 'When searching by selecting a label' do
       it 'Only the corresponding label list is displayed' do

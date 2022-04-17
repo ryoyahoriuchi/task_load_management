@@ -11,9 +11,25 @@
   </head>
 
   <body>
+    <nav>
+      <% if user_signed_in? %>
+        <%= link_to I18n.t('views.link.my_page'), user_path(current_user.id) %>
+        <%= link_to I18n.t('views.link.create_task'), new_task_path %>
+        <%= link_to I18n.t('views.link.list_task'), tasks_path %>
+        <% if current_user.admin? %>
+          <%= link_to I18n.t('views.link.administrator_privileges'), rails_admin_path %>
+        <% end %>
+        <%= link_to I18n.t('views.link.logout'), destroy_user_session_path, method: :delete %>
+      <% else %>
+        <%= link_to I18n.t('views.link.account_registration'), new_user_registration_path %>
+        <%= link_to I18n.t('views.link.login'), new_user_session_path %>
+      <% end %>
+    </nav>
+
     <% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>
+
     <%= yield %>
   </body>
 </html>

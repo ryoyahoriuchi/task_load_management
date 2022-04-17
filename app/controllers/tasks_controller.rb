@@ -1,16 +1,16 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ edit update show destroy suggestion]
+  before_action :authenticate_user!
   before_action :set_create_graph_area, only: %i[show]
   before_action :set_suggest_graph, only: %i[suggestion]
 
-
   def index
-    @tasks = Task.all
+    @tasks = Task.where(user_id: current_user.id)
     if params[:label].present?
-      @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids])
+      @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids]) if params[:label][:label_ids].size != 1
     end
 
-    @events = Event.all
+    @events = Event.where(task_id: @tasks.pluck(:id))
     @tasks = @tasks.page(params[:page]).per(5)
   end
 
@@ -21,7 +21,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     hash_label = {}
     params[:task][:label_ids].each do |label|
       hash_label[:label_ids] = label.split(",").flatten
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
 
   def suggestion
     if params[:commit] == I18n.t('helpers.submit.create')
-      @task = Task.new(task_params)
+      @task = current_user.tasks.build(task_params)
       render :new if @task.invalid?
     else
       @task = Task.find(params[:id])
@@ -72,7 +72,6 @@ class TasksController < ApplicationController
   end
 
   def show
-    #@task_items = TaskItem.where(task_id: params[:id])
     @memo = []
     @memos = @task_items.map do |task_item|
       @memo = task_item.memos.build
@@ -84,6 +83,22 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     redirect_to tasks_path, notice: I18n.t('views.messages.deleted_task')
+  end
+
+  def achievement
+    @tasks = Task.where(user_id: current_user.id, status: 2)
+    if params[:label].present?
+      @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids]) if params[:label][:label_ids].size != 1
+    end
+    @tasks = @tasks.page(params[:page]).per(5)
+  end
+
+  def other_achievement
+    @tasks = Task.where.not(user_id: current_user.id).where(status: 2)
+    if params[:label].present?
+      @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids]) if params[:label][:label_ids].size != 1
+    end
+    @tasks = @tasks.page(params[:page]).per(5)
   end
 
   private
@@ -165,7 +180,7 @@ class TasksController < ApplicationController
   end
 
   def set_suggest_graph
-    return if params["commit"] == I18n.t('helpers.submit.update')
+    return if params[:task][:task_items_attributes].nil?
     start_on = Date.parse(params[:task][:event_attributes]["start_time_on"])
     end_on = Date.parse(params[:task][:event_attributes]["end_time_on"])
     period = (end_on - start_on).to_i

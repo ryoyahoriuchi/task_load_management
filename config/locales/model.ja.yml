@@ -7,6 +7,8 @@ ja:
       memo: メモ
       label: ラベル
       event: イベント
+      labeling: ラベリング
+      user: ユーザー
     attributes:
       task:
         title: タイトル
@@ -22,6 +24,9 @@ ja:
       event:
         start_time_on: 開始日
         end_time_on: 〆切
+      user:
+        name: アカウント名
+        email: メール
   models:
     enums:
       not_started: '未着手'
@@ -39,6 +44,11 @@ ja:
       deleted_memo: 'メモを削除しました！'
       confirm_whether_delete_memo: 'メモを削除しますか？'
       schedule_proposal: '以下のスケジュールで計画しますか？'
+      unable_to_access_other_user_pages: '他ユーザーページにはアクセスできません'
+      logged_in_as_guest_user: 'ゲストユーザーとしてログインしました！'
+      logged_in_as_guest_admin_user: 'ゲスト管理者としてログインしました！'
+    sentence:
+      page: 'ページ'
     errors:
       appropriate_start_and_end_dates: 'より前の日に〆切を設定することはできません'
     button:
@@ -49,10 +59,20 @@ ja:
       memo_edit: 'メモ編集'
       memo_delete: 'メモ削除'
       back: '戻る'
+      mypage_edit: 'マイページ編集'
     link:
       add_task_item: '要件追加'
       remove_task_item: '要件削除'
       back: '戻る'
       create_task: 'タスク作成'
+      achievement_task: 'タスク実績'
+      other_achievement_task: '他ユーザータスク実績'
+      my_page: 'マイページ'
+      create_task: 'タスク作成'
+      list_task: 'タスク一覧'
+      administrator_privileges: '管理者権限'
+      logout: 'ログアウト'
+      login: 'ログイン'
+      account_registration: 'アカウント登録'
     label:
       period: 期間
