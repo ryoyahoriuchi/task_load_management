@@ -44,8 +44,9 @@
     <% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>
-
-    <%= yield %>
+    <main>
+      <%= yield %>
+    </main>
     <footer class="footer text-faded text-center py-5">
       <div class="container"><p class="m-0 small">Copyright &copy; TaskLoadManagement 2022</p></div>
     </footer>

@@ -11418,6 +11418,10 @@ p {
 
 .footer {
   background-color: rgba(47, 23, 15, 0.9);
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  margin-top: 150px;
 }
 
 .intro {
