@@ -13,7 +13,7 @@
 
   <p><%= link_to I18n.t('views.link.achievement_task'), achievement_task_path(@user.id) %><p>
 
-  <% unless @achievement.empty? %>
+  <% if @achievement.values.sum != 0 %>
     <%= pie_chart @achievement %>
   <% end %>
 </div>
