@@ -1,10 +1,10 @@
-<h1>User page</h1>
+<h1><%= @user.name %> <%= I18n.t('views.sentence.page') %></h1>
 
 <div class="main">
   <% if @user.image.url %>
     <%= image_tag @user.image.url %>
   <% end %>
-  <%= button_to "マイページ編集", edit_user_registration_path(@user.id), method: :get %>
+  <%= button_to I18n.t('views.button.mypage_edit'), edit_user_registration_path(@user.id), method: :get %>
 </div>
 
 <div class="aside">
