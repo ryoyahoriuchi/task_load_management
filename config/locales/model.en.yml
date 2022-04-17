@@ -27,6 +27,7 @@ en:
       user:
         name: account name
         email: email
+        image: icon
   models:
     enums:
       not_started: 'Not started'

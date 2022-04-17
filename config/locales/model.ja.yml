@@ -27,6 +27,7 @@ ja:
       user:
         name: アカウント名
         email: メール
+        image: アイコン
   models:
     enums:
       not_started: '未着手'
