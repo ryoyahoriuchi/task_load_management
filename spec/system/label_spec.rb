@@ -62,6 +62,7 @@ RSpec.describe 'Label function', type: :system do
   describe 'Label editing function' do
     before do
       click_button I18n.t('views.button.edit')
+      sleep 0.5
       check 'red'
       click_button I18n.t('views.button.update')
       click_button I18n.t('views.button.create')
@@ -75,7 +76,6 @@ RSpec.describe 'Label function', type: :system do
     context 'When the label associated with the task is deleted' do
       it 'The corresponding label is not displayed' do
         expect(page).to have_content 'red'
-        click_link I18n.t('views.link.list_task')
         click_button I18n.t('views.button.edit')
         uncheck 'red'
         click_button I18n.t('views.button.update')
