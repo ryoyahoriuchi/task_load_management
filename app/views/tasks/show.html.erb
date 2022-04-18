@@ -1,26 +1,38 @@
 <h1>show task</h1>
 <p id="notice"><%= notice %></p>
 
-<p><%= I18n.t('activerecord.attributes.task.title')%>:<%= @task.title %></p>
-<p><%= I18n.t('activerecord.attributes.task.overview')%>:<%= @task.overview %></p>
-<p><%= I18n.t('activerecord.attributes.task.status')%>:<%= I18n.t("models.enums.#{@task.status}") %></p>
-<p><%= I18n.t('views.label.period') %>：<%= @task.event.start_time_on %>～<%= @task.event.end_time_on %></p>
+<div class="container-fluid">
+  <div class="row justify-content-around">
+    <div class="col align-self-start">
+      <% unless @quota.nil? %>
+        <%= area_chart @array_graph, xtitle: "item", ytitle: "level", points: false, legend: "bottom", curve: false %>
+      <% end %>
 
-<p><% @task.labels.each_with_index do |label, i| %>
-  <span>label<%= "#{i + 1}"%>:<%= label.genre %></span>
-<% end %></p>
-
-<% @task_items.each_with_index do |task_item, i| %>
-    <strong><%= I18n.t('activerecord.models.task_item') %><%= "#{i + 1}" %>:</strong><%= task_item.item %>
-    <%= I18n.t('activerecord.attributes.task_item.level')%>:<%= task_item.level %>
-    <% if @task.user_id == current_user.id || current_user.admin? %>
-      <div id=<%="memos_area_#{task_item.id}"%>>
-        <%= render partial: "memos/index", locals: { memos: task_item.memos, task: @task } %>
+      <div class="text-center">
+        <%= button_to I18n.t('views.button.edit'), edit_task_path(@task.id), method: :get, class: "btn btn-primary" %>
       </div>
-      <%= render partial: "memos/form", locals: { memo: @memo, task: @task, task_item: @task_items[i] } %>
-    <% end %>
-<% end %>
+    </div>
 
-<% unless @quota.nil? %>
-  <%= area_chart @array_graph, xtitle: "item", ytitle: "level", points: false, legend: "right", curve: false %>
-<% end %>
+    <div class="aside col align-self-end">
+      <p><%= I18n.t('activerecord.attributes.task.title')%>:<%= @task.title %></p>
+      <p><%= I18n.t('activerecord.attributes.task.overview')%>:<%= @task.overview %></p>
+      <p><%= I18n.t('activerecord.attributes.task.status')%>:<%= I18n.t("models.enums.#{@task.status}") %></p>
+      <p><%= I18n.t('views.label.period') %>：<%= @task.event.start_time_on %>～<%= @task.event.end_time_on %></p>
+
+      <p><% @task.labels.each_with_index do |label, i| %>
+        <span>label<%= "#{i + 1}"%>:<%= label.genre %></span>
+      <% end %></p>
+
+      <% @task_items.each_with_index do |task_item, i| %>
+          <strong><%= I18n.t('activerecord.models.task_item') %><%= "#{i + 1}" %>:</strong><%= task_item.item %>
+          <%= I18n.t('activerecord.attributes.task_item.level')%>:<%= task_item.level %>
+          <% if @task.user_id == current_user.id || current_user.admin? %>
+            <div id=<%="memos_area_#{task_item.id}"%>>
+              <%= render partial: "memos/index", locals: { memos: task_item.memos, task: @task } %>
+            </div>
+            <%= render partial: "memos/form", locals: { memo: @memo, task: @task, task_item: @task_items[i] } %>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

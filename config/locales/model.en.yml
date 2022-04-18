@@ -71,7 +71,6 @@ en:
       achievement_task: 'Task achievements'
       other_achievement_task: 'Other user task achievements'
       my_page: 'My page'
-      create_task: 'Create task'
       list_task: 'Task list'
       administrator_privileges: 'Administrator privileges'
       logout: 'Logout'

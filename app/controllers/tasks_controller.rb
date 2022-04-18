@@ -44,7 +44,7 @@ class TasksController < ApplicationController
   end
 
   def suggestion
-    if params[:commit] == I18n.t('helpers.submit.create')
+    if params[:commit] == I18n.t('views.button.create')
       @task = current_user.tasks.build(task_params)
       render :new if @task.invalid?
     else

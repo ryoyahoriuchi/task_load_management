@@ -71,7 +71,6 @@ ja:
       achievement_task: 'タスク実績'
       other_achievement_task: '他ユーザータスク実績'
       my_page: 'マイページ'
-      create_task: 'タスク作成'
       list_task: 'タスク一覧'
       administrator_privileges: '管理者権限'
       logout: 'ログアウト'
