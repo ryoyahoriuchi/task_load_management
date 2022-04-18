@@ -20,6 +20,7 @@ en:
       memo:
         content: memo
       label:
+        label: label
         search: serach
       event:
         start_time_on: start date
@@ -57,6 +58,7 @@ en:
       edit: 'Edit'
       delete: 'Delete'
       create: 'Create'
+      update: 'Update'
       memo_edit: 'Memo edit'
       memo_delete: 'Memo delete'
       back: 'back'

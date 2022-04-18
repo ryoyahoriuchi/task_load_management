@@ -20,6 +20,7 @@ ja:
       memo:
         content: メモ
       label:
+        label: ラベル
         search: ラベル検索
       event:
         start_time_on: 開始日
@@ -57,6 +58,7 @@ ja:
       edit: '編集'
       delete: '削除'
       create: '作成'
+      update: '更新'
       memo_edit: 'メモ編集'
       memo_delete: 'メモ削除'
       back: '戻る'
