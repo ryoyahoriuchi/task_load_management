@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     post 'users/guest_admin_sign_in', to: 'users/sessions#guest_admin_sign_in'
   end
   root to: "top#index"
+  get 'top/new'
   resources :users, only: %i[show]
   resources :tasks do
     resources :memos

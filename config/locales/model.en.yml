@@ -51,6 +51,8 @@ en:
       logged_in_as_guest_admin_user: 'You logged in as a guest admin user!'
     sentence:
       page: page
+      intro: 'You can create a planned schedule by dividing the task into items and setting the load level for each item!'
+      purpose: 'This app will help you plan your first task. By evenly distributing your daily task load, you can prevent motivation and frustration.'
     errors:
       appropriate_start_and_end_dates: 'cannot be set to a date after the deadline'
     button:
@@ -63,6 +65,7 @@ en:
       memo_delete: 'Memo delete'
       back: 'back'
       mypage_edit: 'My page edit'
+      tutorial: 'See how to create'
     link:
       add_task_item: 'Add item'
       remove_task_item: 'Remote item'
