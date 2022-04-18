@@ -183,7 +183,7 @@ class TasksController < ApplicationController
   def set_suggest_graph
     @task = Task.new if @task.nil?
     @task.attributes = task_params
-    return if @task.invalid?
+    # return if @task.invalid?
     return if params[:task][:task_items_attributes].nil?
     start_on = Date.parse(params[:task][:event_attributes]["start_time_on"])
     end_on = Date.parse(params[:task][:event_attributes]["end_time_on"])
