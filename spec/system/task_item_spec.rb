@@ -31,7 +31,7 @@ RSpec.describe 'Task item function', type: :system do
         fill_in "task[event_attributes][end_time_on]", with: "002022-04-15"
         fill_in 'task[task_items_attributes][0][item]', with: 'test_item'
         select '3', from: 'task[task_items_attributes][0][level]'
-        click_button I18n.t('helpers.submit.create')
+        click_button I18n.t('views.button.create')
         click_button I18n.t('views.button.create')
         expect(page).to have_content I18n.t('views.messages.create_task')
         expect(page).to have_content 'title_item'
@@ -57,7 +57,7 @@ RSpec.describe 'Task item function', type: :system do
         select_id = all('body form div div select')
         id[1].fill_in with: 'sample_item3'
         select_id[1].select '5'
-        click_button I18n.t('helpers.submit.create')
+        click_button I18n.t('views.button.create')
         click_button I18n.t('views.button.create')
         expect(page).to have_content I18n.t('views.messages.create_task')
         expect(page).to have_content 'test_item2'
@@ -87,7 +87,7 @@ RSpec.describe 'Task item function', type: :system do
         id[1].click_button I18n.t('views.button.edit')
         fill_in 'task[task_items_attributes][0][item]', with: 'edited item'
         select '9', from: 'task[task_items_attributes][0][level]'
-        click_button I18n.t('helpers.submit.update')
+        click_button I18n.t('views.button.update')
         click_button I18n.t('views.button.create')
         expect(page).to have_content 'sample'
         expect(page).to have_content 'edited item'
@@ -100,12 +100,12 @@ RSpec.describe 'Task item function', type: :system do
         id = all('table tbody tr')
         id[1].click_button I18n.t('views.button.edit')
         2.times { click_link I18n.t('views.link.add_task_item') }
-        id = all('body form div div')
+        id = all(".nested-fields")
         id[1].fill_in with: 'item2'
         id[1].select '9'
         id[2].fill_in with: 'item3'
         id[2].select '8'
-        click_button I18n.t('helpers.submit.update')
+        click_button I18n.t('views.button.update')
         click_button I18n.t('views.button.create')
         expect(page).to have_content I18n.t('views.messages.updated_task')
         expect(page).to have_content 'sample'
@@ -123,7 +123,7 @@ RSpec.describe 'Task item function', type: :system do
         id = all('table tbody tr')
         id[1].click_button I18n.t('views.button.edit')
         click_link I18n.t('views.link.remove_task_item')
-        click_button I18n.t('helpers.submit.update')
+        click_button I18n.t('views.button.update')
         click_button I18n.t('views.button.create')
         expect(page).not_to have_content 'issue02'
         expect(page).not_to have_content "#{I18n.t('activerecord.attributes.task_item.level')}:2"

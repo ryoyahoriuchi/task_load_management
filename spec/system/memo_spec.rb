@@ -39,12 +39,13 @@ RSpec.describe 'Memo function', type: :system do
         id[0].click_button I18n.t('views.button.show')
         expect(page).to have_content 'content01'
         click_button I18n.t('views.button.memo_edit')
-        memo_id = all('body div form div')
-        memo_id[0].fill_in with: 'edited content'
+        sleep 0.1
+        memo_id = all('textarea')
+        memo_id[0].fill_in with: 'edited'
         click_button I18n.t('helpers.submit.update')
         expect(page).to have_content I18n.t('views.messages.edited_memo')
         expect(page).not_to have_content 'content01'
-        expect(page).to have_content 'edited content'
+        expect(page).to have_content 'edited'
       end
     end
   end

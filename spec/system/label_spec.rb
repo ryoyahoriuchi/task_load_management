@@ -31,7 +31,7 @@ RSpec.describe 'Label function', type: :system do
         fill_in 'task[overview]', with: 'overview_test'
         fill_in 'task[task_items_attributes][0][item]', with: 'item_test'
         check 'blue'
-        click_button I18n.t('helpers.submit.create')
+        click_button I18n.t('views.button.create')
         click_button I18n.t('views.button.create')
         expect(page).to have_content I18n.t('views.messages.create_task')
         expect(page).to have_content 'blue'
@@ -50,7 +50,7 @@ RSpec.describe 'Label function', type: :system do
         fill_in 'task[task_items_attributes][0][item]', with: 'item_test'
         check 'blue'
         check 'green'
-        click_button I18n.t('helpers.submit.create')
+        click_button I18n.t('views.button.create')
         click_button I18n.t('views.button.create')
         expect(page).to have_content I18n.t('views.messages.create_task')
         expect(page).to have_content 'blue'
@@ -63,7 +63,7 @@ RSpec.describe 'Label function', type: :system do
     before do
       click_button I18n.t('views.button.edit')
       check 'red'
-      click_button I18n.t('helpers.submit.update')
+      click_button I18n.t('views.button.update')
       click_button I18n.t('views.button.create')
     end
     context 'When the label associated with the task is edited' do
@@ -78,7 +78,7 @@ RSpec.describe 'Label function', type: :system do
         click_link I18n.t('views.link.list_task')
         click_button I18n.t('views.button.edit')
         uncheck 'red'
-        click_button I18n.t('helpers.submit.update')
+        click_button I18n.t('views.button.update')
         click_button I18n.t('views.button.create')
         expect(page).not_to have_content 'red'
       end
@@ -98,14 +98,14 @@ RSpec.describe 'Label function', type: :system do
       id = all('table tbody tr')
       id[0].click_button I18n.t('views.button.edit')
       check 'red'
-      click_button I18n.t('helpers.submit.update')
+      click_button I18n.t('views.button.update')
       click_button I18n.t('views.button.create')
       click_link I18n.t('views.link.list_task')
       id = all('table tbody tr')
       id[1].click_button I18n.t('views.button.edit')
       check 'red'
       check 'blue'
-      click_button I18n.t('helpers.submit.update')
+      click_button I18n.t('views.button.update')
       click_button I18n.t('views.button.create')
       click_link I18n.t('views.link.list_task')
     end

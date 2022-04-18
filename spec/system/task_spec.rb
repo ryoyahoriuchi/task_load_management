@@ -27,7 +27,7 @@ RSpec.describe 'Task management function', type: :system do
         fill_in 'task[overview]', with: 'test_overview'
         fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"
         fill_in "task[event_attributes][end_time_on]", with: "002022-04-15"
-        click_button I18n.t('helpers.submit.create')
+        click_button I18n.t('views.button.create')
         click_button I18n.t('views.button.create')
         expect(page).to have_content I18n.t('views.messages.create_task')
         expect(page).to have_content 'test_title'
@@ -68,7 +68,7 @@ RSpec.describe 'Task management function', type: :system do
         fill_in 'task[title]', with: 'edited_title'
         fill_in 'task[overview]', with: 'edited_overview'
         select I18n.t('models.enums.completed'), from: 'task[status]'
-        click_button I18n.t('helpers.submit.update')
+        click_button I18n.t('views.button.update')
         click_button I18n.t('views.button.create')
         expect(page).to have_content I18n.t('views.messages.updated_task')
         expect(page).to have_content "edited_title"
