@@ -20,3 +20,13 @@ main {
   border: solid gray;
   border-radius: 15px;
 }
+
+.btn-array {
+  display: flex;
+  justify-content: left;
+}
+
+.btn {
+  margin: 0px 2px;
+  padding-right: 5px;
+}
