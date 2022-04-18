@@ -54,7 +54,7 @@
       <div class="links">
         <%= link_to_add_association I18n.t('views.link.add_task_item'), f, :task_items, partial: "item_fields" %>
       </div>
-      <% if action_name == "new" %>
+      <% if action_name == "new" || action_name == "create" || action_name == "suggestion" %>
         <%= f.submit I18n.t('views.button.create'), class: "btn btn-primary" %>
       <% else %>
         <%= f.submit I18n.t('views.button.update'), class: "btn btn-primary" %>

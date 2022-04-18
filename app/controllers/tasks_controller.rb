@@ -37,6 +37,7 @@ class TasksController < ApplicationController
         end
       else
         respond_to do |format|
+          format.html { render :new }
           format.js { render :new }
         end
       end
@@ -180,6 +181,9 @@ class TasksController < ApplicationController
   end
 
   def set_suggest_graph
+    @task = Task.new if @task.nil?
+    @task.attributes = task_params
+    return if @task.invalid?
     return if params[:task][:task_items_attributes].nil?
     start_on = Date.parse(params[:task][:event_attributes]["start_time_on"])
     end_on = Date.parse(params[:task][:event_attributes]["end_time_on"])
