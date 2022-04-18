@@ -11,7 +11,7 @@
       <%= form_with(scope: :label, url: other_achievement_tasks_path, local: true, method: :get ) do |f| %>
         <%= f.label I18n.t('activerecord.attributes.label.search') %>
         <%= f.collection_check_boxes(:label_ids, Label.all, :id, :genre ) %>
-        <%= f.submit I18n.t('activerecord.attributes.label.search') %>
+        <%= f.submit I18n.t('activerecord.attributes.label.search'), class: "btn btn-primary" %>
       <% end %>
     </th>
   </thead>
@@ -24,10 +24,12 @@
         <td><% task.labels.each_with_index do |label, i| %>
           <span>[<%= label.genre %>]</span>
         <% end %></td>
-        <td><%= button_to I18n.t('views.button.show'), task_path(task.id), method: :get %></td>
+        <td><%= button_to I18n.t('views.button.show'), task_path(task.id), method: :get, class: "btn btn-primary" %></td>
       </tr>
   <% end %>
   </tbody>
 </table>
 
 <%= paginate @tasks %>
+
+<%= link_to I18n.t('views.link.back'), tasks_path %>

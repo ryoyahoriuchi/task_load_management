@@ -1,1 +1,29 @@
-<h2>top page</h2>
+<section class="page-section clearfix">
+  <div class="container">
+    <div class="intro">
+      <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" <%= image_pack_tag "intro.jpg" %>
+      <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+        <h2 class="section-heading mb-4">
+          <span class="section-heading-upper">Schedule app</span>
+          <span class="section-heading-upper">Task Load Management</span>
+        </h2>
+        <p class="mb-3"><%= I18n.t('views.sentence.intro')%></p>
+        <div class="intro-button mx-auto"><%= button_to I18n.t('views.button.tutorial'), top_new_path,  method: :get, class: "btn btn-primary btn-xl" %></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="page-section cta">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <div class="cta-inner bg-faded text-center rounded">
+          <h2 class="section-heading mb-4">
+            <span>let's complete task!</span>
+          </h2>
+          <p class="mb-0"><%= I18n.t('views.sentence.purpose')%></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -20,6 +20,7 @@ ja:
       memo:
         content: メモ
       label:
+        label: ラベル
         search: ラベル検索
       event:
         start_time_on: 開始日
@@ -27,6 +28,7 @@ ja:
       user:
         name: アカウント名
         email: メール
+        image: アイコン
   models:
     enums:
       not_started: '未着手'
@@ -49,6 +51,8 @@ ja:
       logged_in_as_guest_admin_user: 'ゲスト管理者としてログインしました！'
     sentence:
       page: 'ページ'
+      intro: 'タスクを項目毎に分けて各々に負荷レベルを設定することで、計画的なスケジュールを作成することが出来ます。'
+      purpose: 'このアプリはあなたの初めてのタスク計画の手助けをします。日々のタスク負荷を均一に分散させることで、モチベーションの低下や挫折を防ぎます。'
     errors:
       appropriate_start_and_end_dates: 'より前の日に〆切を設定することはできません'
     button:
@@ -56,10 +60,12 @@ ja:
       edit: '編集'
       delete: '削除'
       create: '作成'
+      update: '更新'
       memo_edit: 'メモ編集'
       memo_delete: 'メモ削除'
       back: '戻る'
       mypage_edit: 'マイページ編集'
+      tutorial: '作成方法を見る'
     link:
       add_task_item: '要件追加'
       remove_task_item: '要件削除'
@@ -68,7 +74,6 @@ ja:
       achievement_task: 'タスク実績'
       other_achievement_task: '他ユーザータスク実績'
       my_page: 'マイページ'
-      create_task: 'タスク作成'
       list_task: 'タスク一覧'
       administrator_privileges: '管理者権限'
       logout: 'ログアウト'

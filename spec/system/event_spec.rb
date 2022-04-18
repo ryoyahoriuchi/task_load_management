@@ -23,7 +23,7 @@ RSpec.describe 'Event function', type: :system do
       fill_in 'task[overview]', with: 'test_overview'
       fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"
       fill_in "task[event_attributes][end_time_on]", with: "002022-04-15"
-      click_button I18n.t('helpers.submit.create')
+      click_button I18n.t('views.button.create')
       click_button I18n.t('views.button.create')
       click_link I18n.t('views.link.list_task')
     end

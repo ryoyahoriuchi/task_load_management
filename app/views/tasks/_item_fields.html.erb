@@ -1,12 +1,15 @@
-<div class="nested-fields">
-  <div class="field">
 
-    <%= f.label :item %>
-    <%= f.text_field :item %>
-    <%= f.label :level %>
-    <%= f.select :level, [*1..9] %>
-    
-    <br>
-    <%= link_to_remove_association I18n.t('views.link.remove_task_item'), f %>
+<div class="col-md-10 offset-md-1 mt-3 content">
+  <div class="nested-fields">
+    <div class="field">
+
+      <%= f.label :item %>
+      <%= f.text_field :item, class: "form-control" %>
+      <%= f.label :level %>
+      <%= f.select :level, [*1..9], class: "form-control" %>
+      
+      <br>
+      <%= link_to_remove_association I18n.t('views.link.remove_task_item'), f %>
+    </div>
   </div>
 </div>

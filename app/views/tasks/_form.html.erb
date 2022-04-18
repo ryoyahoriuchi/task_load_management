@@ -1,44 +1,68 @@
-<%= form_with(model: @task, local: true, url: choose_new_or_edit ) do |f| %>
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= @task.errors.count %><%= I18n.t('errors.template.header.other') %></h2>
-      <ul>
-        <% @task.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+<div class="text-center">
+  <div class="col-md-8 offset-md-2 mt-3 content">
+    <%= form_with(model: @task, local: true, url: choose_new_or_edit ) do |f| %>
+      <% if @task.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= @task.errors.count %><%= I18n.t('errors.template.header.other') %></h2>
+          <ul>
+            <% @task.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field form_group pt-4 pb-3">
+        <%= f.label :title %>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+
+      <div class="field form_group">
+        <%= f.label :overview %>
+        <%= f.text_field :overview, class: "form-control" %>
+      </div>
+
+      <% if action_name == "edit" || action_name == "update" %>
+        <div class="field form_group">
+          <%= f.label :status %>
+          <%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("models.enums.#{k}"), k]} %>
+        </div>
+      <% end %>
+
+      <%= f.fields_for :event do |t| %>
+        <div class="field form_group">
+          <%= t.label :start_time_on %>
+          <%= t.date_field :start_time_on, class: "form-control" %>
+        </div>
+        <div class="field form_group">
+          <%= t.label :end_time_on %>
+          <%= t.date_field :end_time_on, class: "form-control" %>
+        </div>
+      <% end %>
+
+      <div class="field form_group">
+        <%= f.label :label %>
+        <%= f.collection_check_boxes(:label_ids, Label.all, :id, :genre ) %>
+      </div>
+
+      <div class="field form_group">
+        <%= f.fields_for :task_items do |item| %>
+          <p><%= render 'item_fields', f: item %></p>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
+      </div>
 
-  <%= f.label :title %>
-  <%= f.text_field :title %>
-
-  <%= f.label :overview %>
-  <%= f.text_field :overview %>
-
-  <% if action_name == "edit" || action_name == "update" %>
-    <%= f.label :status %>
-    <%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("models.enums.#{k}"), k]} %>
-  <% end %>
-
-  <%= f.fields_for :event do |t| %>
-    <%= t.label :start_time_on %>
-    <%= t.date_field :start_time_on %>
-    <%= t.label :end_time_on %>
-    <%= t.date_field :end_time_on %>
-  <% end %>
-
-  <%= f.label :label %>
-  <%= f.collection_check_boxes(:label_ids, Label.all, :id, :genre ) %>
-
-  <%= f.fields_for :task_items do |item| %>
-    <p><%= render 'item_fields', f: item %></p>
-  <% end %>
-
-  <div class="links">
-    <%= link_to_add_association I18n.t('views.link.add_task_item'), f, :task_items, partial: "item_fields" %>
+      <div class="links">
+        <%= link_to_add_association I18n.t('views.link.add_task_item'), f, :task_items, partial: "item_fields" %>
+      </div>
+      <% if action_name == "new" || action_name == "create" || action_name == "suggestion" %>
+        <%= f.submit I18n.t('views.button.create'), class: "btn btn-primary" %>
+      <% else %>
+        <%= f.submit I18n.t('views.button.update'), class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
   </div>
-  <%= f.submit %>
-<% end %>
+</div>
 
-<%= link_to I18n.t('views.link.back'), tasks_path %>
+<div class="text-center">
+  <%= link_to I18n.t('views.link.back'), tasks_path %>
+</div>
