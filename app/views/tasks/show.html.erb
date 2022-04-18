@@ -8,9 +8,12 @@
         <%= area_chart @array_graph, xtitle: "item", ytitle: "level", points: false, legend: "bottom", curve: false %>
       <% end %>
 
-      <div class="text-center">
-        <%= button_to I18n.t('views.button.edit'), edit_task_path(@task.id), method: :get, class: "btn btn-primary" %>
-      </div>
+      <% if @task.user_id == current_user.id || current_user.admin? %>
+        <div class="text-center">
+          <%= button_to I18n.t('views.button.edit'), edit_task_path(@task.id), method: :get, class: "btn btn-primary" %>
+        </div>
+      <% end %>
+      <%= link_to I18n.t('views.link.other_achievement_task'), other_achievement_tasks_path %>
     </div>
 
     <div class="aside col align-self-end">

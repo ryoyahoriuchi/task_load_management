@@ -31,3 +31,5 @@
 </table>
 
 <%= paginate @tasks %>
+
+<%= link_to I18n.t('views.link.back'), user_path(current_user.id) %>
