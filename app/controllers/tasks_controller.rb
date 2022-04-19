@@ -150,7 +150,7 @@ class TasksController < ApplicationController
           c = area.round(2) * -1
           quadratic_equation(a, b, c)
 
-          x = @x.select { |num| num <= 1 && num > 0 }
+          x = @x.select { |num| num <= 1 && num.positive? }
           x_value = key - 1 + x[0].round(2)
           y_value = tilt * x[0].round(2) + intercept
 
@@ -221,7 +221,7 @@ class TasksController < ApplicationController
             c = area.round(2) * -1
             quadratic_equation(a, b, c)
 
-            x = @x.select { |num| num <= 1 && num > 0 }
+            x = @x.select { |num| num <= 1 && num.positive? }
             x_value = key - 1 + x[0].round(2)
             y_value = tilt * x[0].round(2) + intercept
 
@@ -255,14 +255,14 @@ class TasksController < ApplicationController
       if c != 0
         b /= 2
         d = b * b - c
-        if d > 0
-          @x << if b > 0
+        if d.positive?
+          @x << if b.positive?
                   -b - Math.sqrt(d)
                 else
                   -b + Math.sqrt(d)
                 end
           @x << (c / @x[0])
-        elsif d < 0
+        elsif d.negative?
           @x << -b
           @x << Math.sqrt(-d)
         else
