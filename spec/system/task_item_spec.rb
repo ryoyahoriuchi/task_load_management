@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Task item function', type: :system do
-
   let!(:first_user) { FactoryBot.create(:first_user) }
   let!(:first_task) { FactoryBot.create(:first_task, user: first_user) }
   let!(:second_task) { FactoryBot.create(:second_task, user: first_user) }
@@ -15,7 +14,7 @@ RSpec.describe 'Task item function', type: :system do
     click_link I18n.t('views.link.login')
     fill_in 'user[email]', with: 'jack@mail.com'
     fill_in 'user[password]', with: 'password'
-    click_button "ログイン"
+    click_button 'ログイン'
     click_link I18n.t('views.link.list_task')
   end
 
@@ -27,8 +26,8 @@ RSpec.describe 'Task item function', type: :system do
         end
         fill_in 'task[title]', with: 'title_item'
         fill_in 'task[overview]', with: 'overview_item'
-        fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"
-        fill_in "task[event_attributes][end_time_on]", with: "002022-04-15"
+        fill_in 'task[event_attributes][start_time_on]', with: '002022-04-12'
+        fill_in 'task[event_attributes][end_time_on]', with: '002022-04-15'
         fill_in 'task[task_items_attributes][0][item]', with: 'test_item'
         select '3', from: 'task[task_items_attributes][0][level]'
         click_button I18n.t('views.button.create')
@@ -48,8 +47,8 @@ RSpec.describe 'Task item function', type: :system do
         end
         fill_in 'task[title]', with: 'title_item2'
         fill_in 'task[overview]', with: 'overview_item2'
-        fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"
-        fill_in "task[event_attributes][end_time_on]", with: "002022-04-15"
+        fill_in 'task[event_attributes][start_time_on]', with: '002022-04-12'
+        fill_in 'task[event_attributes][end_time_on]', with: '002022-04-15'
         fill_in 'task[task_items_attributes][0][item]', with: 'test_item2'
         select '4', from: 'task[task_items_attributes][0][level]'
         click_link I18n.t('views.link.add_task_item')
@@ -100,7 +99,7 @@ RSpec.describe 'Task item function', type: :system do
         id = all('table tbody tr')
         id[1].click_button I18n.t('views.button.edit')
         2.times { click_link I18n.t('views.link.add_task_item') }
-        id = all(".nested-fields")
+        id = all('.nested-fields')
         id[1].fill_in with: 'item2'
         id[1].select '9'
         id[2].fill_in with: 'item3'

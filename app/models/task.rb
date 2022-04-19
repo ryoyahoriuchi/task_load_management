@@ -13,9 +13,9 @@ class Task < ApplicationRecord
 
   has_many :labelings, dependent: :destroy
   has_many :labels, through: :labelings
-  
+
   scope :with_labels, -> { joins(:labels) }
-  scope :search_with_id, -> (labels){ where(labels: {id: labels}) }
+  scope :search_with_id, ->(labels) { where(labels: { id: labels }) }
 
   has_one :event, dependent: :destroy
   accepts_nested_attributes_for :event, allow_destroy: true
