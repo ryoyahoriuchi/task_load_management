@@ -21,6 +21,7 @@ gem 'rails_admin', '~> 3.0'
 gem 'cancancan'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'faker'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 
