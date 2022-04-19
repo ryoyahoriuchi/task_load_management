@@ -182,68 +182,72 @@ class TasksController < ApplicationController
 
   def set_suggest_graph
     @task = Task.new if @task.nil?
-    @task.attributes = task_params
-    return if @task.invalid?
-    return if params[:task][:task_items_attributes].nil?
-    start_on = Date.parse(params[:task][:event_attributes]["start_time_on"])
-    end_on = Date.parse(params[:task][:event_attributes]["end_time_on"])
-    period = (end_on - start_on).to_i
+    @task = current_user.tasks.build(task_params) if @task.id.nil?
+    #@task.attributes = task_params
+    if @task.invalid?
+      return
+    else
+      return if params[:task][:task_items_attributes].nil?
+      start_on = Date.parse(params[:task][:event_attributes]["start_time_on"])
+      end_on = Date.parse(params[:task][:event_attributes]["end_time_on"])
+      period = (end_on - start_on).to_i
 
-    @task_items = {}
-    count = 0
-    params[:task][:task_items_attributes].each do |param|
-      @task_items[count] = param[1]["level"].to_i
-      count += 1
-    end
-    
-    quota_area = {0 => 0}
-    pre_task_level = 0
-    @task_items.each_with_index do |task_item, i|
-      quota_area[i] = (pre_task_level + task_item[1]) / 2.0 if pre_task_level != 0
-      pre_task_level = task_item[1]
-    end
-    sum_area = quota_area.values.inject(:+)
+      @task_items = {}
+      count = 0
+      params[:task][:task_items_attributes].each do |param|
+        @task_items[count] = param[1]["level"].to_i
+        count += 1
+      end
+      
+      quota_area = {0 => 0}
+      pre_task_level = 0
+      @task_items.each_with_index do |task_item, i|
+        quota_area[i] = (pre_task_level + task_item[1]) / 2.0 if pre_task_level != 0
+        pre_task_level = task_item[1]
+      end
+      sum_area = quota_area.values.inject(:+)
 
-    @graph_values = @task_items
-    total_level = @task_items.values.inject(:+)
-    full_load = total_level.to_f
+      @graph_values = @task_items
+      total_level = @task_items.values.inject(:+)
+      full_load = total_level.to_f
 
-    @quota = {}
-    day_quota = (sum_area / period).round(2)
-    period.times do |i|
-      area = day_quota * (i+1)
-      quota_area.each_pair do |key, val|
-        if area < val
-          tilt = @task_items[key] - @task_items[key - 1]
-          intercept = @task_items[key - 1]
-          a = tilt / 2.0
-          b = intercept
-          c = area.round(2) * -1
-          quadratic_equation(a, b, c)
+      @quota = {}
+      day_quota = (sum_area / period).round(2)
+      period.times do |i|
+        area = day_quota * (i+1)
+        quota_area.each_pair do |key, val|
+          if area < val
+            tilt = @task_items[key] - @task_items[key - 1]
+            intercept = @task_items[key - 1]
+            a = tilt / 2.0
+            b = intercept
+            c = area.round(2) * -1
+            quadratic_equation(a, b, c)
 
-          x = @x.select{|num| num <= 1 && num > 0 }
-          x_value = key - 1 + x[0].round(2)
-          y_value = tilt * x[0].round(2) + intercept
+            x = @x.select{|num| num <= 1 && num > 0 }
+            x_value = key - 1 + x[0].round(2)
+            y_value = tilt * x[0].round(2) + intercept
 
-          quota = @graph_values.select{|k, v| k < x_value}
-          quota[x_value] = y_value.round(2)
+            quota = @graph_values.select{|k, v| k < x_value}
+            quota[x_value] = y_value.round(2)
 
-          break @quota[i] = quota
-        else
-          area -= val
+            break @quota[i] = quota
+          else
+            area -= val
+          end
         end
       end
+      @array_graph = []
+      count = 0
+      @quota.each_with_index do |k, i|
+        hash_graph = {}
+        hash_graph[:name] = "day#{i + 1}"
+        hash_graph[:data] = @quota[i]
+        @array_graph[i] =  hash_graph
+        count = i
+      end
+      @array_graph[count + 1] = {name: "day#{count + 2}", data: @graph_values}
     end
-    @array_graph = []
-    count = 0
-    @quota.each_with_index do |k, i|
-      hash_graph = {}
-      hash_graph[:name] = "day#{i + 1}"
-      hash_graph[:data] = @quota[i]
-      @array_graph[i] =  hash_graph
-      count = i
-    end
-    @array_graph[count + 1] = {name: "day#{count + 2}", data: @graph_values}
   end
 
   def quadratic_equation(a, b, c)

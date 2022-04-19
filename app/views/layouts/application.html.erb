@@ -24,7 +24,7 @@
                 <% if user_signed_in? %>
                   <li class="nav-item px-lg-4"><div class="nav-link text-uppercase" ><%= link_to I18n.t('views.link.my_page'), user_path(current_user.id) %></div></li>
                   <li class="nav-item px-lg-4"><div class="nav-link text-uppercase" ><%= link_to I18n.t('views.link.create_task'), new_task_path %></div></li>
-                  <li class="nav-item px-lg-4"><div class="nav-link text-uppercase" ><%= link_to I18n.t('views.link.list_task'), tasks_path %></div></li>
+                  <li class="nav-item px-lg-4"><div class="nav-link text-uppercase" ><%= link_to I18n.t('views.link.list_task'), tasks_path, data: {"turbolinks" => false}  %></div></li>
                   <% if current_user.admin? %>
                     <li class="nav-item px-lg-4"><div class="nav-link text-uppercase"><%= link_to I18n.t('views.link.administrator_privileges'), rails_admin_path %></div></li>
                   <% end %>
