@@ -1,12 +1,12 @@
-import { Calendar} from '@fullcalendar/core';
+import { Calendar } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import monthGridPlugin from '@fullcalendar/daygrid'
 import googleCalendarApi from '@fullcalendar/google-calendar'
 
-document.addEventListener('turbolinks:load', function() {
-  var calendarEl = document.getElementById('calendar');
+document.addEventListener('DOMContentLoaded', function() {
+  let calendarEl = document.getElementById('calendar');
 
-  var calendar = new Calendar(calendarEl, {
+  let calendar = new Calendar(calendarEl, {
       plugins: [ monthGridPlugin, interactionPlugin, googleCalendarApi ],
 
       events: '/tasks.json',
@@ -37,8 +37,8 @@ document.addEventListener('turbolinks:load', function() {
   });
   calendar.render();
 
-  $(".error").click(function(){
-    calendar.refetchEvents();
-  });
+  // $(".error").click(function(){
+  //   calendar.refetchEvents();
+  // });
 
 });

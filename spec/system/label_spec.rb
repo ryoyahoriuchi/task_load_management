@@ -62,7 +62,7 @@ RSpec.describe 'Label function', type: :system do
   describe 'Label editing function' do
     before do
       click_button I18n.t('views.button.edit')
-      sleep 0.5
+      sleep 1.0
       check 'red'
       click_button I18n.t('views.button.update')
       click_button I18n.t('views.button.create')
