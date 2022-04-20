@@ -40,6 +40,7 @@ group :development do
   gem 'pry-rails'
   gem 'letter_opener_web'
   gem 'rubocop', require: false
+  gem 'bullet'
 end
 
 group :test do

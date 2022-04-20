@@ -5,12 +5,12 @@ class TasksController < ApplicationController
   before_action :set_suggest_graph, only: %i[suggestion]
 
   def index
-    @tasks = Task.where(user_id: current_user.id)
+    @tasks = Task.includes(:labels, :labelings).where(user_id: current_user.id)
     if params[:label].present? && (params[:label][:label_ids].size != 1)
       @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids])
     end
 
-    @events = Event.where(task_id: @tasks.pluck(:id))
+    @events = Event.includes(:task).where(task_id: @tasks.pluck(:id))
     @tasks = @tasks.page(params[:page]).per(5)
   end
 
@@ -83,7 +83,7 @@ class TasksController < ApplicationController
   end
 
   def achievement
-    @tasks = Task.where(user_id: current_user.id, status: 2)
+    @tasks = Task.includes(:labelings, :labels).where(user_id: current_user.id, status: 2)
     if params[:label].present? && (params[:label][:label_ids].size != 1)
       @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids])
     end
@@ -91,7 +91,7 @@ class TasksController < ApplicationController
   end
 
   def other_achievement
-    @tasks = Task.where.not(user_id: current_user.id).where(status: 2)
+    @tasks = Task.includes(:labelings, :labels).where.not(user_id: current_user.id).where(status: 2)
     if params[:label].present? && (params[:label][:label_ids].size != 1)
       @tasks = @tasks.with_labels.search_with_id(params[:label][:label_ids])
     end
@@ -117,7 +117,7 @@ class TasksController < ApplicationController
 
   def set_create_graph_area
     # 各要素までの各々の面積求める〇
-    @task_items = TaskItem.create_sorted.where(task_id: params[:id])
+    @task_items = TaskItem.includes(:memos).create_sorted.where(task_id: params[:id])
     quota_area = { 0 => 0 }
     pre_task_level = 0
     @task_items.each_with_index do |task_item, i|
