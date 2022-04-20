@@ -7,7 +7,7 @@ task_title = ["issue", "problem", "test", "exam"]
 label_ids = Label.pluck(:id)
 count = label_ids.count
 
-5.times do |n|
+5.times do
   name = Faker::Name.name
   email = Faker::Internet.email
   password = "password"

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'User function', type: :system do
-
   let!(:first_user) { FactoryBot.create(:first_user) }
   let!(:third_user) { FactoryBot.create(:third_user) }
 
@@ -32,7 +31,7 @@ RSpec.describe 'User function', type: :system do
       it 'ユーザー詳細ページへ飛ぶ' do
         fill_in 'user[email]', with: 'jack@mail.com'
         fill_in 'user[password]', with: 'password'
-        click_button "ログイン"
+        click_button 'ログイン'
         expect(page).to have_content "jack #{I18n.t('views.sentence.page')}"
       end
     end
@@ -41,7 +40,7 @@ RSpec.describe 'User function', type: :system do
       it 'ログインページに飛ばされる' do
         visit tasks_path
         expect(current_path).to eq new_user_session_path
-        expect(page).to have_content "ログインもしくはアカウント登録してください。"
+        expect(page).to have_content 'ログインもしくはアカウント登録してください。'
       end
     end
   end
@@ -52,7 +51,7 @@ RSpec.describe 'User function', type: :system do
         click_link I18n.t('views.link.login')
         fill_in 'user[email]', with: 'jack@mail.com'
         fill_in 'user[password]', with: 'password'
-        click_button "ログイン"
+        click_button 'ログイン'
         visit tasks_path
         expect(current_path).to eq tasks_path
         click_link I18n.t('views.link.logout')
@@ -68,12 +67,12 @@ RSpec.describe 'User function', type: :system do
         click_link I18n.t('views.link.login')
         fill_in 'user[email]', with: 'jack@mail.com'
         fill_in 'user[password]', with: 'password'
-        click_button "ログイン"
+        click_button 'ログイン'
         expect(page).to have_content "jack #{I18n.t('views.sentence.page')}"
         click_button I18n.t('views.button.mypage_edit')
         fill_in 'user[name]', with: 'jack2'
         fill_in 'user[current_password]', with: 'password'
-        click_button "更新"
+        click_button '更新'
         expect(page).to have_content 'アカウント情報を変更しました。'
         expect(page).to have_content "jack2 #{I18n.t('views.sentence.page')}"
       end
@@ -86,7 +85,7 @@ RSpec.describe 'User function', type: :system do
         click_link I18n.t('views.link.login')
         fill_in 'user[email]', with: 'jack@mail.com'
         fill_in 'user[password]', with: 'password'
-        click_button "ログイン"
+        click_button 'ログイン'
         visit user_path(third_user.id)
         expect(current_path).not_to eq user_path(third_user.id)
         expect(page).to have_content I18n.t('views.messages.unable_to_access_other_user_pages')
@@ -98,7 +97,7 @@ RSpec.describe 'User function', type: :system do
         click_link I18n.t('views.link.login')
         fill_in 'user[email]', with: 'admin_user@mail.com'
         fill_in 'user[password]', with: 'password'
-        click_button "ログイン"
+        click_button 'ログイン'
         visit user_path(first_user.id)
         expect(current_path).to eq user_path(first_user.id)
       end
@@ -111,17 +110,17 @@ RSpec.describe 'User function', type: :system do
         click_link I18n.t('views.link.login')
         fill_in 'user[email]', with: 'jack@mail.com'
         fill_in 'user[password]', with: 'password'
-        click_button "ログイン"
+        click_button 'ログイン'
         expect(page).to have_content "jack #{I18n.t('views.sentence.page')}"
         click_button I18n.t('views.button.mypage_edit')
-        click_button "アカウント削除"
+        click_button 'アカウント削除'
         accept_confirm
-        expect(page).to have_content "アカウントを削除しました。またのご利用をお待ちしております。"
+        expect(page).to have_content 'アカウントを削除しました。またのご利用をお待ちしております。'
         click_link I18n.t('views.link.login')
         fill_in 'user[email]', with: 'jack@mail.com'
         fill_in 'user[password]', with: 'password'
-        click_button "ログイン"
-        expect(page).to have_content "メールまたはパスワードが違います。"
+        click_button 'ログイン'
+        expect(page).to have_content 'メールまたはパスワードが違います。'
       end
     end
   end
@@ -130,7 +129,7 @@ RSpec.describe 'User function', type: :system do
     context 'ゲストログインボタンを押すと' do
       before do
         click_link I18n.t('views.link.login')
-        click_button "ゲストログイン"
+        click_button 'ゲストログイン'
       end
       it '一般ユーザーとしてログインできる' do
         expect(page).to have_content I18n.t('views.messages.logged_in_as_guest_user')
@@ -141,7 +140,7 @@ RSpec.describe 'User function', type: :system do
     context 'ゲスト管理者ログインボタンを押すと' do
       it '管理者としてログインできる' do
         click_link I18n.t('views.link.login')
-        click_button "ゲスト管理者ログイン"
+        click_button 'ゲスト管理者ログイン'
         expect(page).to have_content I18n.t('views.messages.logged_in_as_guest_admin_user')
         expect(page).to have_content "guest_admin #{I18n.t('views.sentence.page')}"
       end
@@ -152,16 +151,16 @@ RSpec.describe 'User function', type: :system do
     context '管理者が管理者権限のリンクを押すと' do
       it '管理者権限のページへ行ける' do
         click_link I18n.t('views.link.login')
-        click_button "ゲスト管理者ログイン"
+        click_button 'ゲスト管理者ログイン'
         click_link I18n.t('views.link.administrator_privileges')
-        expect(page).to have_content "ダッシュボード"
+        expect(page).to have_content 'ダッシュボード'
       end
     end
 
     context '一般ユーザーがログインしても' do
       before do
         click_link I18n.t('views.link.login')
-        click_button "ゲストログイン"
+        click_button 'ゲストログイン'
       end
 
       it '管理者権限のリンクは表示されない' do

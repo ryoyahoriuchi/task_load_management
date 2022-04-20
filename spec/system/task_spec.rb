@@ -1,19 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe 'Task management function', type: :system do
-
   let!(:first_user) { FactoryBot.create(:first_user) }
   let!(:first_task) { FactoryBot.create(:first_task, user: first_user) }
   let!(:first_event) { FactoryBot.create(:first_event, task: first_task) }
   let!(:second_task) { FactoryBot.create(:second_task, user: first_user) }
   let!(:second_event) { FactoryBot.create(:second_event, task: second_task) }
-  
+
   before do
     visit root_path
     click_link I18n.t('views.link.login')
     fill_in 'user[email]', with: 'jack@mail.com'
     fill_in 'user[password]', with: 'password'
-    click_button "ログイン"
+    click_button 'ログイン'
     click_link I18n.t('views.link.list_task')
   end
 
@@ -25,14 +24,14 @@ RSpec.describe 'Task management function', type: :system do
         end
         fill_in 'task[title]', with: 'test_title'
         fill_in 'task[overview]', with: 'test_overview'
-        fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"
-        fill_in "task[event_attributes][end_time_on]", with: "002022-04-15"
+        fill_in 'task[event_attributes][start_time_on]', with: '002022-04-12'
+        fill_in 'task[event_attributes][end_time_on]', with: '002022-04-15'
         click_button I18n.t('views.button.create')
         click_button I18n.t('views.button.create')
         expect(page).to have_content I18n.t('views.messages.create_task')
         expect(page).to have_content 'test_title'
         expect(page).to have_content 'test_overview'
-        expect(page).to have_content "2022-04-12～2022-04-15"
+        expect(page).to have_content '2022-04-12～2022-04-15'
       end
     end
   end
@@ -40,10 +39,10 @@ RSpec.describe 'Task management function', type: :system do
   describe 'List display function' do
     context 'When transitioning to the list screen' do
       it 'A list of created tasks is displayed' do
-        expect(page).to have_content "title01"
-        expect(page).to have_content "overview01"
-        expect(page).to have_content "sample"
-        expect(page).to have_content "summary"
+        expect(page).to have_content 'title01'
+        expect(page).to have_content 'overview01'
+        expect(page).to have_content 'sample'
+        expect(page).to have_content 'summary'
       end
     end
   end
@@ -53,8 +52,8 @@ RSpec.describe 'Task management function', type: :system do
       it 'The content of the corresponding task is displayed' do
         id = all('table tbody tr')
         id[1].click_button I18n.t('views.button.show')
-        expect(page).to have_content "sample"
-        expect(page).to have_content "summary"
+        expect(page).to have_content 'sample'
+        expect(page).to have_content 'summary'
         expect(page).to have_content I18n.t('models.enums.underway')
       end
     end
@@ -71,8 +70,8 @@ RSpec.describe 'Task management function', type: :system do
         click_button I18n.t('views.button.update')
         click_button I18n.t('views.button.create')
         expect(page).to have_content I18n.t('views.messages.updated_task')
-        expect(page).to have_content "edited_title"
-        expect(page).to have_content "edited_overview"
+        expect(page).to have_content 'edited_title'
+        expect(page).to have_content 'edited_overview'
         expect(page).to have_content I18n.t('models.enums.completed')
       end
     end
@@ -82,12 +81,12 @@ RSpec.describe 'Task management function', type: :system do
     context 'If you delete a task' do
       it 'The corresponding task disappears' do
         id = all('table tbody tr')
-        expect(page).to have_content "title01"
-        expect(page).to have_content "overview01"
+        expect(page).to have_content 'title01'
+        expect(page).to have_content 'overview01'
         id[0].click_button I18n.t('views.button.delete')
         expect(page).to have_content I18n.t('views.messages.deleted_task')
-        expect(page).not_to have_content "title01"
-        expect(page).not_to have_content "overview01"
+        expect(page).not_to have_content 'title01'
+        expect(page).not_to have_content 'overview01'
       end
     end
   end

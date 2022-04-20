@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Label function', type: :system do
-
   let!(:first_user) { FactoryBot.create(:first_user) }
   let!(:first_label) { FactoryBot.create(:first_label) }
   let!(:second_label) { FactoryBot.create(:second_label) }
@@ -15,7 +14,7 @@ RSpec.describe 'Label function', type: :system do
     click_link I18n.t('views.link.login')
     fill_in 'user[email]', with: 'jack@mail.com'
     fill_in 'user[password]', with: 'password'
-    click_button "ログイン"
+    click_button 'ログイン'
     click_link I18n.t('views.link.list_task')
   end
 
@@ -26,8 +25,8 @@ RSpec.describe 'Label function', type: :system do
           click_link I18n.t('views.link.create_task')
         end
         fill_in 'task[title]', with: 'title_test'
-        fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"
-        fill_in "task[event_attributes][end_time_on]", with: "002022-04-15"
+        fill_in 'task[event_attributes][start_time_on]', with: '002022-04-12'
+        fill_in 'task[event_attributes][end_time_on]', with: '002022-04-15'
         fill_in 'task[overview]', with: 'overview_test'
         fill_in 'task[task_items_attributes][0][item]', with: 'item_test'
         check 'blue'
@@ -45,8 +44,8 @@ RSpec.describe 'Label function', type: :system do
         end
         fill_in 'task[title]', with: 'title_test'
         fill_in 'task[overview]', with: 'overview_test'
-        fill_in "task[event_attributes][start_time_on]", with: "002022-04-12"
-        fill_in "task[event_attributes][end_time_on]", with: "002022-04-15"
+        fill_in 'task[event_attributes][start_time_on]', with: '002022-04-12'
+        fill_in 'task[event_attributes][end_time_on]', with: '002022-04-15'
         fill_in 'task[task_items_attributes][0][item]', with: 'item_test'
         check 'blue'
         check 'green'
@@ -72,7 +71,7 @@ RSpec.describe 'Label function', type: :system do
         expect(page).to have_content 'red'
       end
     end
-    
+
     context 'When the label associated with the task is deleted' do
       it 'The corresponding label is not displayed' do
         expect(page).to have_content 'red'
@@ -129,5 +128,4 @@ RSpec.describe 'Label function', type: :system do
       end
     end
   end
-
 end

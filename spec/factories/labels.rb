@@ -1,13 +1,13 @@
 FactoryBot.define do
   factory :first_label, class: Label do
-    genre { "red" }
+    genre { 'red' }
   end
 
   factory :second_label, class: Label do
-    genre { "blue" }
+    genre { 'blue' }
   end
 
   factory :third_label, class: Label do
-    genre { "green" }
+    genre { 'green' }
   end
 end
