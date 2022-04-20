@@ -12,11 +12,11 @@
 
   <div class="field">
     <%= f.label :content %>
-    <%= f.text_area :content, id: "memo_content_#{task_item.id}" %>
+    <%= f.text_area :content, id: "memo_content_#{task_item.id}", class: "form-control" %>
   </div>
 
   <%= f.hidden_field :task_item_id, value: task_item.id %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit I18n.t('helpers.submit.create'), class: "btn btn-primary" %>
   </div>
 <% end %>
