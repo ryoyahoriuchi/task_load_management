@@ -41,7 +41,7 @@
       <% end %>
 
       <div class="field form_group">
-        <%= f.label :label %>
+        <%= f.label :label, I18n.t('activerecord.attributes.label.label') %>
         <%= f.collection_check_boxes(:label_ids, Label.all, :id, :genre ) %>
       </div>
 

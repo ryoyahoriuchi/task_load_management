@@ -26,8 +26,8 @@
     <%= render "devise/shared/links" %>
 
     <div class="text-center">
-      <p><%= button_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: "btn btn-primary" %></p>
-      <%= button_to 'ゲスト管理者ログイン', users_guest_admin_sign_in_path, method: :post, class: "btn btn-primary" %>
+      <p><%= button_to I18n.t('views.button.guest'), users_guest_sign_in_path, method: :post, class: "btn btn-primary" %></p>
+      <%= button_to I18n.t('views.button.guest_admin'), users_guest_admin_sign_in_path, method: :post, class: "btn btn-primary" %>
     </div>
   </div>
 </div>
