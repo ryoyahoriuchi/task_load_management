@@ -57,6 +57,7 @@ en:
       new: 'New task'
       edit: 'Edit task'
       show: 'Show task'
+      suggestion: 'Schedule proposal'
     sentence:
       page: page
       intro: 'You can create a planned schedule by dividing the task into items and setting the load level for each item!'
@@ -89,6 +90,7 @@ en:
       logout: 'Logout'
       login: 'Login'
       account_registration: 'Account registration'
+      top_page: 'Back to the top page'
     label:
       period: period
   form:

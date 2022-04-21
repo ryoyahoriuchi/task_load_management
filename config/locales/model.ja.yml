@@ -90,6 +90,7 @@ ja:
       logout: 'ログアウト'
       login: 'ログイン'
       account_registration: 'アカウント登録'
+      top_page: 'トップページに戻る'
     label:
       period: 期間
   form:
