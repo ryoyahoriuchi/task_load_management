@@ -45,10 +45,20 @@ en:
       failed_to_edit_memo: 'Failed to edit a memo...'
       deleted_memo: 'Successfully deleted a memo!'
       confirm_whether_delete_memo: 'Do you want to delete the memo?'
+      confirm_whether_delete_task: 'Do you want to delete the task?'
       schedule_proposal: 'Do you plan on the following schedule?'
       unable_to_access_other_user_pages: 'Unable to access other user pages...'
       logged_in_as_guest_user: 'You logged in as a guest user!'
       logged_in_as_guest_admin_user: 'You logged in as a guest admin user!'
+    title:
+      personal_task_list: 'User task list (only visible to administrators)'
+      achievement: 'Achievement'
+      other_achievement: 'Other user achievement'
+      index: 'Task list'
+      new: 'New task'
+      edit: 'Edit task'
+      show: 'Show task'
+      suggestion: 'Schedule proposal'
     sentence:
       page: page
       intro: 'You can create a planned schedule by dividing the task into items and setting the load level for each item!'
@@ -66,6 +76,8 @@ en:
       back: 'back'
       mypage_edit: 'My page edit'
       tutorial: 'See how to create'
+      guest: 'ゲストログイン'
+      guest_admin: 'ゲスト管理者ログイン'
     link:
       add_task_item: 'Add item'
       remove_task_item: 'Remote item'
@@ -79,5 +91,18 @@ en:
       logout: 'Logout'
       login: 'Login'
       account_registration: 'Account registration'
+      top_page: 'Back to the top page'
     label:
       period: period
+  form:
+    email: 'Please enter your e-mail address'
+    password: 'Please enter your password'
+    confirmation_password: 'Please enter the same password'
+    change_password: 'Please enter the password you want to change here'
+    confirmation_chenge_password: 'Please re-enter the password you want to change here'
+    account: 'Please enter your account'
+    edit_memo: 'Enter here to change the memo'
+    create_memo: 'Enter here if you want to create a memo'
+    title: 'Please enter title'
+    overview: 'Please enter overview'
+    item: 'Please enter item'

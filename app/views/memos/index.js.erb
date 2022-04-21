@@ -1,3 +1,10 @@
 $(<%="memos_area_#{@task_item.id}"%>).html("<%= j(render 'memos/index', { memos: @task_item.memos, task_item: @task_item }) %>");
 $("textarea").val('');
-$("#notice").html("<%= j flash[:notice] %>");
+
+$(function(){
+  if($(".notice").length){
+    $(".notice").html("<%= j flash[:notice] %>");
+  } else {
+    $("#notice").html("<%= j flash[:notice] %>");
+  }
+})

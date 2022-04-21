@@ -1,4 +1,4 @@
-<h1>Index View</h1>
+<h1><%= I18n.t('views.title.index')%></h1>
 
 <div class="container-fluid">
   <div class="row justify-content-around">
@@ -29,7 +29,7 @@
               <td class="btn-array">
                 <%= button_to I18n.t('views.button.show'), task_path(task.id), method: :get, class: "btn btn-primary" %>
                 <%= button_to I18n.t('views.button.edit'), edit_task_path(task.id), method: :get, class: "btn btn-primary" %>
-                <%= button_to I18n.t('views.button.delete'), task_path(task.id), method: :delete, class: "btn btn-primary" %>
+                <%= button_to I18n.t('views.button.delete'), task_path(task.id), method: :delete, class: "btn btn-primary", data: { confirm: I18n.t('views.messages.confirm_whether_delete_task')} %>
               </td>
             </tr>
           <% end %>

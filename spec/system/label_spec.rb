@@ -99,14 +99,14 @@ RSpec.describe 'Label function', type: :system do
       check 'red'
       click_button I18n.t('views.button.update')
       click_button I18n.t('views.button.create')
-      click_link I18n.t('views.link.list_task')
+      all('main')[0].click_link I18n.t('views.link.list_task')
       id = all('table tbody tr')
       id[1].click_button I18n.t('views.button.edit')
       check 'red'
       check 'blue'
       click_button I18n.t('views.button.update')
       click_button I18n.t('views.button.create')
-      click_link I18n.t('views.link.list_task')
+      all('main')[0].click_link I18n.t('views.link.list_task')
     end
     context 'When searching by selecting a label' do
       it 'Only the corresponding label list is displayed' do

@@ -14,12 +14,12 @@
 
       <div class="field form_group pt-4 pb-3">
         <%= f.label :title %>
-        <%= f.text_field :title, class: "form-control" %>
+        <%= f.text_field :title, placeholder: I18n.t('form.title'), class: "form-control" %>
       </div>
 
       <div class="field form_group">
         <%= f.label :overview %>
-        <%= f.text_field :overview, class: "form-control" %>
+        <%= f.text_field :overview, placeholder: I18n.t('form.overview'), class: "form-control" %>
       </div>
 
       <% if action_name == "edit" || action_name == "update" %>
@@ -41,7 +41,7 @@
       <% end %>
 
       <div class="field form_group">
-        <%= f.label :label %>
+        <%= f.label :label, I18n.t('activerecord.attributes.label.label') %>
         <%= f.collection_check_boxes(:label_ids, Label.all, :id, :genre ) %>
       </div>
 
@@ -61,8 +61,4 @@
       <% end %>
     <% end %>
   </div>
-</div>
-
-<div class="text-center">
-  <%= link_to I18n.t('views.link.back'), tasks_path %>
 </div>

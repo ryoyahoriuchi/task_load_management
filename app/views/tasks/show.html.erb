@@ -1,5 +1,5 @@
-<h1>show task</h1>
-<p id="notice"><%= notice %></p>
+<h1><%= I18n.t('views.title.show')%></h1>
+<p id="notice"><%#= notice %></p>
 
 <div class="container-fluid">
   <div class="row justify-content-around">
@@ -13,6 +13,7 @@
           <%= button_to I18n.t('views.button.edit'), edit_task_path(@task.id), method: :get, class: "btn btn-primary" %>
         </div>
       <% end %>
+      <%= link_to I18n.t('views.link.list_task'), tasks_path %>
       <%= link_to I18n.t('views.link.other_achievement_task'), other_achievement_tasks_path %>
     </div>
 

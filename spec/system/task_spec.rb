@@ -84,6 +84,7 @@ RSpec.describe 'Task management function', type: :system do
         expect(page).to have_content 'title01'
         expect(page).to have_content 'overview01'
         id[0].click_button I18n.t('views.button.delete')
+        accept_confirm
         expect(page).to have_content I18n.t('views.messages.deleted_task')
         expect(page).not_to have_content 'title01'
         expect(page).not_to have_content 'overview01'

@@ -4,11 +4,11 @@
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field form_group pt-4 pb-3">
         <%= f.label :email %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: I18n.t('form.email'), class: "form-control" %>
       </div>
       <div class="field form_group">
         <%= f.label :password %>
-        <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+        <%= f.password_field :password, autocomplete: "current-password", placeholder: I18n.t('form.password'), class: "form-control" %>
       </div>
 
       <% if devise_mapping.rememberable? %>
@@ -26,8 +26,9 @@
     <%= render "devise/shared/links" %>
 
     <div class="text-center">
-      <p><%= button_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: "btn btn-primary" %></p>
-      <%= button_to 'ゲスト管理者ログイン', users_guest_admin_sign_in_path, method: :post, class: "btn btn-primary" %>
+      <p><%= button_to I18n.t('views.button.guest'), users_guest_sign_in_path, method: :post, class: "btn btn-primary" %></p>
+      <%= button_to I18n.t('views.button.guest_admin'), users_guest_admin_sign_in_path, method: :post, class: "btn btn-primary" %>
     </div>
   </div>
+  <%= link_to I18n.t('views.link.top_page'), root_path %>
 </div>
