@@ -81,3 +81,15 @@ en:
       account_registration: 'Account registration'
     label:
       period: period
+  form:
+    email: 'Please enter your e-mail address'
+    password: 'Please enter your password'
+    confirmation_password: 'Please enter the same password'
+    change_password: 'Please enter the password you want to change here'
+    confirmation_chenge_password: 'Please re-enter the password you want to change here'
+    account: 'Please enter your account'
+    edit_memo: 'Enter here to change the memo'
+    create_memo: 'Enter here if you want to create a memo'
+    title: 'Please enter title'
+    overview: 'Please enter overview'
+    item: 'Please enter item'

@@ -81,3 +81,15 @@ ja:
       account_registration: 'アカウント登録'
     label:
       period: 期間
+  form:
+    email: 'メールアドレスを入力してください'
+    password: 'パスワードを入力してください'
+    confirmation_password: '同じパスワードを入力してください'
+    change_password: '変更するパスワードはここに入力ください'
+    confirmation_chenge_password: '変更するパスワードを再度入力ください'
+    account: 'アカウント名を入力してください'
+    edit_memo: 'メモを修正する場合はここに入力ください'
+    create_memo: 'メモを作成する場合はここに入力ください'
+    title: 'タイトルを入力ください'
+    overview: '概要を入力ください'
+    item: '要件名を入力ください'

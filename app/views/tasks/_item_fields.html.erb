@@ -4,7 +4,7 @@
     <div class="field">
 
       <%= f.label :item %>
-      <%= f.text_field :item, class: "form-control" %>
+      <%= f.text_field :item, placeholder: I18n.t('form.item'), class: "form-control" %>
       <%= f.label :level %>
       <%= f.select :level, [*1..9], class: "form-control" %>
       

@@ -12,7 +12,7 @@
 
   <div class="field">
     <%= f.label :content %>
-    <%= f.text_area :content, id: "memo_content_#{task_item.id}", class: "form-control" %>
+    <%= f.text_area :content, id: "memo_content_#{task_item.id}", placeholder: I18n.t('form.edit_memo'), class: "form-control" %>
   </div>
   <div class="action">
     <%= f.submit I18n.t('helpers.submit.update'), class: "btn btn-primary" %>
