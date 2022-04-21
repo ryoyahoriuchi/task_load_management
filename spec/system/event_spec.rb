@@ -37,6 +37,7 @@ RSpec.describe 'Event function', type: :system do
     context 'When deleting a task' do
       it 'The task is removed from the calendar' do
         click_button I18n.t('views.button.delete')
+        accept_confirm
         calendar = find_by_id('calendar')
         expect(calendar).not_to have_content 'test_title'
       end

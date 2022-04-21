@@ -45,6 +45,7 @@ ja:
       failed_to_edit_memo: 'メモの編集に失敗しました'
       deleted_memo: 'メモを削除しました！'
       confirm_whether_delete_memo: 'メモを削除しますか？'
+      confirm_whether_delete_task: 'タスクを削除しますか？'
       schedule_proposal: '以下のスケジュールで計画しますか？'
       unable_to_access_other_user_pages: '他ユーザーページにはアクセスできません'
       logged_in_as_guest_user: 'ゲストユーザーとしてログインしました！'
