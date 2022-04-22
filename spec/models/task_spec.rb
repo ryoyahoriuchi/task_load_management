@@ -53,7 +53,7 @@ RSpec.describe Task, type: :model do
     let!(:second_task_item) { FactoryBot.create(:second_task_item, task: second_task) }
 
     context 'with_labels.search_with_id' do
-      it '' do
+      it 'Label search is possible' do
         label_ids = Label.pluck(:id)
         tasks = Task.all
         task = tasks.with_labels.search_with_id(label_ids[0])
