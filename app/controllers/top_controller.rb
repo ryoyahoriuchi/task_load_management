@@ -2,6 +2,6 @@ class TopController < ApplicationController
   def index
   end
 
-  def new
+  def guide
   end
 end
