@@ -39,4 +39,27 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+
+  describe 'scope' do
+    let!(:first_user) { FactoryBot.create(:first_user) }
+    let!(:first_label) { FactoryBot.create(:first_label) }
+    let!(:second_label) { FactoryBot.create(:second_label) }
+    let!(:third_label) { FactoryBot.create(:third_label) }
+    let!(:first_task) { FactoryBot.create(:first_task, user: first_user) }
+    let!(:first_event) { FactoryBot.create(:first_event, task: first_task) }
+    let!(:first_task_item) { FactoryBot.create(:first_task_item, task: first_task) }
+    let!(:labeling) { FactoryBot.create(:labeling, task: first_task, label: first_label) }
+    let!(:second_task) { FactoryBot.create(:second_task, user: first_user) }
+    let!(:second_task_item) { FactoryBot.create(:second_task_item, task: second_task) }
+
+    context 'with_labels.search_with_id' do
+      it '' do
+        label_ids = Label.pluck(:id)
+        tasks = Task.all
+        task = tasks.with_labels.search_with_id(label_ids[0])
+        expect(task).to include(first_task)
+        expect(task).not_to include(second_task)
+      end
+    end
+  end
 end
