@@ -121,16 +121,16 @@ class TasksController < ApplicationController
     quota_area = { 0 => 0 }
     pre_task_level = 0
     @task_items.each_with_index do |task_item, i|
-      quota_area[i] = (pre_task_level + task_item.level) / 2.0 if pre_task_level != 0
+      quota_area[i + 1] = (pre_task_level + task_item.level) / 2.0
       pre_task_level = task_item.level
     end
     sum_area = quota_area.values.inject(:+)
 
     # 要件-レベルグラフを作成〇
-    @graph_values = {}
+    @graph_values = { 0 => 0 }
     total_level = 0
     @task_items.each_with_index do |task_item, i|
-      @graph_values[i] = task_item.level
+      @graph_values[i + 1] = task_item.level
       total_level += task_item.level
     end
     period = (@task.event[:end_time_on] - @task.event[:start_time_on]).to_i
@@ -143,21 +143,30 @@ class TasksController < ApplicationController
       area = day_quota * (i + 1)
       quota_area.each_pair do |key, val|
         if area < val
-          tilt = @task_items[key][:level] - @task_items[key - 1][:level]
-          intercept = @task_items[key - 1][:level]
-          a = tilt / 2.0
-          b = intercept
           c = area.round(2) * -1
-          quadratic_equation(a, b, c)
+          if key > 1
+            tilt = @task_items[key - 1][:level] - @task_items[key - 2][:level]
+            intercept = @task_items[key - 2][:level]
+            a = tilt / 2.0
+            b = intercept
+            quadratic_equation(a, b, c)
 
-          x = @x.select { |num| num <= 1 && num.positive? }
-          x_value = key - 1 + x[0].round(2)
-          y_value = tilt * x[0].round(2) + intercept
+            x = @x.select { |num| num <= 1 && num.positive? }
+            x_value = key - 1 + x[0].round(2)
+            y_value = tilt * x[0].round(2) + intercept
 
-          quota = @graph_values.select { |k, _v| k < x_value }
-          quota[x_value] = y_value.round(2)
+            quota = @graph_values.select { |k, _v| k < x_value }
+            quota[x_value] = y_value.round(2)
 
-          break @quota[i] = quota
+            break @quota[i] = quota
+          else
+            tilt = @task_items[key - 1][:level]
+            x_value = 2.0 * c.abs / tilt
+            y_value = tilt * x_value
+            quota = {0 => 0}
+            quota[x_value] = y_value.round(2)
+            break @quota[i] = quota
+          end
         else
           area -= val
         end
@@ -189,8 +198,8 @@ class TasksController < ApplicationController
       end_on = Date.parse(params[:task][:event_attributes]['end_time_on'])
       period = (end_on - start_on).to_i
 
-      @task_items = {}
-      count = 0
+      @task_items = {0 => 0}
+      count = 1
       params[:task][:task_items_attributes].each do |param|
         @task_items[count] = param[1]['level'].to_i
         count += 1
@@ -199,7 +208,7 @@ class TasksController < ApplicationController
       quota_area = { 0 => 0 }
       pre_task_level = 0
       @task_items.each_with_index do |task_item, i|
-        quota_area[i] = (pre_task_level + task_item[1]) / 2.0 if pre_task_level != 0
+        quota_area[i] = (pre_task_level + task_item[1]) / 2.0
         pre_task_level = task_item[1]
       end
       sum_area = quota_area.values.inject(:+)
@@ -214,21 +223,31 @@ class TasksController < ApplicationController
         area = day_quota * (i + 1)
         quota_area.each_pair do |key, val|
           if area < val
-            tilt = @task_items[key] - @task_items[key - 1]
-            intercept = @task_items[key - 1]
-            a = tilt / 2.0
-            b = intercept
             c = area.round(2) * -1
-            quadratic_equation(a, b, c)
+            if key > 1
+              tilt = @task_items[key] - @task_items[key - 1]
+              intercept = @task_items[key - 1]
+              a = tilt / 2.0
+              b = intercept
+              
+              quadratic_equation(a, b, c)
 
-            x = @x.select { |num| num <= 1 && num.positive? }
-            x_value = key - 1 + x[0].round(2)
-            y_value = tilt * x[0].round(2) + intercept
+              x = @x.select { |num| num <= 1 && num.positive? }
+              x_value = key - 1 + x[0].round(2)
+              y_value = tilt * x[0].round(2) + intercept
 
-            quota = @graph_values.select { |k, _v| k < x_value }
-            quota[x_value] = y_value.round(2)
+              quota = @graph_values.select { |k, _v| k < x_value }
+              quota[x_value] = y_value.round(2)
 
-            break @quota[i] = quota
+              break @quota[i] = quota
+            else
+              tilt = @task_items[key]
+              x_value = 2.0 * c.abs / tilt
+              y_value = tilt * x_value
+              quota = {0 => 0}
+              quota[x_value] = y_value.round(2)
+              break @quota[i] = quota
+            end
           else
             area -= val
           end
@@ -276,5 +295,6 @@ class TasksController < ApplicationController
     else
       @x << 0
     end
+    @x.any? {|v| v.positive? } ? @x : @x << 0.01
   end
 end
