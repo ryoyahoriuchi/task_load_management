@@ -13,7 +13,7 @@
           <%= button_to I18n.t('views.button.edit'), edit_task_path(@task.id), method: :get, class: "btn btn-primary" %>
         </div>
       <% end %>
-      <%= link_to I18n.t('views.link.list_task'), tasks_path %>
+      <%= link_to I18n.t('views.link.list_task'), tasks_path, data: {"turbolinks" => false} %>
       <%= link_to I18n.t('views.link.other_achievement_task'), other_achievement_tasks_path %>
     </div>
 
