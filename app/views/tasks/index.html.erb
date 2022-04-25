@@ -35,7 +35,9 @@
           <% end %>
         </tbody>
       </table>
-      <%= paginate @tasks %>
+      <div data-turbolinks="false">
+        <%= paginate @tasks %>
+      </div>
 
       <%= link_to I18n.t('views.link.create_task'), new_task_path %>
       <%= link_to I18n.t('views.link.other_achievement_task'), other_achievement_tasks_path %>
