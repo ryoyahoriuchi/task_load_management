@@ -7,7 +7,6 @@ class UsersController < ApplicationController
     if (current_user.id != @user.id) && (current_user.admin? == false)
       redirect_to tasks_path, notice: I18n.t('views.messages.unable_to_access_other_user_pages')
     end
-
     not_started = 0
     underway = 0
     completed = 0

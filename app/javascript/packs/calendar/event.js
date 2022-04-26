@@ -8,9 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   let calendar = new Calendar(calendarEl, {
       plugins: [ monthGridPlugin, interactionPlugin, googleCalendarApi ],
-
       events: '/tasks.json',
-
       locale: 'ja',
       timeZone: 'Asia/Tokyo',
       firstDay: 1,
@@ -33,12 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       eventClassNames: function(arg){
       }
-
   });
   calendar.render();
-
-  // $(".error").click(function(){
-  //   calendar.refetchEvents();
-  // });
-
 });
