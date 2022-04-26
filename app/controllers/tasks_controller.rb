@@ -116,7 +116,6 @@ class TasksController < ApplicationController
   end
 
   def set_create_graph_area
-    # 各要素までの各々の面積求める〇
     @task_items = TaskItem.includes(:memos).create_sorted.where(task_id: params[:id])
     quota_area = { 0 => 0 }
     pre_task_level = 0
@@ -126,7 +125,6 @@ class TasksController < ApplicationController
     end
     sum_area = quota_area.values.inject(:+)
 
-    # 要件-レベルグラフを作成〇
     @graph_values = { 0 => 0 }
     total_level = 0
     @task_items.each_with_index do |task_item, i|
@@ -136,7 +134,6 @@ class TasksController < ApplicationController
     period = (@task.event[:end_time_on] - @task.event[:start_time_on]).to_i
     full_load = total_level.to_f
 
-    # 日々のノルマを計算
     @quota = {}
     day_quota = (sum_area / period).round(2)
     period.times do |i|
@@ -150,14 +147,11 @@ class TasksController < ApplicationController
             a = tilt / 2.0
             b = intercept
             quadratic_equation(a, b, c)
-
             x = @x.select { |num| num <= 1 && num.positive? }
             x_value = key - 1 + x[0].round(2)
             y_value = tilt * x[0].round(2) + intercept
-
             quota = @graph_values.select { |k, _v| k < x_value }
             quota[x_value] = y_value.round(2)
-
             break @quota[i] = quota
           else
             tilt = @task_items[key - 1][:level]
@@ -172,7 +166,6 @@ class TasksController < ApplicationController
         end
       end
     end
-    # グラフに引き渡す値に修正
     @array_graph = []
     count = 0
     @quota.each_with_index do |_k, i|
@@ -188,16 +181,13 @@ class TasksController < ApplicationController
   def set_suggest_graph
     @task = Task.new if @task.nil?
     @task = current_user.tasks.build(task_params) if @task.id.nil?
-    # @task.attributes = task_params
     if @task.invalid?
       nil
     else
       return if params[:task][:task_items_attributes].nil?
-
       start_on = Date.parse(params[:task][:event_attributes]['start_time_on'])
       end_on = Date.parse(params[:task][:event_attributes]['end_time_on'])
       period = (end_on - start_on).to_i
-
       @task_items = {0 => 0}
       count = 1
       params[:task][:task_items_attributes].each do |param|
@@ -229,16 +219,12 @@ class TasksController < ApplicationController
               intercept = @task_items[key - 1]
               a = tilt / 2.0
               b = intercept
-              
               quadratic_equation(a, b, c)
-
               x = @x.select { |num| num <= 1 && num.positive? }
               x_value = key - 1 + x[0].round(2)
               y_value = tilt * x[0].round(2) + intercept
-
               quota = @graph_values.select { |k, _v| k < x_value }
               quota[x_value] = y_value.round(2)
-
               break @quota[i] = quota
             else
               tilt = @task_items[key]
@@ -253,6 +239,7 @@ class TasksController < ApplicationController
           end
         end
       end
+      
       @array_graph = []
       count = 0
       @quota.each_with_index do |_k, i|
