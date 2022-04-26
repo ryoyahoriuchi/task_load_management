@@ -11,9 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
       googleCalendarApiKey: process.env.GOOGLECALENDARAPI,
 
       eventSources: {
-        // googleCalendarId: process.env.GOOGLECALENDARID,
         googleCalendarId: 'ja.japanese#holiday@group.v.calendar.google.com',
-        className: 'holiday'
+        eventClassNames: 'holiday',
+        backgroundColor: "#ffffff",
+        textColor: "#ffffff",
       },
       events: '/tasks.json',
 
@@ -36,18 +37,13 @@ document.addEventListener('DOMContentLoaded', function() {
       dateClick: function(info){
       },
       eventClick: function(info){
-        if($('#a').children().hasClass('holiday')){
+        let el = info.el;
+        if(el.classList.contains('holiday')){
           info.jsEvent.preventDefault();
         }
       },
       eventClassNames: function(arg){
       }
-
   });
   calendar.render();
-
-  // $(".error").click(function(){
-  //   calendar.refetchEvents();
-  // });
-
 });
