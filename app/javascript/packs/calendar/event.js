@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
       eventSources: {
         googleCalendarId: 'ja.japanese#holiday@group.v.calendar.google.com',
-        eventClassNames: 'holiday',
-        backgroundColor: "#ffffff",
-        textColor: "#ffffff",
+        classNames: 'holiday',
+        display: 'list-item',
+        color: "#ff0000",
       },
       events: '/tasks.json',
 
