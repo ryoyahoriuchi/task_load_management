@@ -23,6 +23,11 @@
  $ cd task_load_management
  $ bundle install
  $ rails db:create db:migrate
+
+  1. Google Cloud Consoleからgoogle calendar api keyを取得する
+  2. task_load_management/.envファイルを作成
+  3. .envファイルに「GOOGLECALENDARAPI=取得したapi key」を追記
+
  $ rails s
  ```
 
