@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
         color: "#ff0000",
       },
       events: '/tasks.json',
-
       locale: 'ja',
       timeZone: 'Asia/Tokyo',
       firstDay: 1,
