@@ -155,7 +155,7 @@ class TasksController < ApplicationController
             break @quota[i] = quota
           else
             tilt = @task_items[key - 1][:level]
-            x_value = 2.0 * c.abs / tilt
+            x_value = Math.sqrt(2.0 * c.abs / tilt).round(2)
             y_value = tilt * x_value
             quota = {0 => 0}
             quota[x_value] = y_value.round(2)
