@@ -62,4 +62,28 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+
+  describe 'whenever' do
+    let!(:first_user) { FactoryBot.create(:first_user) }
+    let!(:second_task) { FactoryBot.create(:second_task, user: first_user) }
+    let!(:second_event) { FactoryBot.create(:second_event, task: second_task) }
+    let!(:fourth_task) { FactoryBot.create(:fourth_task, user: first_user) }
+    let!(:fourth_event) { FactoryBot.create(:fourth_event, task: fourth_task) }
+    let!(:second_user) { FactoryBot.create(:second_user) }
+    let!(:fifth_task) { FactoryBot.create(:fifth_task, user: second_user) }
+    let!(:fifth_event) { FactoryBot.create(:fifth_event, task: fifth_task) }
+    context 'schedule_checkは正しく機能するか' do
+      it '送信されるメールは2通か' do
+        expect{Task.schedule_check}.to change { ActionMailer::Base.deliveries.size }.by(2)
+      end
+
+      it 'タスク開始日メール' do
+        Task.schedule_check
+        mail1 = ActionMailer::Base.deliveries.first
+        mail2 = ActionMailer::Base.deliveries.last
+        expect(mail1.subject).to eq('Contact the task start date')
+        expect(mail2.subject).to eq('Deadline contact')
+      end
+    end
+  end
 end

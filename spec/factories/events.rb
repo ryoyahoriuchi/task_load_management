@@ -16,4 +16,18 @@ FactoryBot.define do
     end_time_on { '2022-05-02' }
     task { nil }
   end
+
+  factory :fourth_event, class: Event do
+    t = Time.now
+    start_time_on { "#{t.year}-#{t.month}-#{t.day}" }
+    end_time_on { "#{t.year}-#{t.month}-#{t.day + 2}" }
+    task { nil }
+  end
+
+  factory :fifth_event, class: Event do
+    t = Time.now
+    start_time_on { "#{t.year}-#{t.month}-#{t.day - 1}" }
+    end_time_on { "#{t.year}-#{t.month}-#{t.day}" }
+    task { nil }
+  end
 end

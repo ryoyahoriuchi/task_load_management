@@ -22,6 +22,7 @@ gem 'cancancan'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'faker'
+gem 'whenever', require: false
 
 gem 'bootsnap', '>= 1.4.2', require: false
 
@@ -31,6 +32,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rexml'
   gem 'dotenv-rails'
+  gem 'whenever-test'
 end
 
 group :development do
