@@ -150,6 +150,7 @@ class TasksController < ApplicationController
             b = intercept
             quadratic_equation(a, b, c)
             x = @x.select { |num| num <= 1 && num.positive? }
+            x = 0 if x.empty?
             x_value = key - 1 + x[0].round(2)
             y_value = tilt * x[0].round(2) + intercept
             quota = @graph_values.select { |k, _v| k < x_value && k >= pre_x_value }
@@ -234,6 +235,7 @@ class TasksController < ApplicationController
               b = intercept
               quadratic_equation(a, b, c)
               x = @x.select { |num| num <= 1 && num.positive? }
+              x = 0 if x.empty?
               x_value = key - 1 + x[0].round(2)
               y_value = tilt * x[0].round(2) + intercept
               quota = @graph_values.select { |k, _v| k < x_value && k >= pre_x_value }
