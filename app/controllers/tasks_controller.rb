@@ -220,6 +220,8 @@ class TasksController < ApplicationController
 
       @quota = {}
       day_quota = (sum_area / period).round(2)
+      pre_x_value = 0
+      pre_y_value = 0
       period.times do |i|
         area = day_quota * (i + 1)
         quota_area.each_pair do |key, val|
@@ -234,8 +236,11 @@ class TasksController < ApplicationController
               x = @x.select { |num| num <= 1 && num.positive? }
               x_value = key - 1 + x[0].round(2)
               y_value = tilt * x[0].round(2) + intercept
-              quota = @graph_values.select { |k, _v| k < x_value }
+              quota = @graph_values.select { |k, _v| k < x_value && k >= pre_x_value }
               quota[x_value] = y_value.round(2)
+              quota[pre_x_value] = pre_y_value
+              pre_x_value = x_value
+              pre_y_value = y_value
               break @quota[i] = quota
             else
               tilt = @task_items[key]
@@ -243,6 +248,10 @@ class TasksController < ApplicationController
               y_value = tilt * x_value
               quota = {0 => 0}
               quota[x_value] = y_value.round(2)
+              quota[pre_x_value] = pre_y_value
+              quota.select! { |k, _v| k >= pre_x_value } if pre_x_value != 0
+              pre_x_value = x_value
+              pre_y_value = y_value
               break @quota[i] = quota
             end
           else
@@ -252,7 +261,7 @@ class TasksController < ApplicationController
       end
       
       @array_graph = []
-      count = 0
+      count = 1
       @quota.each_with_index do |_k, i|
         hash_graph = {}
         hash_graph[:name] = "day#{i + 1}"
@@ -260,6 +269,8 @@ class TasksController < ApplicationController
         @array_graph[i] = hash_graph
         count = i
       end
+      @graph_values.select!{ |k, _v| k >= pre_x_value }
+      @graph_values[pre_x_value] = pre_y_value
       @array_graph[count + 1] = { name: "day#{count + 2}", data: @graph_values }
     end
   end
