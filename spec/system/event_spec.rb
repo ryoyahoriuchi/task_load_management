@@ -17,10 +17,15 @@ RSpec.describe 'Event function', type: :system do
       within 'nav' do
         click_link I18n.t('views.link.create_task')
       end
+
+      time = Time.now
+      start_time = time.strftime("00%Y-%m-%d")
+      end_time = (time + 86_400).strftime("00%Y-%m-%d")
+
       fill_in 'task[title]', with: 'test_title'
       fill_in 'task[overview]', with: 'test_overview'
-      fill_in 'task[event_attributes][start_time_on]', with: '002022-04-12'
-      fill_in 'task[event_attributes][end_time_on]', with: '002022-04-15'
+      fill_in 'task[event_attributes][start_time_on]', with: start_time
+      fill_in 'task[event_attributes][end_time_on]', with: end_time
       click_button I18n.t('views.button.create')
       click_button I18n.t('views.button.create')
       all('main')[0].click_link I18n.t('views.link.list_task')

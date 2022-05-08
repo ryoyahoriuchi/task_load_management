@@ -15,8 +15,10 @@
         <%= f.hidden_field :title %>
         <%= f.hidden_field :overview %>
         <%= f.hidden_field :status %>
-        <%= f.hidden_field :label_ids, multiple: true, value: @task.label_ids.join(",") %>
-        
+        <% params[:task][:label_ids].each do |label_id| %>
+          <input type="hidden" value=<%= label_id %> name="task[label_ids][]" id="task_label_ids">
+        <% end %>
+
         <%= f.fields_for :event do |h| %>
           <%= h.hidden_field :start_time_on %>
           <%= h.hidden_field :end_time_on %>

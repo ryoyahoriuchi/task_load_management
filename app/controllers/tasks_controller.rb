@@ -22,11 +22,6 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params)
-    hash_label = {}
-    params[:task][:label_ids].each do |label|
-      hash_label[:label_ids] = label.split(',').flatten
-    end
-    @task.attributes = hash_label
     if params[:back]
       render :new
     elsif @task.save
@@ -57,11 +52,9 @@ class TasksController < ApplicationController
   end
 
   def update
-    revision_params = task_params
-    revision_params[:label_ids].map! { |x| x.split(',').sort }.flatten!
     if params[:back]
       render :edit
-    elsif @task.update(revision_params)
+    elsif @task.update(task_params)
       redirect_to task_path(@task.id), notice: I18n.t('views.messages.updated_task')
     else
       render :edit
@@ -136,6 +129,8 @@ class TasksController < ApplicationController
 
     @quota = {}
     day_quota = (sum_area / period).round(2)
+    pre_x_value = 0
+    pre_y_value = 0
     period.times do |i|
       area = day_quota * (i + 1)
       quota_area.each_pair do |key, val|
@@ -148,17 +143,25 @@ class TasksController < ApplicationController
             b = intercept
             quadratic_equation(a, b, c)
             x = @x.select { |num| num <= 1 && num.positive? }
+            x = 0 if x.empty?
             x_value = key - 1 + x[0].round(2)
             y_value = tilt * x[0].round(2) + intercept
-            quota = @graph_values.select { |k, _v| k < x_value }
+            quota = @graph_values.select { |k, _v| k < x_value && k >= pre_x_value }
             quota[x_value] = y_value.round(2)
+            quota[pre_x_value] = pre_y_value
+            pre_x_value = x_value
+            pre_y_value = y_value
             break @quota[i] = quota
           else
             tilt = @task_items[key - 1][:level]
-            x_value = 2.0 * c.abs / tilt
+            x_value = Math.sqrt(2.0 * c.abs / tilt).round(2)
             y_value = tilt * x_value
             quota = {0 => 0}
             quota[x_value] = y_value.round(2)
+            quota[pre_x_value] = pre_y_value
+            quota.select! { |k, _v| k >= pre_x_value } if pre_x_value != 0
+            pre_x_value = x_value
+            pre_y_value = y_value
             break @quota[i] = quota
           end
         else
@@ -167,7 +170,7 @@ class TasksController < ApplicationController
       end
     end
     @array_graph = []
-    count = 0
+    count = 1
     @quota.each_with_index do |_k, i|
       hash_graph = {}
       hash_graph[:name] = "day#{i + 1}"
@@ -175,6 +178,8 @@ class TasksController < ApplicationController
       @array_graph[i] = hash_graph
       count = i
     end
+    @graph_values.select!{ |k, _v| k >= pre_x_value }
+    @graph_values[pre_x_value] = pre_y_value
     @array_graph[count + 1] = { name: "day#{count + 2}", data: @graph_values }
   end
 
@@ -209,6 +214,8 @@ class TasksController < ApplicationController
 
       @quota = {}
       day_quota = (sum_area / period).round(2)
+      pre_x_value = 0
+      pre_y_value = 0
       period.times do |i|
         area = day_quota * (i + 1)
         quota_area.each_pair do |key, val|
@@ -221,17 +228,25 @@ class TasksController < ApplicationController
               b = intercept
               quadratic_equation(a, b, c)
               x = @x.select { |num| num <= 1 && num.positive? }
+              x = 0 if x.empty?
               x_value = key - 1 + x[0].round(2)
               y_value = tilt * x[0].round(2) + intercept
-              quota = @graph_values.select { |k, _v| k < x_value }
+              quota = @graph_values.select { |k, _v| k < x_value && k >= pre_x_value }
               quota[x_value] = y_value.round(2)
+              quota[pre_x_value] = pre_y_value
+              pre_x_value = x_value
+              pre_y_value = y_value
               break @quota[i] = quota
             else
               tilt = @task_items[key]
-              x_value = 2.0 * c.abs / tilt
+              x_value = Math.sqrt(2.0 * c.abs / tilt).round(2)
               y_value = tilt * x_value
               quota = {0 => 0}
               quota[x_value] = y_value.round(2)
+              quota[pre_x_value] = pre_y_value
+              quota.select! { |k, _v| k >= pre_x_value } if pre_x_value != 0
+              pre_x_value = x_value
+              pre_y_value = y_value
               break @quota[i] = quota
             end
           else
@@ -241,7 +256,7 @@ class TasksController < ApplicationController
       end
       
       @array_graph = []
-      count = 0
+      count = 1
       @quota.each_with_index do |_k, i|
         hash_graph = {}
         hash_graph[:name] = "day#{i + 1}"
@@ -249,6 +264,8 @@ class TasksController < ApplicationController
         @array_graph[i] = hash_graph
         count = i
       end
+      @graph_values.select!{ |k, _v| k >= pre_x_value }
+      @graph_values[pre_x_value] = pre_y_value
       @array_graph[count + 1] = { name: "day#{count + 2}", data: @graph_values }
     end
   end
