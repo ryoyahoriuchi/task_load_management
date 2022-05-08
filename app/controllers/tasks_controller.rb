@@ -22,11 +22,6 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params)
-    hash_label = {}
-    params[:task][:label_ids].each do |label|
-      hash_label[:label_ids] = label.split(',').flatten
-    end
-    @task.attributes = hash_label
     if params[:back]
       render :new
     elsif @task.save
@@ -57,11 +52,9 @@ class TasksController < ApplicationController
   end
 
   def update
-    revision_params = task_params
-    revision_params[:label_ids].map! { |x| x.split(',').sort }.flatten!
     if params[:back]
       render :edit
-    elsif @task.update(revision_params)
+    elsif @task.update(task_params)
       redirect_to task_path(@task.id), notice: I18n.t('views.messages.updated_task')
     else
       render :edit
