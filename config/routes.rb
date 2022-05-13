@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'top/guide'
   resources :users, only: %i[show]
   resources :tasks do
+    resources :progresses
     resources :memos
     collection do
       post :suggestion

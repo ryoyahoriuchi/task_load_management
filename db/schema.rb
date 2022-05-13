@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_15_100711) do
+ActiveRecord::Schema.define(version: 2022_05_10_134738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,15 @@ ActiveRecord::Schema.define(version: 2022_04_15_100711) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["task_item_id"], name: "index_memos_on_task_item_id"
+  end
+
+  create_table "progresses", force: :cascade do |t|
+    t.integer "item_number"
+    t.integer "percent"
+    t.bigint "task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id"], name: "index_progresses_on_task_id"
   end
 
   create_table "task_items", force: :cascade do |t|
@@ -95,6 +104,7 @@ ActiveRecord::Schema.define(version: 2022_04_15_100711) do
   add_foreign_key "labelings", "labels"
   add_foreign_key "labelings", "tasks"
   add_foreign_key "memos", "task_items"
+  add_foreign_key "progresses", "tasks"
   add_foreign_key "task_items", "tasks"
   add_foreign_key "tasks", "users"
 end

@@ -68,6 +68,7 @@ class TasksController < ApplicationController
       task_item.memos
     end
     @memos = @memos.flatten
+    @progress = @task.progresses.build
   end
 
   def destroy
@@ -169,6 +170,22 @@ class TasksController < ApplicationController
         end
       end
     end
+
+
+    # progress = Progress.where(task_id: @task.id)
+    # @progress_graph = {0 => 0}
+    # progress.each_with_index do |x, i|
+    #   x_value = x.item_number.to_f + x.percent.to_f / 100
+    #   linear_function = @graph_values.select{|k, _v| k == (x_value - 1).round || k == x_value.round }
+    #   function_value = linear_function.to_a
+    #   y_value = (function_value[1][0] - function_value[0][0]) * x_value.divmod(1)[1].round(2) + function_value[0][1]
+    #   @progress_graph[x_value] = y_value
+    # end
+
+    # add_graph = @graph_values.select
+    # @progress_graph.merge!
+
+
     @array_graph = []
     count = 1
     @quota.each_with_index do |_k, i|
