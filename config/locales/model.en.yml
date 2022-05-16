@@ -106,3 +106,10 @@ en:
     title: 'Please enter title'
     overview: 'Please enter overview'
     item: 'Please enter item'
+  mail:
+    dead_contact: 'Deadline contact'
+    dead_contact_sentence: 'The task end date has come.'
+    request_end: 'The task has not been completed, so please start.'
+    start_contact: 'start_contact'
+    start_contact_sentence: 'The task start date has come.'
+    request_start: 'Please change the progress by editing and work on the task.'

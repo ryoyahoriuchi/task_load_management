@@ -92,6 +92,9 @@ GEM
       ssrf_filter (~> 1.0)
     chartkick (4.1.3)
     childprocess (4.1.0)
+    clockwork (3.0.0)
+      activesupport
+      tzinfo
     cocoon (1.2.15)
     coderay (1.1.3)
     concurrent-ruby (1.1.10)
@@ -337,6 +340,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   carrierwave
   chartkick
+  clockwork
   cocoon
   devise
   devise-i18n

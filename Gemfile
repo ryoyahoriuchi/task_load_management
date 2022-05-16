@@ -22,6 +22,7 @@ gem 'cancancan'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'faker'
+gem 'clockwork'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 
