@@ -106,3 +106,10 @@ ja:
     title: 'タイトルを入力ください'
     overview: '概要を入力ください'
     item: '要件名を入力ください'
+  mail:
+    dead_contact: 'タスク期日連絡'
+    dead_contact_sentence: 'タスクの〆切日になりました。'
+    request_end: 'タスクは完了していませんので、開始してください。'
+    start_contact: 'タスク開始日連絡'
+    start_contact_sentence: 'タスクの開始日になりました。'
+    request_start: 'タスクの進捗を編集で変更し、タスクに取組んでください。'

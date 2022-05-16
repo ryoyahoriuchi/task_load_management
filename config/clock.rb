@@ -6,8 +6,7 @@ require File.expand_path('../boot', __FILE__)
 require File.expand_path('../environment', __FILE__)
 
 module Clockwork
-  # every(1.days, 'Task.publish_check', at: '08:00') do
-  every(1.minutes, 'Task.publish_check') do
+  every(1.days, 'Task.publish_check', at: '08:00') do
     Task.includes(:event).all.each do |task|
       start_time = task.event.start_time_on
       end_time = task.event.end_time_on
