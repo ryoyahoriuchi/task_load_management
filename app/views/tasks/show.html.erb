@@ -6,7 +6,10 @@
     <div class="col align-self-start">
       <% unless @quota.nil? %>
         <%= area_chart @array_graph, xtitle: "item", ytitle: "level", points: false, legend: "bottom", curve: false %>
+        <%= area_chart @progress_graph, xtitle: "item", ytitle: "level", points: false, legend: "bottom", curve: false %>
       <% end %>
+
+      <%= render partial: 'progresses/form', locals: { progress: @progress, task: @task } %>
 
       <% if @task.user_id == current_user.id || current_user.admin? %>
         <div class="text-center">

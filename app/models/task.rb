@@ -21,4 +21,6 @@ class Task < ApplicationRecord
   accepts_nested_attributes_for :event, allow_destroy: true
 
   belongs_to :user
+
+  has_many :progresses, dependent: :destroy
 end
